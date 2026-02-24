@@ -1,0 +1,871 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "treatmentAbroad": "Treatment Abroad",
+    "forPatients": "For Patients",
+    "onlineConsultation": "Online Consultation",
+    "academy": "TrustMedX Academy",
+    "contacts": "Contacts"
+  },
+  "pages": {
+    "home": {
+      "title": "TrustMedX",
+      "description": "World-class medical platform"
+    },
+    "homePage": {
+      "hero": {
+        "badge": "Healthcare Without Borders",
+        "title": "Your Health is Our",
+        "titleAccent": "Mission",
+        "subtitle": "Access to the world's best clinics with full support at every stage",
+        "ctaPrimary": "Start Consultation",
+        "ctaSecondary": "Learn More"
+      },
+      "services": {
+        "badge": "Our Services",
+        "title": "Comprehensive Solutions for Your Health",
+        "subtitle": "We offer a full range of services — from consultation to recovery",
+        "items": [
+          {
+            "title": "Treatment Abroad",
+            "description": "Access to leading clinics in Turkey, Korea, and China. Cutting-edge technology and the world's best specialists.",
+            "link": "/treatment-abroad",
+            "features": ["200+ partner clinics", "18 countries", "Full support"]
+          },
+          {
+            "title": "TrustMedX Academy",
+            "description": "Professional training for doctors and managers in medical tourism.",
+            "link": "/academy",
+            "features": ["Certification", "Practical skills", "Expert instructors"]
+          },
+          {
+            "title": "For Patients",
+            "description": "Personal support, transparent process, 24/7 assistance at all treatment stages.",
+            "link": "/for-patients",
+            "features": ["Personal coordinator", "24/7 support", "Transparent pricing"]
+          }
+        ]
+      },
+      "whyUs": {
+        "badge": "Why TrustMedX",
+        "title": "Your Journey to Health Starts Here",
+        "subtitle": "We've created a platform that makes treatment abroad simple, safe, and effective",
+        "stats": [
+          {
+            "number": "15000",
+            "suffix": "+",
+            "label": "Satisfied Patients"
+          },
+          {
+            "number": "200",
+            "suffix": "+",
+            "label": "Partner Clinics"
+          },
+          {
+            "number": "18",
+            "suffix": "",
+            "label": "Countries"
+          },
+          {
+            "number": "98",
+            "suffix": "%",
+            "label": "Successful Surgeries"
+          }
+        ],
+        "values": [
+          {
+            "title": "Trust and Transparency",
+            "description": "Complete honesty at every stage. No hidden fees or surprises."
+          },
+          {
+            "title": "Expert Support",
+            "description": "A team of medical professionals and coordinators with you 24/7."
+          },
+          {
+            "title": "Verified Quality",
+            "description": "We only work with clinics that have passed strict certification."
+          }
+        ]
+      },
+      "destinations": {
+        "badge": "Destinations",
+        "title": "Choose Your Treatment Country",
+        "subtitle": "Each country offers unique advantages and specializations",
+        "countries": [
+          {
+            "name": "Turkey",
+            "description": "Modern clinics and affordable prices in the heart of Eurasia",
+            "specialties": ["Plastic Surgery", "Hair Transplant", "Dentistry", "Oncology"],
+            "stats": {
+              "clinics": "80+",
+              "savings": "Up to 70%"
+            }
+          },
+          {
+            "name": "South Korea",
+            "description": "World leader in innovative medical technologies",
+            "specialties": ["Cosmetology", "Oncology", "Robotic Surgery", "Diagnostics"],
+            "stats": {
+              "clinics": "60+",
+              "savings": "Up to 50%"
+            }
+          },
+          {
+            "name": "China",
+            "description": "Combination of ancient traditions and advanced technology",
+            "specialties": ["Traditional Medicine", "Orthopedics", "Cardiology", "Rehabilitation"],
+            "stats": {
+              "clinics": "60+",
+              "savings": "Up to 65%"
+            }
+          }
+        ]
+      },
+      "testimonials": {
+        "badge": "Patient Testimonials",
+        "title": "Stories of People Who Trusted Us",
+        "subtitle": "Real reviews from our patients around the world"
+      },
+      "homeAbout": {
+        "badge": "About Us",
+        "titleStart": "10 years walking",
+        "titleAccent": "beside every patient",
+        "description": "TrustMedX is an international medical tourism company. We guide patients through every step — from choosing a clinic to returning home. Only verified partners, full transparency, and a personal approach.",
+        "values": [
+          {
+            "title": "Verified Clinics",
+            "description": "Only partners who pass our rigorous internal vetting process"
+          },
+          {
+            "title": "Personal Accompaniment",
+            "description": "Your coordinator with you at every stage of treatment"
+          },
+          {
+            "title": "Medical Expertise",
+            "description": "10+ years of experience and thousands of patient success stories"
+          }
+        ],
+        "cta": "Learn more about us",
+        "photoPlaceholder": "TrustMedX Team",
+        "quoteText": "Every patient deserves quality, transparent medical care",
+        "stats": [
+          { "number": "10", "suffix": "+", "label": "Years" },
+          { "number": "200", "suffix": "+", "label": "Clinics" },
+          { "number": "98", "suffix": "%", "label": "Success" }
+        ],
+        "founderCard": {
+          "initial": "D",
+          "name": "Darya Kodja",
+          "role": "Founder, TrustMedX"
+        }
+      },
+      "finalCta": {
+        "badge": "Start Now",
+        "title": "Ready to Start Your Journey to Health?",
+        "subtitle": "Get a free consultation and learn what treatment options are available for you",
+        "benefits": [
+          "Free consultation with a medical expert",
+          "Personalized treatment plan",
+          "Transparent pricing with no hidden fees"
+        ],
+        "ctaPrimary": "Get Consultation",
+        "ctaSecondary": "Contact via WhatsApp"
+      }
+    },
+    "about": {
+      "title": "About Us",
+      "description": "Information about TrustMedX company",
+      "pageHeader": {
+        "subtitle": "About TrustMedX",
+        "title": "Your Trusted Partner in Global Healthcare",
+        "description": "We bridge the gap between patients seeking world-class medical care and leading healthcare providers worldwide"
+      }
+    },
+    "treatmentAbroad": {
+      "title": "Treatment Abroad",
+      "description": "Access to the world's best clinics"
+    },
+    "forPatients": {
+      "title": "For Patients",
+      "description": "Information for patients",
+      "pageHeader": {
+        "subtitle": "For Patients",
+        "title": "All the information for your comfortable treatment",
+        "description": "Learn about the treatment process, our services, and get answers to frequently asked questions"
+      }
+    },
+    "onlineConsultation": {
+      "title": "Online Consultation",
+      "description": "Book an online consultation"
+    },
+    "academy": {
+      "title": "TrustMedX Academy",
+      "description": "TrustMedX educational platform"
+    },
+    "contacts": {
+      "title": "Contacts",
+      "description": "Get in touch with us",
+      "pageHeader": {
+        "subtitle": "Always Available",
+        "title": "Get In Touch",
+        "description": "We're ready to answer your questions and help you start your journey to health"
+      },
+      "contactInfo": {
+        "badge": "Contact Information",
+        "phone": {
+          "title": "Phone",
+          "value": "+994 XX XXX XX XX",
+          "description": "Call during business hours"
+        },
+        "address": {
+          "title": "Address",
+          "value": "Baku, Azerbaijan",
+          "description": "Office in city center"
+        },
+        "hours": {
+          "title": "Working Hours",
+          "value": "Mon-Fri: 09:00 - 18:00",
+          "description": "Weekends: by appointment"
+        },
+        "email": {
+          "title": "Email",
+          "value": "info@trustmedx.com",
+          "description": "Response within 24 hours"
+        }
+      },
+      "socialMedia": {
+        "badge": "Follow Us",
+        "title": "Stay Connected",
+        "description": "News, tips, and success stories"
+      },
+      "contactForm": {
+        "badge": "Send Us a Message",
+        "title": "Contact Form",
+        "description": "Fill out the form and we'll get back to you shortly",
+        "fields": {
+          "name": {
+            "label": "Your Name",
+            "placeholder": "Enter your name"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "your@email.com"
+          },
+          "phone": {
+            "label": "Phone",
+            "placeholder": "+994 XX XXX XX XX"
+          },
+          "message": {
+            "label": "Message",
+            "placeholder": "Tell us how we can help..."
+          }
+        },
+        "submit": "Send Message",
+        "sending": "Sending...",
+        "success": "Thank you! We received your message and will contact you shortly.",
+        "error": "An error occurred. Please try again later or contact us by phone."
+      },
+      "map": {
+        "title": "Our Location",
+        "description": "Visit our office in Baku"
+      }
+    }
+  },
+  "academy": {
+    "hero": {
+      "badge": "Professional Development",
+      "title": "Elevate Your",
+      "titleAccent": "Medical Expertise",
+      "subtitle": "Comprehensive training programs designed for healthcare professionals and medical managers",
+      "description": "Join TrustMedX Academy and transform your career with world-class education in medical tourism management and clinical excellence."
+    },
+    "benefits": {
+      "title": "Why Choose Our Academy",
+      "items": [
+        {
+          "title": "Expert Faculty",
+          "description": "Learn from industry leaders with decades of experience"
+        },
+        {
+          "title": "Practical Skills",
+          "description": "Real-world applications and case studies"
+        },
+        {
+          "title": "Global Network",
+          "description": "Connect with professionals worldwide"
+        },
+        {
+          "title": "Certification",
+          "description": "Internationally recognized credentials"
+        }
+      ]
+    },
+    "programs": {
+      "title": "Choose Your Path",
+      "subtitle": "Specialized training programs tailored to your professional role",
+      "managers": {
+        "title": "For Managers",
+        "badge": "Leadership Program",
+        "description": "Master medical tourism operations, patient coordination, and clinic management",
+        "features": [
+          "Business strategy & operations",
+          "Patient journey management",
+          "International regulations",
+          "Marketing & sales"
+        ],
+        "duration": "8 weeks",
+        "cta": "Explore Program"
+      },
+      "doctors": {
+        "title": "For Doctors",
+        "badge": "Clinical Excellence",
+        "description": "Advanced clinical protocols, international standards, and patient care excellence",
+        "features": [
+          "Advanced clinical techniques",
+          "International protocols",
+          "Cross-cultural patient care",
+          "Medical tourism ethics"
+        ],
+        "duration": "12 weeks",
+        "cta": "Explore Program"
+      }
+    },
+    "cta": {
+      "title": "Ready to Transform Your Career?",
+      "description": "Join thousands of professionals who have elevated their expertise with TrustMedX Academy",
+      "button": "Get Started Today"
+    }
+  },
+  "consultationModal": {
+    "badge": "Online Consultation",
+    "title": "Get Expert Consultation",
+    "subtitle": "Fill out the form and our specialist will contact you shortly",
+    "fields": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone",
+      "specialty": "Consultation Area",
+      "description": "Brief Description of the Issue"
+    },
+    "placeholders": {
+      "firstName": "Enter your first name",
+      "lastName": "Enter your last name",
+      "email": "example@mail.com",
+      "phone": "+1 (___) ___-____",
+      "description": "Describe your situation or question..."
+    },
+    "specialties": {
+      "cardiology": "Cardiology",
+      "oncology": "Oncology",
+      "orthopedics": "Orthopedics",
+      "dentistry": "Dentistry",
+      "plastic": "Plastic Surgery",
+      "general": "General Consultation"
+    },
+    "submit": "Submit Request",
+    "sending": "Sending...",
+    "successTitle": "Request Successfully Submitted!",
+    "success": "We will contact you shortly.",
+    "errorTitle": "An Error Occurred",
+    "error": "Please try again or contact us directly.",
+    "privacy": "By clicking the button, you agree to the privacy policy"
+  },
+  "common": {
+    "learnMore": "Learn More",
+    "contact": "Contact",
+    "submit": "Submit",
+    "loading": "Loading..."
+  },
+  "forPatientsHero": {
+    "badge": "Your Healthcare Journey Starts Here",
+    "title": "World-Class",
+    "titleAccent": "Medical Care",
+    "titleEnd": "Made Simple",
+    "description": "We guide you through every step of your treatment abroad—from finding the right clinic to supporting your recovery at home.",
+    "ctaPrimary": "Start Consultation",
+    "ctaSecondary": "Learn More",
+    "features": {
+      "trustedCare": {
+        "title": "Trusted Care",
+        "description": "Verified clinics & specialists"
+      },
+      "personalSupport": {
+        "title": "Personal Support",
+        "description": "With you every step"
+      },
+      "expertGuidance": {
+        "title": "Expert Guidance",
+        "description": "Transparent process"
+      }
+    },
+    "stats": {
+      "successRate": "Success Rate",
+      "happyPatients": "Happy Patients",
+      "verifiedClinics": "Verified Clinics",
+      "certifiedLicensed": "Certified & Licensed",
+      "qualityStandards": "All partners meet strict quality standards"
+    }
+  },
+  "footer": {
+    "socialMedia": {
+      "title": "Social Media",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "whatsapp": "WhatsApp",
+      "telegram": "Telegram"
+    },
+    "contact": {
+      "phone": "Phone",
+      "phoneNumber": "+994 XX XXX XX XX",
+      "address": "Address",
+      "addressLine": "Baku, Azerbaijan",
+      "workingHours": "Working Hours",
+      "workingTime": "Mon-Fri: 09:00 AM - 06:00 PM"
+    },
+    "legal": {
+      "privacyPolicy": "Privacy Policy",
+      "termsAndConditions": "Terms and Conditions"
+    },
+    "copyright": "© 2026 TrustMedX. All rights reserved."
+  },
+  "faq": {
+    "title": "FAQs",
+    "subtitle": "Everything you need to know about working with TrustMedX, organizing treatment abroad, and patient support.",
+    "categories": [
+      {
+        "name": "About TrustMedX",
+        "questions": [
+          {
+            "question": "Who is TrustMedX?",
+            "answer": "TrustMedX is an independent company that helps patients organize treatment abroad. We accompany patients at all stages: from selecting a clinic and doctor to treatment and support after returning home."
+          },
+          {
+            "question": "Are you a clinic or an intermediary?",
+            "answer": "We are not a clinic and do not provide medical services. TrustMedX is an independent party that helps patients structure the treatment process and interacts directly with clinics."
+          },
+          {
+            "question": "Which clinics and doctors do you work with?",
+            "answer": "We only partner with clinics and doctors that meet our internal requirements. Before starting cooperation, we conduct our own verification of clinics and specialists. In the selection process, we evaluate: valid licenses and permits, real clinical experience of doctors, reputation of the clinic and specialists in the professional community, quality of medical infrastructure and patient conditions, confirmed clinical cases and results. We personally visit clinics, meet doctors and teams, assess process organization and approach to working with patients."
+          },
+          {
+            "question": "What is TrustMedX's role in the treatment process?",
+            "answer": "Medical decisions are made by doctors. TrustMedX is responsible for organization, coordination, and communication between the patient and the clinic at all stages of treatment."
+          },
+          {
+            "question": "Do you stay in touch if difficulties arise?",
+            "answer": "Yes. We stay in touch with the patient even after treatment is completed or upon returning home, helping with further communication with the clinic if necessary."
+          }
+        ]
+      },
+      {
+        "name": "Treatment Process",
+        "questions": [
+          {
+            "question": "How does working with TrustMedX begin?",
+            "answer": "Work begins with an initial inquiry. We clarify the patient's request, medical information, and expectations, after which we offer possible treatment options."
+          },
+          {
+            "question": "Do I need to make a decision right away?",
+            "answer": "No. The patient first receives all necessary information and recommendations. A decision is made only after fully understanding the process, conditions, and timelines."
+          },
+          {
+            "question": "What does the process look like step by step?",
+            "answer": "Inquiry → situation analysis → clinic and doctor selection → treatment plan approval → trip organization → treatment → support after return."
+          },
+          {
+            "question": "How long does treatment preparation take?",
+            "answer": "Timelines depend on the treatment direction and country. On average, preparation takes from a few days to several weeks."
+          },
+          {
+            "question": "Who accompanies the patient on-site?",
+            "answer": "Depending on the country and clinic, the patient is provided with a coordinator, translator, or medical curator. The patient is not left alone at the clinic."
+          }
+        ]
+      },
+      {
+        "name": "Choosing Country & Clinic",
+        "questions": [
+          {
+            "question": "What principle is used to select the treatment country?",
+            "answer": "Country selection is based on medical indications, procedure specifics, doctors' experience, and patient expectations. We don't offer universal solutions."
+          },
+          {
+            "question": "Can I consider several options?",
+            "answer": "Yes. We can offer and compare several countries, clinics, or approaches so the patient can make an informed decision."
+          },
+          {
+            "question": "Can I choose a specific doctor or clinic?",
+            "answer": "Yes. If the patient has preferences, we take them into account and work with the chosen clinic provided it meets quality standards."
+          },
+          {
+            "question": "What if the patient doesn't understand medical nuances?",
+            "answer": "We explain possible options in simple and clear language, helping to understand without pressure or rush."
+          },
+          {
+            "question": "Can TrustMedX refuse to conduct a procedure?",
+            "answer": "Yes. If a procedure is not recommended based on medical indications or carries increased risks, we will not offer it."
+          }
+        ]
+      },
+      {
+        "name": "Financial Terms",
+        "questions": [
+          {
+            "question": "How is the cost of treatment determined?",
+            "answer": "Treatment cost is determined by the clinic and depends on the procedure, doctor, scope of medical services, and treatment country. TrustMedX provides the patient with confirmed information about the cost and its structure in advance."
+          },
+          {
+            "question": "When does payment occur?",
+            "answer": "Treatment payment is made directly upon the patient's arrival at the clinic and is paid directly to the clinic. Before this, the patient receives an agreed treatment plan, confirmed cost, conditions, and timelines — without advance payments. TrustMedX does not accept payment for medical services and does not participate in financial transactions between the patient and the clinic."
+          },
+          {
+            "question": "Can there be additional expenses?",
+            "answer": "In some cases, additional expenses not included in the base cost are possible (for example, additional examinations or individual medical prescriptions). Patients are informed about such moments in advance."
+          },
+          {
+            "question": "Does TrustMedX charge a commission from the patient?",
+            "answer": "TrustMedX's working format depends on the direction and clinic. All financial terms are transparent and discussed with the patient in advance. There are no hidden payments."
+          },
+          {
+            "question": "Will treatment through TrustMedX be more expensive than direct clinic contact?",
+            "answer": "No. TrustMedX cooperates with clinics directly and works on agreed terms. Treatment cost for the patient is not higher than when independently contacting the clinic. In some cases, clinics provide special conditions for TrustMedX patients. The final cost is confirmed by the clinic in advance and does not change upon arrival."
+          }
+        ]
+      },
+      {
+        "name": "Results & Support",
+        "questions": [
+          {
+            "question": "Can treatment results be guaranteed?",
+            "answer": "Medicine does not assume absolute guarantees. Doctors give prognoses based on medical data and experience, and TrustMedX helps form realistic expectations."
+          },
+          {
+            "question": "What if the result doesn't meet expectations?",
+            "answer": "In case of questions or doubts, we help organize communication with the clinic and doctor to discuss further steps."
+          },
+          {
+            "question": "Who is responsible for the medical result?",
+            "answer": "Responsibility for treatment and medical decisions lies with the clinic and attending physician. TrustMedX provides support and communication."
+          },
+          {
+            "question": "What happens after the patient returns home?",
+            "answer": "We stay in touch and help with doctor's recommendations and further communication with the clinic if necessary."
+          },
+          {
+            "question": "How long does post-operative support last?",
+            "answer": "Support duration depends on the procedure and individual patient situation and is discussed separately."
+          }
+        ]
+      },
+      {
+        "name": "Why TrustMedX",
+        "questions": [
+          {
+            "question": "What is TrustMedX's main value for the patient?",
+            "answer": "We help patients undergo treatment abroad calmly, clearly, and without unnecessary stress."
+          },
+          {
+            "question": "What approach does TrustMedX use in working with patients?",
+            "answer": "We work without pressure and imposing decisions, respecting the patient's right to informed choice."
+          },
+          {
+            "question": "How does support through TrustMedX differ from self-organizing treatment?",
+            "answer": "The patient receives comprehensive support: TrustMedX takes on all communication with the clinic and doctors, directly reaches the necessary specialists within the clinic, asks all medical and organizational questions, coordinates the treatment and stay process, and helps solve emerging questions and situations. By contacting TrustMedX, the patient interacts with one person (curator) rather than searching for contacts and responsible persons within the clinic independently."
+          },
+          {
+            "question": "Why do patients trust TrustMedX?",
+            "answer": "Because we structure work so that the patient understands what is happening at each stage and feels supported during treatment abroad. We don't offer universal solutions and don't rush the choice. We explain possible options, risks, and limitations, help ask the right questions to the clinic and doctor, and accompany the patient before and after treatment. For us, it's important not just to organize treatment, but to go through the entire journey with the patient — calmly, consistently, and with responsibility for the process."
+          }
+        ]
+      }
+    ],
+    "stillHaveQuestions": {
+      "title": "Still have questions?",
+      "description": "Contact our team, and we will explain all the details about working with TrustMedX!",
+      "button": "Contact Us"
+    }
+  },
+  "howWeWork": {
+    "title": "How We Work",
+    "subtitle": "A transparent process from initial contact to full recovery",
+    "steps": [
+      {
+        "type": "consultation",
+        "title": "Consultation",
+        "description": "Initial contact and detailed analysis of your medical situation. We carefully review all documents and develop an understanding of your needs."
+      },
+      {
+        "type": "selection",
+        "title": "Clinic Selection",
+        "description": "Choosing the optimal country, clinic, and doctor based on medical indications and your preferences. We provide multiple options for comparison."
+      },
+      {
+        "type": "organization",
+        "title": "Organization",
+        "description": "Preparation of all necessary documents, treatment plan approval, and trip organization. We handle all organizational matters."
+      },
+      {
+        "type": "treatment",
+        "title": "Treatment",
+        "description": "Full support at all stages of treatment. Coordination with the clinic, translators, and resolution of any issues on-site."
+      },
+      {
+        "type": "support",
+        "title": "Support",
+        "description": "Assistance and consultations after returning home. Communication with doctors, recovery monitoring, and answers to all questions."
+      }
+    ]
+  },
+  "usefulInfo": {
+    "title": "Useful Information",
+    "subtitle": "Download our detailed guides for successful treatment abroad",
+    "guides": [
+      {
+        "type": "surgery",
+        "title": "Surgery Preparation",
+        "description": "Complete guide to preparing for surgical intervention",
+        "buttonText": "Get Guide",
+        "pdfPath": "/guides/surgery-preparation.pdf"
+      },
+      {
+        "type": "turkey",
+        "title": "All About Turkey",
+        "description": "Information about treatment, clinics and accommodation in Turkey",
+        "buttonText": "Get Guide",
+        "pdfPath": "/guides/turkey-guide.pdf"
+      },
+      {
+        "type": "korea",
+        "title": "All About Korea",
+        "description": "Everything you need to know about medical tourism in South Korea",
+        "buttonText": "Get Guide",
+        "pdfPath": "/guides/korea-guide.pdf"
+      },
+      {
+        "type": "china",
+        "title": "All About China",
+        "description": "Guide to treatment and medical services in China",
+        "buttonText": "Get Guide",
+        "pdfPath": "/guides/china-guide.pdf"
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "Patient Testimonials",
+    "subtitle": "Stories from our clients who trusted us at the most important moment",
+    "items": [
+      {
+        "id": 1,
+        "name": "Maria Ivanova",
+        "location": "Moscow, Russia",
+        "avatar": "",
+        "rating": 5,
+        "text": "TrustMedX helped me organize treatment in Turkey. Everything went perfectly - from the first consultation to returning home. Professional team that truly cares about their patients!",
+        "date": "December 2025",
+        "treatment": "Cardiology"
+      },
+      {
+        "id": 2,
+        "name": "Ahmed Al-Rashid",
+        "location": "Dubai, UAE",
+        "avatar": "",
+        "rating": 5,
+        "text": "Excellent service! They handled everything professionally and made the entire treatment process smooth and stress-free. Highly recommend!",
+        "date": "November 2025",
+        "treatment": "Oncology"
+      },
+      {
+        "id": 3,
+        "name": "Elena Schmidt",
+        "location": "Berlin, Germany",
+        "avatar": "",
+        "rating": 5,
+        "text": "Very satisfied with the support provided throughout my medical journey in China. The team was always available to answer questions. Felt completely safe.",
+        "date": "October 2025",
+        "treatment": "Orthopedics"
+      },
+      {
+        "id": 4,
+        "name": "John Smith",
+        "location": "London, UK",
+        "avatar": "",
+        "rating": 4,
+        "text": "Good service, everything went smoothly. Minor delays with documents, but they resolved everything quickly. Surgery was successful.",
+        "date": "September 2025",
+        "treatment": "Neurosurgery"
+      },
+      {
+        "id": 5,
+        "name": "Sarah Johnson",
+        "location": "New York, USA",
+        "avatar": "",
+        "rating": 5,
+        "text": "Incredibly grateful! They helped organize a complex surgery in Turkey. Constant support, attention to detail. They continue to help with consultations after returning.",
+        "date": "August 2025",
+        "treatment": "Plastic Surgery"
+      },
+      {
+        "id": 6,
+        "name": "David Lee",
+        "location": "Singapore",
+        "avatar": "",
+        "rating": 5,
+        "text": "Treatment in Korea exceeded all expectations. TrustMedX organized everything perfectly - from visa to rehabilitation. True professionals!",
+        "date": "July 2025",
+        "treatment": "Urology"
+      }
+    ]
+  },
+  "aboutPage": {
+    "mission": {
+      "badge": "About the Company",
+      "title": "TrustMedX",
+      "subtitle": "Your Trusted Partner in Medical Tourism",
+      "intro": "TrustMedX is an international medical tourism company that has been professionally supporting patients on their journey to quality and safe treatment abroad for over 10 years.",
+      "description": "We work with verified clinics and doctors in Turkey and other countries, helping patients gain access to modern medical technologies, high-quality service, and transparent treatment organization.",
+      "paragraph1": "Over the years, we have built a reliable system of interaction with medical institutions, where each clinic undergoes preliminary verification: from licenses and doctor qualifications to treatment standards and service quality. Only after this do we begin cooperation and sign partnership agreements.",
+      "paragraph2": "TrustMedX is a team of specialists united by a common goal: to provide patients with confidence, safety, and results. We support patients at all stages—from the initial inquiry and doctor selection to treatment completion and return home.",
+      "paragraph3": "We work with a wide variety of requests: from dentistry and aesthetic medicine to plastic surgery, ophthalmology, reproductive programs, and other areas where doctor experience, accurate recommendations, and the right clinic choice are especially important.",
+      "philosophy": "Our philosophy is honesty, transparency, and a personalized approach. We don't sell promises—we build treatment based on medical indications, the real capabilities of clinics, and a clearly structured plan where patient safety and treatment results come first."
+    },
+    "whyChoose": {
+      "badge": "Why TrustMedX",
+      "title": "Why Choose TrustMedX",
+      "subtitle": "Choosing a medical tourism company is a matter of trust and responsibility. TrustMedX has been supporting patients for over 10 years, providing reliable treatment organization and process control at all stages.",
+      "items": [
+        {
+          "title": "Experience and Expertise",
+          "description": "We have been working in medical tourism for over 10 years and understand well how to organize treatment safely and effectively, taking into account real medical indications."
+        },
+        {
+          "title": "Verified Clinics and Doctors",
+          "description": "We only cooperate with clinics that have undergone preliminary verification. Each recommendation is based on licenses, doctor experience, and compliance with the patient's specific request—we don't refer patients formally or without confidence in the result."
+        },
+        {
+          "title": "Individual Approach",
+          "description": "The treatment plan is selected personally, without template solutions, taking into account examinations and patient goals."
+        },
+        {
+          "title": "Transparency and Support",
+          "description": "The patient receives complete information about the treatment plan, stages, timelines, and costs in advance. We don't hide details and don't change conditions during the process. We provide support at all stages—from the first inquiry to treatment completion."
+        },
+        {
+          "title": "International Format",
+          "description": "We work with patients from different countries and provide multilingual support for comfortable and accurate communication."
+        }
+      ]
+    },
+    "founder": {
+      "badge": "Company Founder",
+      "title": "About the Founder",
+      "name": "Daria Kodzha",
+      "role": "Founder and CEO of TrustMedX",
+      "intro": "My name is Daria Kodzha, I am the founder and CEO of TrustMedX. I have been working in medical tourism for over 10 years, supporting patients with various medical requests and complexity levels.",
+      "story": "My decision to dedicate my professional life to medical tourism was not accidental. It became a conscious choice after the personal experience of losing a loved one who did not receive the necessary medical care at the right moment. This experience showed me how critically important timely decisions, the right choice of clinic and doctor, and access to quality medical care are.",
+      "motivation": "It was then that I realized I wanted to deeply understand this field and dedicate myself to work where every recommendation matters. Since then, I have been systematically studying medical areas, clinics, treatment standards, and organizing work so that patients don't face uncertainty and difficult choices alone.",
+      "approach": "I personally participate in forming a partner network of clinics and doctors, in developing company work standards, and in supporting complex medical cases. It is fundamentally important to me that every decision is medically sound, transparent, and meets the patient's real needs.",
+      "today": "Today, TrustMedX is an international team of specialists that I have assembled and am developing as a systematic project. This work for me is not just a profession, but a conscious responsibility and the result of many years of professional journey aimed at ensuring that patients receive help on time, in reliable hands, and with understanding of every treatment stage.",
+      "philosophy": "We work systematically, transparently, and with a focus on results, building long-term relationships with both patients and medical partners. I sincerely believe that every person deserves timely, quality, and understandable medical care.",
+      "experience": "Over 10 years in medical tourism"
+    },
+    "stats": {
+      "badge": "Our Achievements",
+      "title": "By the Numbers",
+      "items": [
+        {
+          "number": "10",
+          "suffix": "+",
+          "label": "Years of Experience",
+          "description": "In medical tourism"
+        },
+        {
+          "number": "200",
+          "suffix": "+",
+          "label": "Partner Clinics",
+          "description": "Verified and certified"
+        },
+        {
+          "number": "98",
+          "suffix": "%",
+          "label": "Satisfaction Rate",
+          "description": "Patient feedback"
+        },
+        {
+          "number": "24",
+          "suffix": "/7",
+          "label": "Support Available",
+          "description": "Always here for you"
+        }
+      ]
+    },
+    "cta": {
+      "title": "Ready to Start Your Journey to Health?",
+      "description": "Get a free consultation and learn what treatment options are available for you",
+      "primaryButton": "Get Consultation",
+      "secondaryButton": "Contact Us"
+    }
+  },
+  "treatmentAbroad": {
+    "hero": {
+      "title": "World-Class Treatment",
+      "titleAccent": "At the Best Clinics Worldwide",
+      "subtitle": "Access cutting-edge medical technologies and leading specialists",
+      "description": "We partner with verified clinics in countries with the highest medical standards, ensuring safety and quality at every stage of your treatment."
+    },
+    "countrySelection": {
+      "title": "Choose Your Treatment Destination",
+      "subtitle": "Each country offers unique advantages and specializations. Select the destination that best matches your medical needs."
+    },
+    "countries": {
+      "turkey": {
+        "name": "Turkey",
+        "description": "Advanced technologies and affordable prices in modern clinics of Istanbul and Ankara",
+        "treatments": ["Cosmetic Surgery", "Hair Transplant", "Dental Care", "Oncology"]
+      },
+      "southKorea": {
+        "name": "South Korea",
+        "description": "World leader in cosmetic surgery and innovative medical technologies",
+        "treatments": ["Cosmetic Surgery", "Oncology", "Cardiology", "Orthopedics"]
+      },
+      "china": {
+        "name": "China",
+        "description": "Combination of ancient medicine with cutting-edge technology in modern clinics",
+        "treatments": ["Traditional Medicine", "Oncology", "Orthopedics", "Cardiology"]
+      }
+    },
+    "process": {
+      "title": "How It Works",
+      "subtitle": "Simple and transparent process from consultation to full recovery",
+      "steps": [
+        {
+          "title": "Consultation",
+          "description": "Free consultation and analysis of your medical situation"
+        },
+        {
+          "title": "Clinic Selection",
+          "description": "Choosing the optimal country, clinic and doctor for you"
+        },
+        {
+          "title": "Organization",
+          "description": "Full support: visa, flight, accommodation, translator"
+        },
+        {
+          "title": "Treatment & Support",
+          "description": "Treatment coordination and 24/7 support at all stages"
+        }
+      ]
+    },
+    "cta": {
+      "badge": "Start Now",
+      "title": "Ready for Treatment Abroad?",
+      "description": "Get a free consultation and discover what opportunities are available for you",
+      "primaryButton": "Get Consultation",
+      "secondaryButton": "Contact Us",
+      "trust1": "Free Consultation",
+      "trust2": "Verified Clinics",
+      "trust3": "24/7 Support"
+    }
+  }
+}

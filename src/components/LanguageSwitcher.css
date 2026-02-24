@@ -1,0 +1,303 @@
+/* ============================================
+   LANGUAGE SWITCHER
+   ============================================ */
+
+.language-switcher {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.language-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  border-radius: 8px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.language-button:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.globe-icon {
+  color: #666;
+  flex-shrink: 0;
+}
+
+.language-text {
+  letter-spacing: -0.01em;
+}
+
+.language-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 200px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.08),
+              0 0 0 1px rgba(0, 0, 0, 0.04);
+  padding: 0.5rem;
+  z-index: 1000;
+  animation: dropdownSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.language-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 8px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
+  gap: 0.75rem;
+}
+
+.language-option:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.language-option-active {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.language-option-name {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  letter-spacing: -0.01em;
+}
+
+.language-option-native {
+  font-size: 0.8125rem;
+  color: #666;
+  margin-left: auto;
+}
+
+.check-icon {
+  color: #000;
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+}
+
+.language-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes dropdownSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   MOBILE MENU VERSION
+   ============================================ */
+
+.mobile-language-wrapper .language-switcher {
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* Mobile: Horizontal pill toggle style */
+.mobile-language-wrapper .language-button {
+  display: none;
+}
+
+.mobile-language-wrapper .language-dropdown {
+  position: static;
+  display: flex;
+  flex-direction: row;
+  padding: 0.375rem;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(95, 168, 163, 0.2);
+  box-shadow: 0 6px 16px -6px rgba(74, 150, 145, 0.28);
+  border-radius: 14px;
+  gap: 0.375rem;
+  min-width: auto;
+  width: 100%;
+  animation: none;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.mobile-menu-open .mobile-language-wrapper .language-dropdown {
+  animation: slideUpFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.mobile-language-wrapper .language-option {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.mobile-language-wrapper .language-option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #5FA8A3 0%, #4A9691 100%);
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
+}
+
+.mobile-language-wrapper .language-option:hover::before {
+  opacity: 0.08;
+}
+
+.mobile-language-wrapper .language-option-active {
+  background: linear-gradient(135deg, #5FA8A3 0%, #4A9691 100%);
+  box-shadow: 0 4px 12px -4px rgba(95, 168, 163, 0.45);
+}
+
+.mobile-language-wrapper .language-option-active::before {
+  opacity: 0;
+}
+
+.mobile-language-wrapper .language-option-name {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-dm-sans);
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-language-wrapper .language-option-active .language-option-name {
+  color: white;
+}
+
+.mobile-language-wrapper .language-option-native {
+  font-size: 0.6875rem;
+  color: #666;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-language-wrapper .language-option-active .language-option-native {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.mobile-language-wrapper .check-icon {
+  display: none;
+}
+
+.mobile-language-wrapper .language-backdrop {
+  display: none;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 900px) {
+  /* Show mobile version in mobile menu */
+  .mobile-language-wrapper .language-dropdown {
+    display: flex;
+  }
+}
+
+@media (max-width: 640px) {
+  .language-text {
+    display: none;
+  }
+
+  .language-button {
+    padding: 0.625rem;
+  }
+
+  .language-dropdown {
+    right: -0.5rem;
+  }
+
+  /* Mobile menu language switcher adjustments */
+  .mobile-language-wrapper .language-dropdown {
+    max-width: 100%;
+  }
+
+  .mobile-language-wrapper .language-option {
+    padding: 0.625rem 0.75rem;
+  }
+
+  .mobile-language-wrapper .language-option-name {
+    font-size: 0.75rem;
+  }
+
+  .mobile-language-wrapper .language-option-native {
+    font-size: 0.625rem;
+  }
+}
+
+/* ============================================
+   RTL SUPPORT
+   ============================================ */
+
+[dir="rtl"] .language-dropdown {
+  right: auto;
+  left: 0;
+}
+
+[dir="rtl"] .language-option-native {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+[dir="rtl"] .check-icon {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  [dir="rtl"] .language-dropdown {
+    left: -0.5rem;
+    right: auto;
+  }
+}

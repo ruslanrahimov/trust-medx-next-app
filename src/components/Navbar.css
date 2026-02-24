@@ -1,0 +1,734 @@
+/* ============================================
+   NAVBAR - Refined Medical Professional Design
+   ============================================ */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar-scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.04);
+}
+
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+/* ============================================
+   LOGO
+   ============================================ */
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.navbar-logo:hover {
+  transform: translateY(-1px);
+}
+
+.logo-mobile {
+  display: none;
+}
+
+/* ============================================
+   NAVIGATION MENU
+   ============================================ */
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  margin-left: 2rem;
+}
+
+.navbar-item-wrapper {
+  position: relative;
+}
+
+.navbar-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.625rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  border-radius: 8px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.navbar-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+  color: #000;
+}
+
+.navbar-item-features {
+  background: rgba(0, 0, 0, 0.03);
+  gap: 0.375rem;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.navbar-item-features:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* ============================================
+   DROPDOWN
+   ============================================ */
+
+.navbar-item-dropdown {
+  position: relative;
+}
+
+.dropdown-arrow {
+  color: #666;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown-arrow-open {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 240px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.08),
+              0 0 0 1px rgba(0, 0, 0, 0.04);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.dropdown-menu-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown-content {
+  padding: 0.5rem;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: -0.01em;
+}
+
+.dropdown-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+  color: #000;
+  transform: translateX(2px);
+}
+
+/* ============================================
+   ACTIONS
+   ============================================ */
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   CONSULTATION BUTTON
+   ============================================ */
+
+.consultation-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.75rem;
+  background: #5FA8A3;
+  color: white;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border-radius: 40px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px -2px rgba(95, 168, 163, 0.25);
+}
+
+.consultation-button:hover {
+  background: linear-gradient(to right, #5FA8A3, #4A9691);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px -2px rgba(95, 168, 163, 0.35);
+}
+
+.consultation-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.2);
+}
+
+.consultation-button-text {
+  position: relative;
+  z-index: 1;
+}
+
+.consultation-button-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.consultation-button:hover .consultation-button-shine {
+  left: 100%;
+}
+
+/* ============================================
+   MOBILE MENU BUTTON
+   ============================================ */
+
+.mobile-menu-button {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 0.5rem;
+  position: relative;
+  z-index: 1002;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu-button:active {
+  transform: scale(0.95);
+}
+
+.hamburger {
+  position: relative;
+  width: 26px;
+  height: 20px;
+}
+
+.hamburger span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  background: #1a1a1a;
+  border-radius: 3px;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.hamburger span:nth-child(1) {
+  top: 0;
+  width: 100%;
+}
+
+.hamburger span:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 75%;
+}
+
+.hamburger span:nth-child(3) {
+  bottom: 0;
+  width: 100%;
+}
+
+.hamburger-open span {
+  background: #1a1a1a;
+}
+
+.hamburger-open span:nth-child(1) {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 100%;
+}
+
+.hamburger-open span:nth-child(2) {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.hamburger-open span:nth-child(3) {
+  bottom: 50%;
+  transform: translateY(50%) rotate(-45deg);
+  width: 100%;
+}
+
+/* ============================================
+   MOBILE MENU - FULLSCREEN
+   ============================================ */
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Animated Overlay Background */
+.mobile-menu-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    linear-gradient(135deg,
+      rgba(239, 248, 247, 0.98) 0%,
+      rgba(233, 245, 243, 0.96) 50%,
+      rgba(226, 241, 239, 0.98) 100%
+    );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transform: translateY(-100%);
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.mobile-menu-open .mobile-menu-overlay {
+  transform: translateY(0);
+}
+
+/* Menu Content Container */
+.mobile-menu-content {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 6rem 2rem 3rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Navigation Links Section */
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Individual Menu Items */
+.mobile-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  text-decoration: none;
+  color: #1a1a1a;
+  background: rgba(255, 255, 255, 0.72);
+  border-radius: 16px;
+  border: 1px solid rgba(95, 168, 163, 0.18);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu-open .mobile-menu-item {
+  animation: slideUpFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.mobile-menu-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #5FA8A3 0%, #4A9691 100%);
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+.mobile-menu-item:active::before {
+  opacity: 0.08;
+}
+
+.mobile-menu-item-number {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #5FA8A3;
+  font-family: var(--font-dm-sans);
+  letter-spacing: 0.05em;
+  min-width: 32px;
+}
+
+.mobile-menu-item-text {
+  flex: 1;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-family: var(--font-dm-sans);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu-item:active .mobile-menu-item-text {
+  transform: translateX(4px);
+}
+
+.mobile-menu-item-arrow {
+  width: 20px;
+  height: 20px;
+  stroke: #5FA8A3;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu-item:active .mobile-menu-item-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Bottom Actions Section */
+.mobile-menu-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(95, 168, 163, 0.2);
+}
+
+.mobile-language-wrapper {
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: none;
+}
+
+.mobile-menu-open .mobile-language-wrapper {
+  animation: slideUpFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Consultation CTA Button */
+.mobile-consultation-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.125rem 2rem;
+  background: linear-gradient(135deg, #5FA8A3 0%, #4A9691 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-align: center;
+  border: none;
+  border-radius: 16px;
+  box-shadow:
+    0 8px 24px -6px rgba(95, 168, 163, 0.4),
+    0 0 0 1px rgba(95, 168, 163, 0.12) inset;
+  cursor: pointer;
+  font-family: var(--font-dm-sans);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu-open .mobile-consultation-cta {
+  animation: slideUpFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.mobile-consultation-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-consultation-cta:active {
+  transform: translateY(2px);
+  box-shadow:
+    0 4px 12px -4px rgba(95, 168, 163, 0.3),
+    0 0 0 1px rgba(95, 168, 163, 0.12) inset;
+}
+
+.mobile-consultation-cta:active::before {
+  left: 100%;
+}
+
+.mobile-consultation-cta-text {
+  position: relative;
+  z-index: 1;
+}
+
+.mobile-consultation-cta-arrow {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-consultation-cta:active .mobile-consultation-cta-arrow {
+  transform: translateX(4px);
+}
+
+/* Legacy backdrop - kept for compatibility */
+.mobile-backdrop {
+  display: none;
+}
+
+/* ============================================
+   DESKTOP ACTIONS WRAPPER
+   ============================================ */
+
+.navbar-desktop-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUpFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .navbar-container {
+    padding: 0 1.5rem;
+  }
+
+  .navbar-menu {
+    gap: 0.25rem;
+    margin-left: 1rem;
+  }
+
+  .navbar-item {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+  }
+
+  .consultation-button {
+    padding: 0.625rem 1.5rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .navbar-menu {
+    display: none;
+  }
+
+  .consultation-button {
+    display: none;
+  }
+
+  .navbar-desktop-actions {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    display: flex;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar-container {
+    padding: 0 1rem;
+    height: 64px;
+  }
+
+  .logo-desktop {
+    display: none;
+  }
+
+  .logo-mobile {
+    display: block;
+  }
+
+  .navbar {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .mobile-menu-content {
+    padding: 5rem 1.25rem 2.5rem;
+  }
+
+  .mobile-menu-item {
+    padding: 1rem 1.25rem;
+    gap: 1rem;
+  }
+
+  .mobile-menu-item-text {
+    font-size: 1.125rem;
+  }
+
+  .mobile-menu-item-number {
+    font-size: 0.8125rem;
+    min-width: 28px;
+  }
+
+  .mobile-consultation-cta {
+    padding: 1rem 1.5rem;
+    font-size: 0.8125rem;
+  }
+
+  .mobile-menu-bottom {
+    gap: 1rem;
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .mobile-menu-item-text {
+    font-size: 1rem;
+  }
+
+  .mobile-menu-item {
+    padding: 0.875rem 1rem;
+  }
+}
+
+@media (min-height: 800px) {
+  .mobile-menu-content {
+    justify-content: center;
+    gap: 3rem;
+  }
+
+  .mobile-nav-links {
+    gap: 0.75rem;
+  }
+}
+
+/* ============================================
+   RTL SUPPORT
+   ============================================ */
+
+[dir="rtl"] .navbar-menu {
+  margin-left: 0;
+  margin-right: 2rem;
+}
+
+[dir="rtl"] .dropdown-menu {
+  left: auto;
+  right: 0;
+}
+
+[dir="rtl"] .dropdown-item:hover {
+  transform: translateX(-2px);
+}
+
+[dir="rtl"] .mobile-dropdown-items {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+@media (max-width: 1024px) {
+  [dir="rtl"] .navbar-menu {
+    margin-left: 0;
+    margin-right: 1rem;
+  }
+}
