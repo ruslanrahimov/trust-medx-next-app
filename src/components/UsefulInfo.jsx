@@ -25,7 +25,8 @@ function GuideCard({ guide, index, isRTL }) {
 
   const handlePreview = () => {
     // Open PDF in new tab for preview
-    const pdfUrl = guide.pdfPath || `/guides/${guide.type}-guide.pdf`;
+    const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+    const pdfUrl = base + (guide.pdfPath || `/guides/${guide.type}-guide.pdf`);
     window.open(pdfUrl, '_blank');
   };
 
