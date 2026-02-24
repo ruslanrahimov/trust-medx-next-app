@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { FileText, MapPin, Sparkles, Download } from 'lucide-react';
 
 // Icon mapping for each guide type
@@ -11,13 +12,6 @@ const guideIcons = {
   china: MapPin,
 };
 
-// Decorative patterns for each card
-const patterns = [
-  'M0,0 L50,25 L0,50 Z',
-  'M0,0 Q25,12.5 50,0 T100,0',
-  'M0,25 Q12.5,0 25,25 T50,25',
-  'M0,0 L25,50 L50,0 Z',
-];
 
 function GuideCard({ guide, index, isRTL }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -42,46 +36,27 @@ function GuideCard({ guide, index, isRTL }) {
     >
       <div className="relative h-full bg-white/70 backdrop-blur-sm rounded-3xl border border-[#2C5F5D]/15 overflow-hidden transition-all duration-500 hover:shadow-[0_20px_60px_rgba(44,95,93,0.15)] hover:-translate-y-2 hover:border-[#2C5F5D]/30">
 
-        {/* Decorative Header with Gradient */}
-        <div className="relative h-32 bg-gradient-to-br from-[#2C5F5D]/10 via-[#967259]/10 to-transparent overflow-hidden">
-          {/* Animated background pattern */}
-          <svg
-            className="absolute inset-0 w-full h-full opacity-20"
-            viewBox="0 0 200 100"
-            preserveAspectRatio="none"
-          >
-            <path
-              d={patterns[index % patterns.length]}
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="0.5"
-              className="text-[#2C5F5D] transition-transform duration-700"
-              style={{
-                transform: isHovered ? 'scale(1.1)' : 'scale(1)',
-              }}
+        {/* Image header */}
+        <div className="relative h-44 overflow-hidden">
+          {guide.image ? (
+            <Image
+              src={guide.image}
+              alt={guide.title}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
             />
-          </svg>
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-[#2C5F5D]/20 via-[#967259]/15 to-transparent" />
+          )}
 
-          {/* Floating geometric shapes */}
-          <div
-            className="absolute top-4 right-4 w-16 h-16 rounded-full border-2 border-[#2C5F5D]/20 transition-transform duration-700"
-            style={{
-              transform: isHovered ? 'rotate(180deg) scale(1.2)' : 'rotate(0deg) scale(1)',
-            }}
-          />
-          <div
-            className="absolute bottom-4 left-4 w-12 h-12 rounded-lg border-2 border-[#967259]/20 transition-transform duration-700"
-            style={{
-              transform: isHovered ? 'rotate(-180deg) scale(1.2)' : 'rotate(0deg) scale(1)',
-            }}
-          />
+          {/* Dark overlay for legibility */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/20 to-black/5 pointer-events-none" />
 
-          {/* Icon */}
+          {/* Floating icon badge — overlaps into content area */}
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-10">
-            <div className="relative w-20 h-20 rounded-2xl bg-gradient-to-br from-[#2C5F5D] to-[#2C5F5D]/80 shadow-[0_8px_32px_rgba(44,95,93,0.3)] flex items-center justify-center transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
+            <div className="relative w-20 h-20 rounded-2xl bg-gradient-to-br from-[#2C5F5D] to-[#2C5F5D]/80 shadow-[0_8px_32px_rgba(44,95,93,0.35)] flex items-center justify-center transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
               <Icon className="w-9 h-9 text-white transition-transform duration-500 group-hover:scale-110" />
-
-              {/* Icon glow effect */}
               <div className="absolute inset-0 rounded-2xl bg-[#2C5F5D] blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-500" />
             </div>
           </div>

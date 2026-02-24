@@ -95,6 +95,7 @@
         "countries": [
           {
             "name": "Turkey",
+            "image": "/turkiye.jpg",
             "description": "Modern clinics and affordable prices in the heart of Eurasia",
             "specialties": ["Plastic Surgery", "Hair Transplant", "Dentistry", "Oncology"],
             "stats": {
@@ -104,6 +105,7 @@
           },
           {
             "name": "South Korea",
+            "image": "/korea.jpg",
             "description": "World leader in innovative medical technologies",
             "specialties": ["Cosmetology", "Oncology", "Robotic Surgery", "Diagnostics"],
             "stats": {
@@ -113,6 +115,7 @@
           },
           {
             "name": "China",
+            "image": "/china.jpg",
             "description": "Combination of ancient traditions and advanced technology",
             "specialties": ["Traditional Medicine", "Orthopedics", "Cardiology", "Rehabilitation"],
             "stats": {
@@ -624,6 +627,7 @@
     "guides": [
       {
         "type": "surgery",
+        "image": "/surgery.jpg",
         "title": "Surgery Preparation",
         "description": "Complete guide to preparing for surgical intervention",
         "buttonText": "Get Guide",
@@ -631,6 +635,7 @@
       },
       {
         "type": "turkey",
+        "image": "/turkiye.jpg",
         "title": "All About Turkey",
         "description": "Information about treatment, clinics and accommodation in Turkey",
         "buttonText": "Get Guide",
@@ -638,6 +643,7 @@
       },
       {
         "type": "korea",
+        "image": "/korea.jpg",
         "title": "All About Korea",
         "description": "Everything you need to know about medical tourism in South Korea",
         "buttonText": "Get Guide",
@@ -645,6 +651,7 @@
       },
       {
         "type": "china",
+        "image": "/china.jpg",
         "title": "All About China",
         "description": "Guide to treatment and medical services in China",
         "buttonText": "Get Guide",
@@ -821,16 +828,19 @@
     "countries": {
       "turkey": {
         "name": "Turkey",
+        "image": "/turkiye.jpg",
         "description": "Advanced technologies and affordable prices in modern clinics of Istanbul and Ankara",
         "treatments": ["Cosmetic Surgery", "Hair Transplant", "Dental Care", "Oncology"]
       },
       "southKorea": {
         "name": "South Korea",
+        "image": "/korea.jpg",
         "description": "World leader in cosmetic surgery and innovative medical technologies",
         "treatments": ["Cosmetic Surgery", "Oncology", "Cardiology", "Orthopedics"]
       },
       "china": {
         "name": "China",
+        "image": "/china.jpg",
         "description": "Combination of ancient medicine with cutting-edge technology in modern clinics",
         "treatments": ["Traditional Medicine", "Oncology", "Orthopedics", "Cardiology"]
       }
@@ -856,16 +866,6 @@
           "description": "Treatment coordination and 24/7 support at all stages"
         }
       ]
-    },
-    "cta": {
-      "badge": "Start Now",
-      "title": "Ready for Treatment Abroad?",
-      "description": "Get a free consultation and discover what opportunities are available for you",
-      "primaryButton": "Get Consultation",
-      "secondaryButton": "Contact Us",
-      "trust1": "Free Consultation",
-      "trust2": "Verified Clinics",
-      "trust3": "24/7 Support"
     }
   }
 }

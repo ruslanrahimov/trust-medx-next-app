@@ -4,130 +4,14 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
-import { MapPin, Building2, TrendingDown, ArrowRight } from 'lucide-react';
+import { MapPin, ArrowRight } from 'lucide-react';
+import DestinationCard from './DestinationCard';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
 const COUNTRY_SLUGS = ['turkey', 'south-korea', 'china'];
-
-const COUNTRY_STYLES = [
-  { gradientFrom: '#5FA8A3', gradientTo: '#4A9691', color: '#5FA8A3', tagBg: 'rgba(95,168,163,0.10)', tagText: '#5FA8A3', borderHover: '#5FA8A3' },
-  { gradientFrom: '#D4A574', gradientTo: '#C89563', color: '#D4A574', tagBg: 'rgba(212,165,116,0.10)', tagText: '#D4A574', borderHover: '#D4A574' },
-  { gradientFrom: '#4A3B2C', gradientTo: '#6B5848', color: '#4A3B2C', tagBg: 'rgba(74,59,44,0.08)', tagText: '#4A3B2C', borderHover: '#4A3B2C' },
-];
-
-function DiagonalPattern() {
-  return (
-    <svg aria-hidden="true" className="absolute inset-0 w-full h-full opacity-[0.07]" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <pattern id="diag" patternUnits="userSpaceOnUse" width="20" height="20" patternTransform="rotate(45)">
-          <line x1="0" y1="0" x2="0" y2="20" stroke="white" strokeWidth="2" />
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#diag)" />
-    </svg>
-  );
-}
-
-function DestinationCard({ country, index, lang, hoveredIndex, onMouseEnter, onMouseLeave }) {
-  const style = COUNTRY_STYLES[index];
-  const slug = COUNTRY_SLUGS[index];
-  const isHovered = hoveredIndex === index;
-
-  return (
-    <Link
-      href={`/${lang}/treatment-abroad/${slug}`}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      className="group block"
-    >
-      <article
-        className="relative bg-white rounded-3xl overflow-hidden border border-[#4A3B2C]/8 transition-all duration-500"
-        style={{
-          transform: isHovered ? 'translateY(-8px)' : 'translateY(0)',
-          boxShadow: isHovered
-            ? `0 32px 64px rgba(74,59,44,0.13), 0 0 0 1.5px ${style.borderHover}40`
-            : '0 8px 32px rgba(74,59,44,0.07)',
-        }}
-      >
-        {/* Colored header band */}
-        <div
-          className="relative h-[140px] flex items-end px-8 pb-6 overflow-hidden"
-          style={{ background: `linear-gradient(135deg, ${style.gradientFrom} 0%, ${style.gradientTo} 100%)` }}
-        >
-          <DiagonalPattern />
-          <h3
-            className="relative z-10 text-4xl md:text-5xl font-bold text-white leading-none tracking-tight"
-            style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif" }}
-          >
-            {country.name}
-          </h3>
-          <span
-            className="absolute top-5 right-6 z-10 flex items-center gap-1 text-white/80 text-sm font-medium transition-all duration-300 group-hover:text-white group-hover:gap-2"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
-            aria-hidden="true"
-          >
-            Explore <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
-          </span>
-          <div className="absolute bottom-0 left-0 right-0 h-10 pointer-events-none"
-            style={{ background: `linear-gradient(to bottom, transparent, ${style.gradientTo}60)` }} />
-        </div>
-
-        {/* Content */}
-        <div className="p-8">
-          <p className="text-[#4A3B2C]/60 text-sm leading-relaxed mb-6"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}>
-            {country.description}
-          </p>
-
-          {/* Stats */}
-          <div className="flex items-center gap-6 mb-6">
-            <div className="flex items-center gap-2">
-              <Building2 className="w-4 h-4 flex-shrink-0" style={{ color: style.color }} strokeWidth={1.75} />
-              <span className="text-xs font-semibold text-[#4A3B2C]/70" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-                {country.stats.clinics} клиник
-              </span>
-            </div>
-            <div className="w-px h-4 bg-[#4A3B2C]/15" aria-hidden="true" />
-            <div className="flex items-center gap-2">
-              <TrendingDown className="w-4 h-4 flex-shrink-0" style={{ color: style.color }} strokeWidth={1.75} />
-              <span className="text-xs font-semibold text-[#4A3B2C]/70" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-                {country.stats.savings}
-              </span>
-            </div>
-          </div>
-
-          {/* Specialties */}
-          <div className="mb-7">
-            <p className="text-[10px] font-semibold text-[#4A3B2C]/40 uppercase tracking-[0.18em] mb-3"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}>
-              Специализации
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {country.specialties.map((spec, i) => (
-                <span key={i} className="px-3 py-1 rounded-full text-xs font-medium"
-                  style={{ background: style.tagBg, color: style.tagText, fontFamily: "'DM Sans', sans-serif" }}>
-                  {spec}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* CTA */}
-          <div
-            className="flex items-center gap-1.5 text-sm font-semibold transition-all duration-300 group-hover:gap-3"
-            style={{ color: style.color, fontFamily: "'DM Sans', sans-serif" }}
-          >
-            Подробнее
-            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2.25} />
-          </div>
-        </div>
-      </article>
-    </Link>
-  );
-}
 
 export default function HomeDestinations({ dict, lang }) {
   const sectionRef = useRef(null);
@@ -216,12 +100,14 @@ export default function HomeDestinations({ dict, lang }) {
         {/* Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-7 md:gap-8" style={{ perspective: '1200px' }}>
           {destinations.countries.map((country, index) => (
-            <div key={index} ref={(el) => (cardsRef.current[index] = el)}>
+            <div key={index} ref={(el) => (cardsRef.current[index] = el)} className="h-full">
               <DestinationCard
                 country={country}
                 index={index}
                 lang={lang}
-                hoveredIndex={hoveredIndex}
+                slug={COUNTRY_SLUGS[index]}
+                imageSrc={country.image}
+                isHovered={hoveredIndex === index}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               />
