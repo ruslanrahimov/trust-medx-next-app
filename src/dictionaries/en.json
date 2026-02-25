@@ -196,6 +196,88 @@
         "subtitle": "For Patients",
         "title": "All the information for your comfortable treatment",
         "description": "Learn about the treatment process, our services, and get answers to frequently asked questions"
+      },
+      "howWeWork": {
+        "badge": "How We Work",
+        "title": "How We Work",
+        "subtitle": "We have built a transparent and clear system of cooperation so that you understand in advance the stages of work, the scope of services, and their cost.",
+        "steps": [
+          {
+            "number": "01",
+            "badge": "Free",
+            "title": "Initial Consultation",
+            "description": "The first step is getting acquainted and assessing your situation. The consultation is free and necessary to understand:",
+            "points": [
+              "what your request is",
+              "whether we can be of help to you",
+              "which country is better suited for your case",
+              "which medical field your request belongs to"
+            ],
+            "note": "Before the consultation, please prepare any medical documents if examinations have been previously conducted (tests, MRI, CT, discharge summaries, doctor's conclusions, etc.). If no examinations have been done — nothing extra needs to be prepared.",
+            "result": "Following the consultation, you receive a general understanding of a possible treatment strategy."
+          },
+          {
+            "number": "02",
+            "title": "Professional Doctor Selection & Treatment Organization",
+            "description": "If we continue working together, the professional medical support stage begins. At this stage we:",
+            "points": [
+              "translate your medical documents",
+              "conduct a detailed analysis of your case",
+              "select specialized doctors and clinics",
+              "send official medical requests",
+              "receive treatment proposals and protocols",
+              "coordinate consultation and surgery dates",
+              "organize the trip",
+              "select and book accommodation (if needed)",
+              "arrange transfers",
+              "coordinate communication with the clinic",
+              "remain in contact with you throughout the treatment",
+              "support the process until the medical stage is complete"
+            ],
+            "pricingLabel": "Service cost (Turkey):",
+            "pricingTiers": [
+              {
+                "label": "Standard case",
+                "price": "€150",
+                "note": "dentistry, hair transplant, standard plastic surgery, and other typical requests"
+              },
+              {
+                "label": "Complex medical case",
+                "price": "€300",
+                "note": "ophthalmology, IVF, oncology, repeat surgeries, multiple specialists, non-standard diagnoses"
+              }
+            ],
+            "pricingFootnote": "Category is determined after the initial consultation."
+          },
+          {
+            "number": "03",
+            "badge": "Additional Service",
+            "title": "Personal Accompaniment",
+            "description": "If you need my personal presence during treatment, this service is paid separately. It includes:",
+            "points": [
+              "accompanying you at the clinic",
+              "being present at consultations",
+              "helping communicate with the medical team",
+              "monitoring organizational processes",
+              "promptly resolving any arising issues"
+            ],
+            "pricingLabel": "Cost:",
+            "pricingTiers": [
+              {
+                "label": "Personal accompaniment",
+                "price": "from €300 per day",
+                "note": ""
+              }
+            ]
+          }
+        ],
+        "importantTitle": "Important",
+        "importantItems": [
+          "We only work with verified clinics and specialists.",
+          "Each medical center undergoes preliminary verification of documents, licenses, and cooperation terms.",
+          "An official partnership agreement is signed after verification.",
+          "Our goal is not just to organize the trip, but to ensure a safe and professional medical process."
+        ]
       }
     },
     "onlineConsultation": {
@@ -660,8 +742,6 @@
     ]
   },
   "testimonials": {
-    "title": "Patient Testimonials",
-    "subtitle": "Stories from our clients who trusted us at the most important moment",
     "items": [
       {
         "id": 1,

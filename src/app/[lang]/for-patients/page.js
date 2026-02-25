@@ -2,7 +2,9 @@ import { getDictionary } from '@/lib/i18n';
 import PageHeader from '@/components/PageHeader';
 import FAQ from '@/components/FAQ';
 import UsefulInfo from '@/components/UsefulInfo';
-import Testimonials from '@/components/Testimonials';
+import HowWeWork from '@/components/HowWeWork';
+import TestimonialsSection from '@/components/TestimonialsSection';
+import ConsultationCTA from '@/components/ConsultationCTA';
 
 export default async function ForPatientsPage({ params }) {
 	const { lang } = await params;
@@ -15,14 +17,11 @@ export default async function ForPatientsPage({ params }) {
 				title={dict.pages.forPatients.pageHeader.title}
 				description={dict.pages.forPatients.pageHeader.description}
 			/>
+			<HowWeWork dict={dict} lang={lang} />
 			<UsefulInfo dict={dict} lang={lang} />
-			<Testimonials
-				testimonials={dict.testimonials.items}
-				title={dict.testimonials.title}
-				subtitle={dict.testimonials.subtitle}
-				lang={lang}
-			/>
+			<TestimonialsSection dict={dict} />
 			<FAQ dict={dict} lang={lang} />
+			<ConsultationCTA dict={dict} lang={lang} />
 		</main>
 	);
 }

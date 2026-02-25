@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
+import Image from 'next/image';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -21,6 +22,7 @@ export default function ProgramCards({ dict, lang }) {
       accentColor: '#5FA8A3',
       accentLight: '#E8F5F4',
       imageGradient: 'from-[#5FA8A3]/20 via-[#5FA8A3]/10 to-[#5FA8A3]/5',
+      imageSrc: '/manager.jpg',
       icon: (
         <svg className="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M3 3v18h18" />
@@ -36,6 +38,7 @@ export default function ProgramCards({ dict, lang }) {
       accentColor: '#D4A574',
       accentLight: '#F8F0E5',
       imageGradient: 'from-[#D4A574]/20 via-[#D4A574]/10 to-[#D4A574]/5',
+      imageSrc: '/doctor.jpg',
       icon: (
         <svg className="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
@@ -217,63 +220,27 @@ export default function ProgramCards({ dict, lang }) {
                     `,
                   }}
                 >
-                  {/* Image Placeholder Area - Bold Design */}
+                  {/* Image Area */}
                   <div className="relative h-48 md:h-56 overflow-hidden">
-                    {/* Rich gradient background */}
-                    <div
-                      className="absolute inset-0 transition-transform duration-700 group-hover:scale-110"
-                      style={{
-                        background: `linear-gradient(135deg, ${program.accentColor} 0%, ${program.accentColor}dd 100%)`,
-                      }}
+                    {/* Real photo */}
+                    <Image
+                      src={program.imageSrc}
+                      alt={program.data.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
                     />
 
-                    {/* Layered gradient overlay for depth */}
+                    {/* Color tint overlay */}
                     <div
-                      className="absolute inset-0 opacity-40"
+                      className="absolute inset-0 opacity-30 mix-blend-multiply"
                       style={{
-                        background: `radial-gradient(circle at 30% 50%, transparent 0%, ${program.accentColor} 100%)`,
+                        background: `linear-gradient(135deg, ${program.accentColor} 0%, ${program.accentColor}88 100%)`,
                       }}
-                    />
-
-                    {/* Animated geometric pattern */}
-                    <div
-                      className="absolute inset-0 opacity-10 transition-transform duration-700 group-hover:scale-105 group-hover:rotate-3"
-                      style={{
-                        backgroundImage: `
-                          linear-gradient(45deg, white 25%, transparent 25%),
-                          linear-gradient(-45deg, white 25%, transparent 25%),
-                          linear-gradient(45deg, transparent 75%, white 75%),
-                          linear-gradient(-45deg, transparent 75%, white 75%)
-                        `,
-                        backgroundSize: '30px 30px',
-                        backgroundPosition: '0 0, 0 15px, 15px -15px, -15px 0px',
-                      }}
-                    />
-
-                    {/* Icon with dramatic styling */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div
-                        className="transition-all duration-700 group-hover:scale-125 group-hover:rotate-6 text-white drop-shadow-2xl"
-                      >
-                        {program.icon}
-                      </div>
-                    </div>
-
-                    {/* Diagonal accent stripe */}
-                    <div
-                      className="absolute -top-20 -right-20 w-40 h-60 opacity-20 rotate-12 transition-transform duration-700 group-hover:rotate-[20deg] group-hover:scale-110"
-                      style={{ backgroundColor: 'white' }}
                     />
 
                     {/* Bottom gradient fade */}
-                    <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/20 to-transparent" />
-
-                    {/* Floating badge */}
-                    <div className="absolute top-4 left-4 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3">
-                      <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: program.accentColor }}>
-                        Image placeholder
-                      </span>
-                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/30 to-transparent" />
                   </div>
 
                   {/* Content - Expressive Design */}

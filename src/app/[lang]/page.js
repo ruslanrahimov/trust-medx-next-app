@@ -5,7 +5,7 @@ import HomeWhyUs from '@/components/HomeWhyUs';
 import HomeProcess from '@/components/HomeProcess';
 import HomeAbout from '@/components/HomeAbout';
 import HomeDestinations from '@/components/HomeDestinations';
-import HomeTestimonials from '@/components/HomeTestimonials';
+import TestimonialsSection from '@/components/TestimonialsSection';
 import ConsultationCTA from '@/components/ConsultationCTA';
 
 export default async function HomePage({ params }) {
@@ -33,7 +33,7 @@ export default async function HomePage({ params }) {
       <HomeDestinations dict={dict} lang={lang} />
 
       {/* Testimonials Section */}
-      <HomeTestimonials dict={dict} />
+      <TestimonialsSection dict={dict} />
 
       {/* Final CTA Section */}
       <ConsultationCTA dict={dict} lang={lang} />

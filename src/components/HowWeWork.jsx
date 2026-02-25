@@ -1,447 +1,438 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { MessageCircle, Search, FileCheck, Heart, HandHeart } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { MessageCircle, ClipboardList, UserCheck, Check, ShieldCheck, ChevronRight } from 'lucide-react';
 
-// Icon mapping for each step
-const stepIcons = {
-  consultation: MessageCircle,
-  selection: Search,
-  organization: FileCheck,
-  treatment: Heart,
-  support: HandHeart,
-};
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
-function ProcessStep({ step, index, isLast, totalSteps }) {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const Icon = stepIcons[step.type] || MessageCircle;
-  const progress = ((index + 1) / totalSteps) * 100;
+const STEP_ICONS = [MessageCircle, ClipboardList, UserCheck];
 
-  useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
+function PricingBlock({ step }) {
+  if (!step.pricingTiers || step.pricingTiers.length === 0) return null;
+
+  return (
+    <div className="mt-5 pt-5 border-t border-[#2C5F5D]/10">
+      {step.pricingLabel && (
+        <p
+          className="text-sm font-semibold text-[#2D3748] mb-3"
+          style={{ fontFamily: "'DM Sans', sans-serif" }}
+        >
+          {step.pricingLabel}
+        </p>
+      )}
+      <div className="space-y-3">
+        {step.pricingTiers.map((tier, i) => (
+          <div
+            key={i}
+            className="flex items-start gap-3 p-3.5 rounded-xl border border-[#2C5F5D]/10"
+            style={{
+              background:
+                i === 0
+                  ? 'linear-gradient(135deg, rgba(44,95,93,0.06) 0%, rgba(95,168,163,0.04) 100%)'
+                  : 'linear-gradient(135deg, rgba(212,165,116,0.07) 0%, rgba(150,114,89,0.04) 100%)',
+            }}
+          >
+            <div
+              className="flex-shrink-0 w-2 h-2 rounded-full mt-1.5"
+              style={{ background: i === 0 ? '#5FA8A3' : '#D4A574' }}
+            />
+            <div className="flex-1 min-w-0">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mb-0.5">
+                <span
+                  className="font-semibold text-sm text-[#2D3748]"
+                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                >
+                  {tier.label}
+                </span>
+                <span
+                  className="font-bold text-base"
+                  style={{
+                    fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif",
+                    color: i === 0 ? '#2C5F5D' : '#967259',
+                  }}
+                >
+                  {tier.price}
+                </span>
+              </div>
+              {tier.note && (
+                <p
+                  className="text-xs text-[#718096] leading-relaxed"
+                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                >
+                  {tier.note}
+                </p>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+      {step.pricingFootnote && (
+        <p
+          className="text-xs text-[#718096] mt-3 italic"
+          style={{ fontFamily: "'DM Sans', sans-serif" }}
+        >
+          {step.pricingFootnote}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function StepCard({ step, index }) {
+  const Icon = STEP_ICONS[index] || MessageCircle;
+  const isRight = index % 2 !== 0;
 
   return (
     <div
-      className="relative process-step"
-      style={{
-        opacity: 0,
-        transform: 'translateY(30px)',
-        animation: isVisible ? `slideInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.15}s forwards` : 'none',
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className={`hww-step relative flex flex-col ${
+        isRight ? 'md:flex-row-reverse' : 'md:flex-row'
+      } items-start md:items-center gap-6 md:gap-0`}
     >
-      <div className="flex gap-6 md:gap-8">
-        {/* Enhanced Timeline with animated progress */}
-        <div className="flex flex-col items-center relative z-10">
-          {/* Animated Icon Container */}
-          <div className="relative group/icon">
-            {/* Glow effect on hover */}
-            <div
-              className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#C9A55C]/20 to-[#8B7355]/20 blur-xl transition-all duration-700"
-              style={{
-                opacity: isHovered ? 1 : 0,
-                scale: isHovered ? 1.2 : 1,
-              }}
-            />
-
-            {/* Main icon container with 3D effect */}
-            <div
-              className="relative w-16 h-16 md:w-20 md:h-20 rounded-2xl overflow-hidden transition-all duration-500"
-              style={{
-                transform: isHovered ? 'translateY(-4px) scale(1.05)' : 'translateY(0) scale(1)',
-                transformStyle: 'preserve-3d',
-              }}
-            >
-              {/* Gradient background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white via-[#FAF8F0] to-[#F5F1E8]" />
-
-              {/* Animated gradient border */}
-              <div
-                className="absolute inset-0 rounded-2xl p-[2px] bg-gradient-to-br from-[#C9A55C] via-[#8B7355] to-[#C9A55C] opacity-0 group-hover/icon:opacity-100 transition-opacity duration-500"
-                style={{
-                  background: isHovered
-                    ? 'linear-gradient(135deg, #C9A55C 0%, #8B7355 50%, #C9A55C 100%)'
-                    : 'linear-gradient(135deg, transparent 0%, transparent 50%, transparent 100%)',
-                }}
-              >
-                <div className="w-full h-full bg-gradient-to-br from-white via-[#FAF8F0] to-[#F5F1E8] rounded-2xl" />
-              </div>
-
-              {/* Border */}
-              <div className="absolute inset-0 rounded-2xl border border-[#4A3B2C]/10 group-hover/icon:border-[#C9A55C]/30 transition-colors duration-500" />
-
-              {/* Icon */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Icon
-                  className="text-[#4A3B2C] transition-all duration-500 group-hover/icon:text-[#C9A55C] group-hover/icon:scale-110"
-                  size={28}
-                  strokeWidth={1.5}
-                  style={{
-                    transform: isHovered ? 'rotate(5deg)' : 'rotate(0deg)',
-                  }}
-                />
-              </div>
-
-              {/* Shimmer effect */}
-              <div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/icon:translate-x-full transition-transform duration-1000"
-                style={{
-                  transform: isHovered ? 'translateX(100%)' : 'translateX(-100%)',
-                }}
-              />
-            </div>
-
-            {/* Luxurious step number badge */}
-            <div
-              className="absolute -top-2 -right-2 w-8 h-8 rounded-xl bg-gradient-to-br from-[#C9A55C] to-[#8B7355] shadow-lg flex items-center justify-center transition-all duration-500 group-hover/icon:scale-110"
-              style={{
-                transform: isHovered ? 'rotate(10deg)' : 'rotate(0deg)',
-              }}
-            >
-              <span className="text-white text-sm font-bold" style={{ fontFamily: "'Crimson Pro', Georgia, serif" }}>
-                {index + 1}
-              </span>
-
-              {/* Inner glow */}
-              <div className="absolute inset-[2px] rounded-lg bg-gradient-to-br from-white/20 to-transparent" />
-            </div>
-          </div>
-
-          {/* Animated connecting line with progress */}
-          {!isLast && (
-            <div className="relative w-0.5 flex-1 mt-6 mb-6 min-h-[80px] overflow-hidden">
-              {/* Background line */}
-              <div className="absolute inset-0 bg-gradient-to-b from-[#4A3B2C]/15 via-[#4A3B2C]/10 to-[#4A3B2C]/15" />
-
-              {/* Animated progress line */}
-              <div
-                className="absolute inset-0 bg-gradient-to-b from-[#C9A55C] via-[#B8944A] to-[#C9A55C] origin-top"
-                style={{
-                  transform: `scaleY(${isVisible ? 1 : 0})`,
-                  transition: 'transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                  transitionDelay: `${index * 0.15 + 0.4}s`,
-                }}
-              />
-
-              {/* Flowing light effect */}
-              <div
-                className="absolute inset-0 bg-gradient-to-b from-transparent via-white/60 to-transparent h-1/3 animate-flow"
-                style={{
-                  animationDelay: `${index * 0.2}s`,
-                }}
-              />
-
-              {/* Pulsing dot */}
-              <div
-                className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#C9A55C] shadow-lg shadow-[#C9A55C]/50 animate-pulse"
-                style={{
-                  animationDelay: `${index * 0.15 + 0.6}s`,
-                }}
-              />
-            </div>
-          )}
-        </div>
-
-        {/* Enhanced Content Card */}
-        <div className="flex-1 pb-12 md:pb-14">
-          <div
-            className="group/card relative overflow-hidden rounded-3xl transition-all duration-500"
-            style={{
-              transform: isHovered ? 'translateY(-6px)' : 'translateY(0)',
-            }}
+      {/* Center number bubble (desktop) */}
+      <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 z-10 items-center justify-center">
+        <div className="w-[52px] h-[52px] rounded-full bg-gradient-to-br from-[#2C5F5D] to-[#4A9691] shadow-[0_8px_28px_rgba(44,95,93,0.35)] flex items-center justify-center ring-4 ring-[#FEFBF6]">
+          <span
+            className="text-white font-bold text-sm leading-none"
+            style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
-            {/* Layered background with depth */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white via-[#FEFBF6] to-[#FAF8F0]" />
-
-            {/* Animated gradient overlay */}
-            <div
-              className="absolute inset-0 bg-gradient-to-br from-[#C9A55C]/0 via-transparent to-[#8B7355]/0 opacity-0 group-hover/card:opacity-5 transition-opacity duration-700"
-            />
-
-            {/* Noise texture for premium feel */}
-            <div
-              className="absolute inset-0 opacity-[0.015] mix-blend-overlay"
-              style={{
-                backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 400\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' /%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\' /%3E%3C/svg%3E")',
-              }}
-            />
-
-            {/* Border with gradient */}
-            <div className="absolute inset-0 rounded-3xl border border-[#4A3B2C]/8 group-hover/card:border-[#C9A55C]/20 transition-colors duration-500" />
-
-            {/* Premium shadow */}
-            <div
-              className="absolute inset-0 rounded-3xl shadow-sm group-hover/card:shadow-2xl group-hover/card:shadow-[#C9A55C]/10 transition-shadow duration-500"
-            />
-
-            {/* Content */}
-            <div className="relative p-6 md:p-8">
-              {/* Step indicator bar */}
-              <div className="flex items-center gap-3 mb-4">
-                <div className="flex-1 h-1 bg-[#4A3B2C]/5 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-gradient-to-r from-[#C9A55C] to-[#B8944A] rounded-full transition-all duration-1000"
-                    style={{
-                      width: `${progress}%`,
-                      opacity: isVisible ? 1 : 0,
-                    }}
-                  />
-                </div>
-                <span className="text-xs font-semibold text-[#C9A55C]" style={{ fontFamily: "'DM Sans', -apple-system, sans-serif" }}>
-                  {progress.toFixed(0)}%
-                </span>
-              </div>
-
-              {/* Title with luxury typography */}
-              <h3
-                className="text-xl md:text-2xl lg:text-3xl font-bold text-[#4A3B2C] mb-3 group-hover/card:text-[#3D3124] transition-colors duration-300"
-                style={{
-                  fontFamily: "'Crimson Pro', Georgia, serif",
-                  letterSpacing: '-0.02em',
-                }}
-              >
-                {step.title}
-
-                {/* Animated underline */}
-                <div className="h-0.5 w-0 group-hover/card:w-16 bg-gradient-to-r from-[#C9A55C] to-transparent rounded-full transition-all duration-500 mt-2" />
-              </h3>
-
-              {/* Description with refined typography */}
-              <p
-                className="text-sm md:text-base text-[#4A3B2C]/70 leading-relaxed mb-4"
-                style={{ fontFamily: "'DM Sans', -apple-system, sans-serif" }}
-              >
-                {step.description}
-              </p>
-
-              {/* Key points with premium styling */}
-              {step.points && step.points.length > 0 && (
-                <ul className="space-y-3 mt-4">
-                  {step.points.map((point, idx) => (
-                    <li
-                      key={idx}
-                      className="flex items-start gap-3 text-sm text-[#4A3B2C]/60 group/point"
-                      style={{
-                        opacity: 0,
-                        animation: isVisible ? `fadeIn 0.6s ease-out ${index * 0.15 + idx * 0.1 + 0.5}s forwards` : 'none',
-                      }}
-                    >
-                      {/* Luxury bullet point */}
-                      <span className="flex-shrink-0 w-6 h-6 rounded-lg bg-gradient-to-br from-[#C9A55C]/10 to-[#8B7355]/10 flex items-center justify-center mt-0.5 group-hover/point:from-[#C9A55C]/20 group-hover/point:to-[#8B7355]/20 transition-all duration-300">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#C9A55C]" />
-                      </span>
-                      <span style={{ fontFamily: "'DM Sans', -apple-system, sans-serif" }}>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-
-              {/* Decorative corner accent */}
-              <div
-                className="absolute bottom-0 right-0 w-24 h-24 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700"
-                style={{
-                  background: 'radial-gradient(circle at bottom right, #C9A55C15 0%, transparent 70%)',
-                }}
-              />
-            </div>
-          </div>
+            {step.number}
+          </span>
         </div>
       </div>
+
+      {/* Card — occupies one half, offset away from the center line */}
+      <div className="w-full md:w-[calc(50%-42px)]">
+        <div className="group relative bg-white/70 backdrop-blur-sm rounded-2xl border border-[#2C5F5D]/15 p-7 md:p-8 hover:shadow-[0_20px_60px_rgba(44,95,93,0.13)] hover:border-[#2C5F5D]/28 transition-all duration-500">
+
+          {/* Mobile: number + badge row */}
+          <div className="md:hidden flex items-center gap-3 mb-5">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#2C5F5D] to-[#4A9691] flex items-center justify-center flex-shrink-0">
+              <span
+                className="text-white font-bold text-xs"
+                style={{ fontFamily: "'DM Sans', sans-serif" }}
+              >
+                {step.number}
+              </span>
+            </div>
+            {step.badge && (
+              <span
+                className="px-3 py-1 rounded-full text-xs font-semibold border"
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  background: index === 0 ? 'rgba(44,95,93,0.08)' : 'rgba(212,165,116,0.10)',
+                  color: index === 0 ? '#2C5F5D' : '#967259',
+                  borderColor: index === 0 ? 'rgba(44,95,93,0.18)' : 'rgba(212,165,116,0.22)',
+                }}
+              >
+                {step.badge}
+              </span>
+            )}
+          </div>
+
+          {/* Desktop badge pill */}
+          {step.badge && (
+            <div className="hidden md:block absolute -top-3.5 right-6 z-10">
+              <span
+                className="px-4 py-1.5 rounded-full text-xs font-semibold shadow-md"
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  background:
+                    index === 0
+                      ? 'linear-gradient(135deg, #2C5F5D, #4A9691)'
+                      : 'linear-gradient(135deg, #D4A574, #C89563)',
+                  color: '#fff',
+                  boxShadow:
+                    index === 0
+                      ? '0 4px 14px rgba(44,95,93,0.35)'
+                      : '0 4px 14px rgba(212,165,116,0.35)',
+                }}
+              >
+                {step.badge}
+              </span>
+            </div>
+          )}
+
+          {/* Icon + title row */}
+          <div className="flex items-start gap-4 mb-4">
+            <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-gradient-to-br from-[#2C5F5D]/10 to-[#D4A574]/10 border border-[#2C5F5D]/10 flex items-center justify-center group-hover:from-[#2C5F5D]/16 group-hover:to-[#D4A574]/16 transition-all duration-300">
+              <Icon className="w-5 h-5 text-[#2C5F5D]" />
+            </div>
+            <h3
+              className="text-xl md:text-2xl font-bold text-[#2D3748] leading-tight pt-0.5"
+              style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif" }}
+            >
+              {step.title}
+            </h3>
+          </div>
+
+          {/* Description */}
+          {step.description && (
+            <p
+              className="text-[#718096] leading-relaxed mb-4"
+              style={{ fontFamily: "'DM Sans', sans-serif" }}
+            >
+              {step.description}
+            </p>
+          )}
+
+          {/* Bullet points */}
+          {step.points && step.points.length > 0 && (
+            <ul className="space-y-2 mb-4">
+              {step.points.map((point, pi) => (
+                <li key={pi} className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#5FA8A3] flex-shrink-0 mt-0.5" />
+                  <span
+                    className="text-sm text-[#4A5568] leading-relaxed"
+                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  >
+                    {point}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {/* Note box */}
+          {step.note && (
+            <div className="p-4 rounded-xl bg-[#2C5F5D]/5 border border-[#2C5F5D]/10 mb-4">
+              <p
+                className="text-sm text-[#4A5568] leading-relaxed"
+                style={{ fontFamily: "'DM Sans', sans-serif" }}
+              >
+                {step.note}
+              </p>
+            </div>
+          )}
+
+          {/* Result line */}
+          {step.result && (
+            <div className="flex items-start gap-2 mt-1">
+              <ChevronRight className="w-4 h-4 text-[#D4A574] flex-shrink-0 mt-0.5" />
+              <p
+                className="text-sm text-[#718096] italic leading-relaxed"
+                style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif" }}
+              >
+                {step.result}
+              </p>
+            </div>
+          )}
+
+          {/* Pricing */}
+          <PricingBlock step={step} />
+
+          {/* Bottom hover accent */}
+          <div className="absolute bottom-0 left-0 right-0 h-[3px] rounded-b-2xl bg-gradient-to-r from-[#2C5F5D] via-[#D4A574] to-[#2C5F5D] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        </div>
+      </div>
+
+      {/* Empty spacer for the other half (desktop alternating layout) */}
+      <div className="hidden md:block w-[calc(50%-42px)]" />
     </div>
   );
 }
 
 export default function HowWeWork({ dict, lang }) {
-  const mounted = true;
-  const [progressValue, setProgressValue] = useState(0);
+  const sectionRef = useRef(null);
+  const headerRef = useRef(null);
   const isRTL = lang === 'ar';
 
-  // Process steps with fallback
-  const steps = dict?.howWeWork?.steps || [
-    {
-      type: 'consultation',
-      title: 'Консультация',
-      description: 'Первичное обращение и детальный анализ вашей медицинской ситуации. Мы внимательно изучаем все документы и формируем понимание ваших потребностей.',
-      points: [],
-    },
-    {
-      type: 'selection',
-      title: 'Подбор клиники',
-      description: 'Выбор оптимальной страны, клиники и врача на основе медицинских показаний и ваших предпочтений. Предоставляем несколько вариантов для сравнения.',
-      points: [],
-    },
-    {
-      type: 'organization',
-      title: 'Организация',
-      description: 'Подготовка всех необходимых документов, согласование плана лечения и организация поездки. Берём на себя все организационные вопросы.',
-      points: [],
-    },
-    {
-      type: 'treatment',
-      title: 'Лечение',
-      description: 'Полное сопровождение на всех этапах лечения. Координация с клиникой, переводчики, решение любых возникающих вопросов на месте.',
-      points: [],
-    },
-    {
-      type: 'support',
-      title: 'Поддержка',
-      description: 'Помощь и консультации после возвращения домой. Коммуникация с врачами, контроль восстановления и ответы на все вопросы.',
-      points: [],
-    },
-  ];
+  const data = dict?.pages?.forPatients?.howWeWork || {};
 
-  const sectionTitle = dict?.howWeWork?.title || 'Как мы работаем';
-  const sectionSubtitle = dict?.howWeWork?.subtitle || 'Прозрачный процесс от первого обращения до полного восстановления';
+  const badge = data.badge || 'Как мы работаем';
+  const title = data.title || 'Как мы работаем';
+  const subtitle =
+    data.subtitle ||
+    'Мы выстроили прозрачную и понятную систему сотрудничества, чтобы вы заранее понимали этапы работы, объём услуг и их стоимость.';
+  const steps = data.steps || [];
+  const importantTitle = data.importantTitle || 'Важно';
+  const importantItems = data.importantItems || [];
 
   useEffect(() => {
-    // Animate overall progress
-    const timer = setTimeout(() => {
-      setProgressValue(100);
-    }, 500);
-    return () => clearTimeout(timer);
+    const ctx = gsap.context(() => {
+      gsap.from('.hww-header-inner', {
+        scrollTrigger: { trigger: headerRef.current, start: 'top 86%', once: true },
+        opacity: 0,
+        y: 24,
+        duration: 0.7,
+        ease: 'power3.out',
+      });
+      gsap.from('.hww-title', {
+        scrollTrigger: { trigger: headerRef.current, start: 'top 83%', once: true },
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        delay: 0.15,
+        ease: 'power3.out',
+      });
+      gsap.from('.hww-subtitle', {
+        scrollTrigger: { trigger: headerRef.current, start: 'top 80%', once: true },
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        delay: 0.3,
+        ease: 'power3.out',
+      });
+
+      gsap.utils.toArray('.hww-step').forEach((el, i) => {
+        gsap.from(el, {
+          scrollTrigger: { trigger: el, start: 'top 82%', once: true },
+          opacity: 0,
+          x: i % 2 === 0 ? -50 : 50,
+          duration: 0.85,
+          ease: 'power3.out',
+        });
+      });
+
+      gsap.from('.hww-important', {
+        scrollTrigger: { trigger: '.hww-important', start: 'top 82%', once: true },
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        ease: 'power3.out',
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section className={`relative py-20 md:py-28 px-4 md:px-6 overflow-hidden ${isRTL ? 'rtl' : 'ltr'}`}>
-      {/* Sophisticated Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#FAF8F0] via-[#FEFBF6] to-[#F5F1E8]" />
+    <section
+      ref={sectionRef}
+      className={`relative py-20 md:py-32 px-4 md:px-6 overflow-hidden ${isRTL ? 'rtl' : 'ltr'}`}
+    >
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#FEFBF6] via-[#F7F3EC] to-[#FEFBF6]" />
 
-      {/* Radial gradient accents */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-radial from-[#C9A55C]/5 to-transparent blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-radial from-[#8B7355]/5 to-transparent blur-3xl" />
+      {/* Decorative orbs */}
+      <div className="absolute top-1/4 left-[5%] w-[480px] h-[480px] bg-[#2C5F5D] rounded-full blur-[160px] opacity-[0.05] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-[5%] w-[480px] h-[480px] bg-[#D4A574] rounded-full blur-[160px] opacity-[0.05] pointer-events-none" />
 
-      {/* Premium texture overlay */}
+      {/* Dot grid */}
       <div
-        className="absolute inset-0 opacity-[0.02] mix-blend-overlay"
+        className="absolute inset-0 opacity-[0.025] pointer-events-none"
         style={{
-          backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 400\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' /%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\' /%3E%3C/svg%3E")',
+          backgroundImage: 'radial-gradient(circle at 1px 1px, #2C5F5D 1px, transparent 0)',
+          backgroundSize: '36px 36px',
         }}
       />
 
+      {/* Vertical accent lines */}
+      <div className="absolute top-0 left-[18%] w-px h-48 bg-gradient-to-b from-transparent via-[#2C5F5D]/15 to-transparent" />
+      <div className="absolute bottom-0 right-[22%] w-px h-48 bg-gradient-to-t from-transparent via-[#D4A574]/15 to-transparent" />
+
       <div className="relative max-w-5xl mx-auto">
         {/* Section Header */}
-        <div
-          className="text-center mb-16 md:mb-20"
-          style={{
-            opacity: 0,
-            transform: 'translateY(20px)',
-            animation: mounted ? 'slideInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards' : 'none',
-          }}
-        >
-          {/* Title */}
-          <h2
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#4A3B2C] mb-4"
-            style={{
-              fontFamily: "'Crimson Pro', Georgia, serif",
-              fontWeight: 600,
-            }}
-          >
-            {sectionTitle}
-          </h2>
+        <div ref={headerRef} className="text-center mb-16 md:mb-24">
+          <div className="hww-header-inner flex items-center justify-center mb-5">
+            <div className="h-px w-14 bg-gradient-to-r from-transparent to-[#2C5F5D]/40" />
+            <div className="mx-3 flex gap-1.5">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#2C5F5D] animate-pulse" />
+              <div
+                className="w-1.5 h-1.5 rounded-full bg-[#D4A574] animate-pulse"
+                style={{ animationDelay: '150ms' }}
+              />
+              <div
+                className="w-1.5 h-1.5 rounded-full bg-[#2C5F5D] animate-pulse"
+                style={{ animationDelay: '300ms' }}
+              />
+            </div>
+            <div className="h-px w-14 bg-gradient-to-l from-transparent to-[#2C5F5D]/40" />
+          </div>
 
-          {/* Subtitle */}
-          {sectionSubtitle && (
-            <p
-              className="text-base md:text-lg text-[#4A3B2C]/70 max-w-2xl mx-auto leading-relaxed"
-              style={{ fontFamily: "'DM Sans', -apple-system, sans-serif" }}
-            >
-              {sectionSubtitle}
-            </p>
-          )}
-        </div>
-
-        {/* Process Steps */}
-        <div className="relative">
-          {steps.map((step, index) => (
-            <ProcessStep
-              key={step.type}
-              step={step}
-              index={index}
-              isLast={index === steps.length - 1}
-              totalSteps={steps.length}
-            />
-          ))}
-        </div>
-
-        {/* Premium bottom CTA */}
-        <div
-          className="mt-12 text-center"
-          style={{
-            opacity: 0,
-            transform: 'translateY(20px)',
-            animation: mounted ? 'slideInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards' : 'none',
-          }}
-        >
-          <div className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-br from-white via-[#FEFBF6] to-white rounded-2xl border border-[#C9A55C]/20 shadow-xl shadow-[#C9A55C]/10 relative overflow-hidden group cursor-pointer hover:scale-105 transition-transform duration-300">
-            {/* Shimmer effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#C9A55C]/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-
-            <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-[#C9A55C] to-[#8B7355] animate-pulse" />
+          <div className="hww-header-inner inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#2C5F5D]/8 border border-[#2C5F5D]/20 mb-5">
             <span
-              className="text-sm md:text-base text-[#4A3B2C] font-semibold relative"
-              style={{ fontFamily: "'DM Sans', -apple-system, sans-serif" }}
+              className="text-xs font-semibold text-[#2C5F5D] uppercase tracking-widest"
+              style={{ fontFamily: "'DM Sans', sans-serif" }}
             >
-              {lang === 'ru' && 'Готовы начать ваш путь к здоровью?'}
-              {lang === 'en' && 'Ready to start your journey to health?'}
-              {lang === 'ar' && 'هل أنت مستعد لبدء رحلتك نحو الصحة؟'}
+              {badge}
             </span>
           </div>
+
+          <h2
+            className="hww-title text-4xl md:text-5xl lg:text-6xl font-bold text-[#2D3748] mb-5 leading-tight"
+            style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif" }}
+          >
+            {title}
+          </h2>
+
+          <p
+            className="hww-subtitle text-base md:text-lg text-[#718096] max-w-2xl mx-auto leading-relaxed"
+            style={{ fontFamily: "'DM Sans', sans-serif" }}
+          >
+            {subtitle}
+          </p>
         </div>
+
+        {/* Steps Timeline */}
+        <div className="relative">
+          {/* Center vertical connector line (desktop) */}
+          <div className="hidden md:block absolute left-1/2 -translate-x-1/2 top-6 bottom-6 w-px bg-gradient-to-b from-transparent via-[#2C5F5D]/25 to-transparent pointer-events-none" />
+
+          <div className="flex flex-col gap-10 md:gap-16">
+            {steps.map((step, index) => (
+              <StepCard key={index} step={step} index={index} />
+            ))}
+          </div>
+        </div>
+
+        {/* Important callout */}
+        {importantItems.length > 0 && (
+          <div className="hww-important mt-16 md:mt-24">
+            <div
+              className="relative rounded-2xl overflow-hidden p-8 md:p-10"
+              style={{
+                background: 'linear-gradient(135deg, #1a3a38 0%, #2C5F5D 65%, #1e3533 100%)',
+              }}
+            >
+              {/* Orbs */}
+              <div className="absolute -top-16 -right-16 w-64 h-64 bg-[#5FA8A3]/15 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-[#D4A574]/10 rounded-full blur-3xl pointer-events-none" />
+
+              {/* Grain overlay */}
+              <div
+                className="absolute inset-0 opacity-[0.03] pointer-events-none"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+                }}
+              />
+
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-7">
+                  <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center flex-shrink-0">
+                    <ShieldCheck className="w-5 h-5 text-[#7EBDB8]" />
+                  </div>
+                  <h3
+                    className="text-2xl md:text-3xl font-bold text-white"
+                    style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif" }}
+                  >
+                    {importantTitle}
+                  </h3>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  {importantItems.map((item, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#5FA8A3]/25 border border-[#5FA8A3]/40 flex items-center justify-center mt-0.5">
+                        <Check className="w-3 h-3 text-[#7EBDB8]" />
+                      </div>
+                      <p
+                        className="text-sm text-white/80 leading-relaxed"
+                        style={{ fontFamily: "'DM Sans', sans-serif" }}
+                      >
+                        {item}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-
-      <style jsx>{`
-        @keyframes slideInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        @keyframes flow {
-          0% {
-            transform: translateY(-100%);
-          }
-          100% {
-            transform: translateY(300%);
-          }
-        }
-
-        @keyframes shimmer {
-          0% {
-            transform: translateX(-100%);
-          }
-          100% {
-            transform: translateX(100%);
-          }
-        }
-
-        .animate-flow {
-          animation: flow 3s ease-in-out infinite;
-        }
-
-        .animate-shimmer {
-          animation: shimmer 2s ease-in-out infinite;
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
-      `}</style>
     </section>
   );
 }

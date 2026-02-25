@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Plus, Minus, ArrowRight } from 'lucide-react';
+import { Plus, Minus } from 'lucide-react';
 
 // Simple, performant FAQ Item using CSS transitions
 function FAQItem({ item, isOpen, onToggle, index }) {
@@ -225,7 +225,7 @@ export default function FAQ({ dict, lang }) {
         </div>
 
         {/* Questions List */}
-        <div className="space-y-3 md:space-y-4 mb-16 md:mb-20" key={activeTab}>
+        <div className="space-y-3 md:space-y-4" key={activeTab}>
           {faqData.categories[activeTab].questions.map((item, qIndex) => {
             const isOpen = openItems.has(`${activeTab}-${qIndex}`);
 
@@ -241,42 +241,6 @@ export default function FAQ({ dict, lang }) {
           })}
         </div>
 
-        {/* Still Have Questions Section */}
-        <div
-          className="relative"
-          style={{
-            opacity: 0,
-            animation: mounted ? 'fadeInUp 0.8s ease-out 0.6s forwards' : 'none'
-          }}
-        >
-          {/* Decorative background card */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#2C5F5D]/5 via-[#967259]/5 to-transparent rounded-3xl blur-xl" />
-
-          <div className="relative bg-white/80 backdrop-blur-sm border border-[#2C5F5D]/20 rounded-3xl p-8 md:p-12 shadow-[0_8px_40px_rgba(44,95,93,0.08)]">
-            {/* Decorative corner elements */}
-            <div className="absolute top-0 left-0 w-20 md:w-24 h-20 md:h-24 border-t-2 border-l-2 border-[#2C5F5D]/20 rounded-tl-3xl" />
-            <div className="absolute bottom-0 right-0 w-20 md:w-24 h-20 md:h-24 border-b-2 border-r-2 border-[#967259]/20 rounded-br-3xl" />
-
-            <div className="relative text-center max-w-2xl mx-auto">
-              <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif text-[#2D3748] mb-4">
-                {faqData.stillHaveQuestions.title}
-              </h3>
-              <p className="text-sm md:text-base text-[#718096] leading-relaxed mb-8">
-                {faqData.stillHaveQuestions.description}
-              </p>
-
-              <button className="group relative inline-flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 bg-[#2D3748] hover:bg-[#2C5F5D] text-white rounded-full font-medium transition-all duration-300 shadow-[0_4px_20px_rgba(45,55,72,0.3)] hover:shadow-[0_8px_30px_rgba(44,95,93,0.4)] hover:-translate-y-1 active:translate-y-0">
-                <span className="relative z-10 text-sm md:text-base">{faqData.stillHaveQuestions.button}</span>
-                <ArrowRight className="w-4 h-4 md:w-5 md:h-5 transition-transform duration-300 group-hover:translate-x-1" />
-
-                {/* Button shine effect */}
-                <span className="absolute inset-0 rounded-full overflow-hidden">
-                  <span className="absolute inset-[-100%] bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
 
       <style jsx>{`
