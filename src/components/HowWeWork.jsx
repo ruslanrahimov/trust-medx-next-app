@@ -256,7 +256,7 @@ function ProcessStep({ step, index, isLast, totalSteps }) {
 }
 
 export default function HowWeWork({ dict, lang }) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = true;
   const [progressValue, setProgressValue] = useState(0);
   const isRTL = lang === 'ar';
 
@@ -298,7 +298,6 @@ export default function HowWeWork({ dict, lang }) {
   const sectionSubtitle = dict?.howWeWork?.subtitle || 'Прозрачный процесс от первого обращения до полного восстановления';
 
   useEffect(() => {
-    setMounted(true);
     // Animate overall progress
     const timer = setTimeout(() => {
       setProgressValue(100);

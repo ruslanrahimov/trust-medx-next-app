@@ -130,10 +130,10 @@ export default function AboutPhilosophy({ dict }) {
 
             {/* Quote marks decoration */}
             <div className="absolute top-6 left-6 text-8xl font-serif text-[#5FA8A3]/10 leading-none">
-              "
+              &ldquo;
             </div>
             <div className="absolute bottom-6 right-6 text-8xl font-serif text-[#D4A574]/10 leading-none rotate-180">
-              "
+              &rdquo;
             </div>
           </div>
         </div>

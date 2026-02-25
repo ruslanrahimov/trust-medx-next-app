@@ -1,9 +1,15 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { i18n, languages } from '@/lib/i18n';
 import './LanguageSwitcher.css';
+
+function setLocaleCookie(newLang) {
+  if (typeof document !== 'undefined') {
+    document.cookie = `NEXT_LOCALE=${newLang}; path=/; max-age=31536000`;
+  }
+}
 
 export default function LanguageSwitcher({ currentLang, isMobileMenu = false }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +26,7 @@ export default function LanguageSwitcher({ currentLang, isMobileMenu = false }) 
     const newPath = segments.join('/');
 
     // Save language choice in cookie
-    document.cookie = `NEXT_LOCALE=${newLang}; path=/; max-age=31536000`;
+    setLocaleCookie(newLang);
 
     router.push(newPath);
     setIsOpen(false);

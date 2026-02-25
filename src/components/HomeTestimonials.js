@@ -21,7 +21,8 @@ export default function HomeTestimonials({ dict }) {
   const testimonials = dict.testimonials.items;
   const testimonialsDict = dict.pages.homePage.testimonials;
   const totalPages = Math.max(1, Math.ceil(testimonials.length / cardsPerView));
-  const startIndex = currentPage * cardsPerView;
+  const activePage = Math.min(currentPage, totalPages - 1);
+  const startIndex = activePage * cardsPerView;
   const visibleTestimonials = testimonials.slice(startIndex, startIndex + cardsPerView);
 
   useEffect(() => {
@@ -42,12 +43,8 @@ export default function HomeTestimonials({ dict }) {
     return () => window.removeEventListener('resize', updateCardsPerView);
   }, []);
 
-  useEffect(() => {
-    setCurrentPage((prev) => Math.min(prev, totalPages - 1));
-  }, [totalPages]);
-
   const changePage = (nextPage) => {
-    if (isAnimating || nextPage === currentPage || !sliderRef.current) return;
+    if (isAnimating || nextPage === activePage || !sliderRef.current) return;
 
     setIsAnimating(true);
     gsap.to(sliderRef.current, {
@@ -227,7 +224,7 @@ export default function HomeTestimonials({ dict }) {
           <div className="mt-10 flex items-center justify-center gap-3">
             <button
               type="button"
-              onClick={() => changePage((currentPage - 1 + totalPages) % totalPages)}
+              onClick={() => changePage((activePage - 1 + totalPages) % totalPages)}
               disabled={isAnimating}
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white transition-all duration-300 hover:bg-white/20"
               aria-label="Previous testimonials"
@@ -243,7 +240,7 @@ export default function HomeTestimonials({ dict }) {
                   onClick={() => changePage(pageIndex)}
                   disabled={isAnimating}
                   className={`h-2.5 rounded-full transition-all duration-300 ${
-                    currentPage === pageIndex ? 'w-8 bg-[#5FA8A3]' : 'w-2.5 bg-white/35 hover:bg-white/55'
+                    activePage === pageIndex ? 'w-8 bg-[#5FA8A3]' : 'w-2.5 bg-white/35 hover:bg-white/55'
                   }`}
                   aria-label={`Go to testimonials page ${pageIndex + 1}`}
                 />
@@ -252,7 +249,7 @@ export default function HomeTestimonials({ dict }) {
 
             <button
               type="button"
-              onClick={() => changePage((currentPage + 1) % totalPages)}
+              onClick={() => changePage((activePage + 1) % totalPages)}
               disabled={isAnimating}
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white transition-all duration-300 hover:bg-white/20"
               aria-label="Next testimonials"

@@ -144,7 +144,7 @@ function ProcessStep({ step, index, isLast, accentColor, lang }) {
 }
 
 export default function CountryProcess({ dict, lang, country }) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = true;
   const config = countryConfig[country] || countryConfig.turkey;
 
   const processSteps = [
@@ -185,11 +185,6 @@ export default function CountryProcess({ dict, lang, country }) {
       timeline: lang === 'ru' ? 'Постоянно' : lang === 'en' ? 'Ongoing' : 'مستمر',
     },
   ];
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <section className="relative py-20 md:py-28 overflow-hidden">
       {/* Background */}

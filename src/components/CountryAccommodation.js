@@ -77,7 +77,7 @@ function ServiceCard({ service, index, accentColor }) {
 }
 
 export default function CountryAccommodation({ dict, lang, country }) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = true;
   const config = countryConfig[country] || countryConfig.turkey;
 
   const servicesData = {
@@ -180,10 +180,6 @@ export default function CountryAccommodation({ dict, lang, country }) {
   };
 
   const services = servicesData[country] || servicesData.turkey;
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <section className="relative py-20 md:py-28 overflow-hidden">

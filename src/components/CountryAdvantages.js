@@ -126,7 +126,7 @@ function AdvantageCard({ advantage, index, accentColor }) {
 }
 
 export default function CountryAdvantages({ dict, lang, country }) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = true;
   const config = countryConfig[country] || countryConfig.turkey;
 
   const advantagesData = {
@@ -229,10 +229,6 @@ export default function CountryAdvantages({ dict, lang, country }) {
   };
 
   const advantages = advantagesData[country] || advantagesData.turkey;
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <section className="relative py-20 md:py-28 overflow-hidden">

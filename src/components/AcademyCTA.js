@@ -12,14 +12,9 @@ export default function AcademyCTA({ dict, lang }) {
   const sectionRef = useRef(null);
   const contentRef = useRef(null);
   const buttonRef = useRef(null);
-  const [particlePositions, setParticlePositions] = useState([]);
-
-  useEffect(() => {
-    // Generate particle positions on client side only
-    setParticlePositions(
-      Array.from({ length: 12 }, () => Math.random() * 100)
-    );
-  }, []);
+  const [particlePositions] = useState(() =>
+    Array.from({ length: 12 }, () => Math.random() * 100)
+  );
 
   const scrollToPrograms = () => {
     const programsSection = document.getElementById('choose-path');

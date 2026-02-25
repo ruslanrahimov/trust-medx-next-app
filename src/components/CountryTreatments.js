@@ -156,7 +156,7 @@ function TreatmentCard({ treatment, index, accentColor }) {
 }
 
 export default function CountryTreatments({ dict, lang, country }) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = true;
   const config = countryConfig[country] || countryConfig.turkey;
 
   // Helper function for common labels
@@ -414,11 +414,6 @@ export default function CountryTreatments({ dict, lang, country }) {
   };
 
   const treatments = treatmentsData[country] || treatmentsData.turkey;
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <section className="relative py-20 md:py-28 overflow-hidden">
       {/* Background */}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
@@ -13,6 +13,38 @@ export default function ProgramCards({ dict, lang }) {
   const sectionRef = useRef(null);
   const headerRef = useRef(null);
   const cardsRef = useRef([]);
+
+  const programs = useMemo(() => [
+    {
+      type: 'managers',
+      data: dict.academy.programs.managers,
+      accentColor: '#5FA8A3',
+      accentLight: '#E8F5F4',
+      imageGradient: 'from-[#5FA8A3]/20 via-[#5FA8A3]/10 to-[#5FA8A3]/5',
+      icon: (
+        <svg className="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 3v18h18" />
+          <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" />
+          <circle cx="21" cy="5" r="2" fill="currentColor" />
+        </svg>
+      ),
+      href: `/${lang}/academy/managers`,
+    },
+    {
+      type: 'doctors',
+      data: dict.academy.programs.doctors,
+      accentColor: '#D4A574',
+      accentLight: '#F8F0E5',
+      imageGradient: 'from-[#D4A574]/20 via-[#D4A574]/10 to-[#D4A574]/5',
+      icon: (
+        <svg className="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+          <path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08v0c.82.82 2.13.82 2.96 0L15 8" />
+        </svg>
+      ),
+      href: `/${lang}/academy/doctors`,
+    },
+  ], [dict, lang]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -93,39 +125,7 @@ export default function ProgramCards({ dict, lang }) {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
-
-  const programs = [
-    {
-      type: 'managers',
-      data: dict.academy.programs.managers,
-      accentColor: '#5FA8A3',
-      accentLight: '#E8F5F4',
-      imageGradient: 'from-[#5FA8A3]/20 via-[#5FA8A3]/10 to-[#5FA8A3]/5',
-      icon: (
-        <svg className="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M3 3v18h18" />
-          <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" />
-          <circle cx="21" cy="5" r="2" fill="currentColor" />
-        </svg>
-      ),
-      href: `/${lang}/academy/managers`,
-    },
-    {
-      type: 'doctors',
-      data: dict.academy.programs.doctors,
-      accentColor: '#D4A574',
-      accentLight: '#F8F0E5',
-      imageGradient: 'from-[#D4A574]/20 via-[#D4A574]/10 to-[#D4A574]/5',
-      icon: (
-        <svg className="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-          <path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08v0c.82.82 2.13.82 2.96 0L15 8" />
-        </svg>
-      ),
-      href: `/${lang}/academy/doctors`,
-    },
-  ];
+  }, [programs]);
 
   return (
     <section

@@ -86,7 +86,7 @@ function StatCard({ icon: Icon, value, label, delay, accentColor }) {
 }
 
 export default function CountryHero({ dict, lang, country }) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = true;
   const config = countryConfig[country] || countryConfig.turkey;
 
   const countryData = {
@@ -147,11 +147,6 @@ export default function CountryHero({ dict, lang, country }) {
   };
 
   const data = countryData[country] || countryData.turkey;
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background with gradient */}

@@ -71,7 +71,7 @@ function HighlightCard({ icon: Icon, title, description, delay, accentColor }) {
 }
 
 export default function CountryDescription({ dict, lang, country }) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = true;
   const [imageLoaded, setImageLoaded] = useState(false);
   const config = countryConfig[country] || countryConfig.turkey;
 
@@ -207,11 +207,6 @@ export default function CountryDescription({ dict, lang, country }) {
     star: Star,
     users: Users,
   };
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <section className="relative py-20 md:py-28 overflow-hidden">
       {/* Background */}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import { Star, Quote, ChevronLeft, ChevronRight, Edit3 } from 'lucide-react';
 
 // Hook for responsive items per page
@@ -72,11 +73,13 @@ function Avatar({ src, name, size = 'md' }) {
 
   if (src && !imageError) {
     return (
-      <div className={`${sizeClasses[size]} rounded-2xl overflow-hidden ring-4 ring-white/80 shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3`}>
-        <img
+      <div className={`${sizeClasses[size]} relative rounded-2xl overflow-hidden ring-4 ring-white/80 shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3`}>
+        <Image
           src={src}
           alt={name}
-          className="w-full h-full object-cover"
+          fill
+          sizes="(max-width: 768px) 40px, (max-width: 1024px) 56px, 80px"
+          className="object-cover"
           onError={() => setImageError(true)}
         />
       </div>
@@ -134,7 +137,7 @@ function TestimonialCard({ testimonial, index, isRTL }) {
 
           {/* Testimonial Text */}
           <blockquote className="text-sm md:text-base text-[#4A5568] leading-relaxed mb-4 relative">
-            <span className="text-2xl text-[#2C5F5D]/30 absolute -left-2 -top-2">"</span>
+            <span className="text-2xl text-[#2C5F5D]/30 absolute -left-2 -top-2">&ldquo;</span>
             <p className={`${isRTL ? 'pr-4' : 'pl-4'}`}>
               {testimonial.text}
             </p>

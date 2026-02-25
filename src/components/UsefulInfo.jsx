@@ -108,7 +108,7 @@ function GuideCard({ guide, index, isRTL }) {
 }
 
 export default function UsefulInfo({ dict, lang }) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = true;
   const isRTL = lang === 'ar';
 
   // Guide data with fallback
@@ -145,11 +145,6 @@ export default function UsefulInfo({ dict, lang }) {
 
   const sectionTitle = dict?.usefulInfo?.title || 'Полезная информация';
   const sectionSubtitle = dict?.usefulInfo?.subtitle || 'Загрузите наши подробные гайды для успешного лечения за рубежом';
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <section className={`relative py-16 md:py-24 px-4 md:px-6 overflow-hidden ${isRTL ? 'rtl' : 'ltr'}`}>
       {/* Background Elements */}

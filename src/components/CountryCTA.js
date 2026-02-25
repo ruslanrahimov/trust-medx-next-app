@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Send, Phone, Mail, MessageCircle, ArrowRight } from 'lucide-react';
 
 const countryConfig = {
@@ -10,15 +10,10 @@ const countryConfig = {
 };
 
 export default function CountryCTA({ dict, lang, country }) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = true;
   const [formState, setFormState] = useState({ name: '', phone: '', email: '', message: '' });
   const [focusedField, setFocusedField] = useState(null);
   const config = countryConfig[country] || countryConfig.turkey;
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission

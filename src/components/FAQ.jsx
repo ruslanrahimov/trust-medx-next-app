@@ -1,19 +1,10 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { Plus, Minus, ArrowRight } from 'lucide-react';
 
 // Simple, performant FAQ Item using CSS transitions
 function FAQItem({ item, isOpen, onToggle, index }) {
-  const contentRef = useRef(null);
-  const [height, setHeight] = useState(0);
-
-  useEffect(() => {
-    if (contentRef.current) {
-      setHeight(isOpen ? contentRef.current.scrollHeight : 0);
-    }
-  }, [isOpen]);
-
   return (
     <div
       className="group"
@@ -57,11 +48,8 @@ function FAQItem({ item, isOpen, onToggle, index }) {
         </button>
 
         {/* Answer with smooth height transition */}
-        <div
-          className="overflow-hidden transition-all duration-400 ease-out"
-          style={{ height: `${height}px` }}
-        >
-          <div ref={contentRef}>
+        <div className={`grid transition-all duration-400 ease-out ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+          <div className="overflow-hidden">
             <div className="mt-1 px-6 md:px-8 py-5 md:py-6 bg-gradient-to-br from-[#2C5F5D]/5 to-transparent rounded-2xl border border-[#2C5F5D]/10">
               <p className="text-[#4A5568] leading-relaxed text-sm md:text-base">
                 {item.answer}
@@ -84,7 +72,7 @@ function FAQItem({ item, isOpen, onToggle, index }) {
 export default function FAQ({ dict, lang }) {
   const [activeTab, setActiveTab] = useState(0);
   const [openItems, setOpenItems] = useState(new Set());
-  const [mounted, setMounted] = useState(false);
+  const mounted = true;
 
   const isRTL = lang === 'ar';
 
@@ -164,10 +152,6 @@ export default function FAQ({ dict, lang }) {
       button: "Contact Support"
     }
   };
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const toggleItem = (categoryIndex, questionIndex) => {
     const key = `${categoryIndex}-${questionIndex}`;
