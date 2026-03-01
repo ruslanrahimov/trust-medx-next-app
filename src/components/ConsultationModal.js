@@ -117,9 +117,6 @@ export default function ConsultationModal({ isOpen, onClose, dict, lang }) {
       >
         {/* Modal Card */}
         <div className="relative bg-[#FEFBF6]/98 backdrop-blur-xl rounded-[2rem] shadow-2xl border border-[#D4A574]/20 overflow-hidden flex flex-col min-h-0">
-          {/* Decorative gradient overlay */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#5FA8A3] via-[#D4A574] to-[#5FA8A3] flex-shrink-0" />
-
           {/* Floating decoration elements */}
           <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-bl from-[#D4A574]/10 to-transparent rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-[#5FA8A3]/10 to-transparent rounded-full blur-3xl pointer-events-none" />
@@ -138,14 +135,6 @@ export default function ConsultationModal({ isOpen, onClose, dict, lang }) {
           <div className="p-4 sm:p-5 md:p-6">
             {/* Header */}
             <div className="text-center mb-3 sm:mb-4 space-y-1" style={{ animation: 'slideDown 0.6s ease-out 0.1s both' }}>
-              {/* Badge */}
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/60 backdrop-blur-sm border border-[#D4A574]/30">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#D4A574] animate-pulse" />
-                <span className="text-[10px] sm:text-xs font-semibold text-[#4A3B2C]/80 uppercase tracking-wider" style={{ fontFamily: 'var(--font-dm-sans)' }}>
-                  {dict?.consultationModal?.badge || 'Онлайн консультация'}
-                </span>
-              </div>
-
               {/* Title */}
               <h2
                 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#4A3B2C] leading-tight"

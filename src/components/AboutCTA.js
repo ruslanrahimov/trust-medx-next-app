@@ -109,13 +109,13 @@ export default function AboutCTA({ dict, lang }) {
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               {/* Primary Button */}
-              <a
-                href={`/${lang}/online-consultation`}
+              <button
+                onClick={() => window.dispatchEvent(new Event('open-consultation-modal'))}
                 className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-[#5FA8A3] to-[#4A9691] text-white font-semibold shadow-lg shadow-[#5FA8A3]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#5FA8A3]/40 hover:-translate-y-1 font-[family-name:var(--font-dm-sans)]"
               >
                 <span>{dict.aboutPage.cta.primaryButton}</span>
                 <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
+              </button>
 
               {/* Secondary Button */}
               <a

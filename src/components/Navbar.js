@@ -100,7 +100,7 @@ export default function Navbar({ lang, dict }) {
                                         {/* Desktop Navigation */}
                                         <div className="navbar-menu">
                                                 {navItems.map((item, index) => (
-                                                        <Link key={index} href={item.href} className="navbar-item font-bold">
+                                                        <Link key={index} href={item.href} className="navbar-item">
                                                                 {item.label}
                                                         </Link>
                                                 ))}

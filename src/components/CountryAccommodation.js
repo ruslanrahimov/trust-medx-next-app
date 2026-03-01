@@ -1,13 +1,22 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Hotel, Car, Utensils, UserCheck, Languages, Clock } from 'lucide-react';
 
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 const countryConfig = {
-  turkey: { accentColor: '#E30A17' },
-  'south-korea': { accentColor: '#0047A0' },
-  china: { accentColor: '#DE2910' },
+  turkey: { accent: '#C06558' },
+  'south-korea': { accent: '#4E7EA6' },
+  china: { accent: '#9E4D4D' },
 };
+
+const DISPLAY_FONT = "'Fraunces', 'Crimson Pro', Georgia, serif";
+const BODY_FONT = "'DM Sans', -apple-system, sans-serif";
 
 const iconMap = {
   hotel: Hotel,
@@ -18,66 +27,59 @@ const iconMap = {
   support: Clock,
 };
 
-function ServiceCard({ service, index, accentColor }) {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), index * 120);
-    return () => clearTimeout(timer);
-  }, [index]);
-
+function ServiceCard({ service, accentColor, index }) {
   const Icon = iconMap[service.icon] || Hotel;
 
   return (
     <div
-      className="relative group"
-      style={{
-        opacity: 0,
-        transform: 'scale(0.9)',
-        animation: isVisible ? `scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards` : 'none',
-      }}
+      className="ca-card group relative p-6 bg-white/80 backdrop-blur-sm rounded-2xl border border-white/60 hover:bg-white/95 hover:-translate-y-1 transition-all duration-300 h-full"
+      style={{ boxShadow: '0 2px 16px rgba(74,59,44,0.06), inset 0 1px 0 rgba(255,255,255,0.9)' }}
     >
-      <div className="relative bg-white rounded-2xl p-6 border border-[#4A3B2C]/10 hover:border-[#4A3B2C]/20 transition-all duration-500 hover:shadow-xl h-full">
-        {/* Icon */}
-        <div
-          className="w-14 h-14 rounded-xl flex items-center justify-center mb-4 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3"
-          style={{
-            background: `linear-gradient(135deg, ${accentColor}15, ${accentColor}05)`,
-          }}
-        >
-          <Icon size={24} strokeWidth={2} style={{ color: accentColor }} />
-        </div>
+      {/* Icon */}
+      <div
+        className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110"
+        style={{ background: `linear-gradient(135deg, ${accentColor}18, ${accentColor}08)` }}
+      >
+        <Icon size={22} strokeWidth={2} style={{ color: accentColor }} />
+      </div>
 
-        {/* Title */}
-        <h4
-          className="text-lg font-bold text-[#4A3B2C] mb-2"
-          style={{ fontFamily: "'Crimson Pro', Georgia, serif" }}
-        >
-          {service.title}
-        </h4>
+      {/* Title */}
+      <h4
+        className="text-lg font-semibold text-[#4A3B2C] mb-2"
+        style={{ fontFamily: DISPLAY_FONT }}
+      >
+        {service.title}
+      </h4>
 
-        {/* Description */}
-        <p
-          className="text-sm text-[#4A3B2C]/70 leading-relaxed"
-          style={{ fontFamily: "'DM Sans', -apple-system, sans-serif" }}
-        >
-          {service.description}
-        </p>
+      {/* Description */}
+      <p
+        className="text-sm text-[#4A3B2C]/60 leading-relaxed"
+        style={{ fontFamily: BODY_FONT }}
+      >
+        {service.description}
+      </p>
 
-        {/* Decorative corner */}
-        <div
-          className="absolute top-0 right-0 w-20 h-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-          style={{
-            background: `radial-gradient(circle at top right, ${accentColor}10, transparent 70%)`,
-          }}
-        />
+      {/* Hover corner accent */}
+      <div
+        className="absolute top-0 right-0 w-20 h-20 rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none"
+        style={{
+          background: `radial-gradient(circle at top right, ${accentColor}12, transparent 70%)`,
+        }}
+      />
+
+      {/* Index number — subtle decorative */}
+      <div
+        className="absolute bottom-4 right-5 text-3xl font-bold text-[#4A3B2C]/04 select-none"
+        style={{ fontFamily: DISPLAY_FONT }}
+      >
+        {String(index + 1).padStart(2, '0')}
       </div>
     </div>
   );
 }
 
 export default function CountryAccommodation({ dict, lang, country }) {
-  const mounted = true;
+  const sectionRef = useRef(null);
   const config = countryConfig[country] || countryConfig.turkey;
 
   const servicesData = {
@@ -85,22 +87,22 @@ export default function CountryAccommodation({ dict, lang, country }) {
       {
         icon: 'hotel',
         title: { ru: 'Комфортное проживание', en: 'Comfortable Accommodation', ar: 'إقامة مريحة' }[lang],
-        description: { ru: 'Размещение в отелях 4-5* рядом с клиникой. Включены завтраки и трансфер.', en: 'Accommodation in 4-5* hotels near the clinic. Breakfast and transfer included.', ar: 'إقامة في فنادق 4-5 نجوم بالقرب من العيادة. الإفطار والنقل مشمول.' }[lang],
+        description: { ru: 'Размещение в отелях 4–5★ рядом с клиникой. Включены завтраки и трансфер.', en: 'Accommodation in 4–5★ hotels near the clinic. Breakfast and transfer included.', ar: 'إقامة في فنادق 4-5 نجوم بالقرب من العيادة. الإفطار والنقل مشمول.' }[lang],
       },
       {
         icon: 'transport',
         title: { ru: 'Трансфер', en: 'Transfer', ar: 'النقل' }[lang],
-        description: { ru: 'Встреча в аэропорту, доставка в отель и клинику на комфортном транспорте.', en: 'Airport pick-up, delivery to hotel and clinic by comfortable transport.', ar: 'الاستقبال في المطار، التوصيل إلى الفندق والعيادة بوسائل نقل مريحة.' }[lang],
+        description: { ru: 'Встреча в аэропорту, доставка в отель и клинику на комфортном транспорте.', en: 'Airport pick-up, delivery to hotel and clinic by comfortable transport.', ar: 'الاستقبال في المطار، التوصيل إلى الفندق والعيادة.' }[lang],
       },
       {
         icon: 'food',
         title: { ru: 'Питание', en: 'Meals', ar: 'الوجبات' }[lang],
-        description: { ru: 'Рекомендации ресторанов, доставка еды. Специальное меню при необходимости.', en: 'Restaurant recommendations, food delivery. Special menu if needed.', ar: 'توصيات المطاعم، توصيل الطعام. قائمة خاصة إذا لزم الأمر.' }[lang],
+        description: { ru: 'Рекомендации ресторанов, доставка еды. Специальное меню при необходимости.', en: 'Restaurant recommendations, food delivery. Special menu if needed.', ar: 'توصيات المطاعم، توصيل الطعام.' }[lang],
       },
       {
         icon: 'coordinator',
         title: { ru: 'Персональный координатор', en: 'Personal Coordinator', ar: 'منسق شخصي' }[lang],
-        description: { ru: 'Русскоговорящий координатор сопровождает вас на всех этапах.', en: 'Russian-speaking coordinator accompanies you at all stages.', ar: 'منسق يتحدث الروسية يرافقك في جميع المراحل.' }[lang],
+        description: { ru: 'Русскоговорящий координатор сопровождает вас на всех этапах.', en: 'Russian-speaking coordinator accompanies you at all stages.', ar: 'منسق يرافقك في جميع المراحل.' }[lang],
       },
       {
         icon: 'translator',
@@ -110,7 +112,7 @@ export default function CountryAccommodation({ dict, lang, country }) {
       {
         icon: 'support',
         title: { ru: 'Поддержка 24/7', en: '24/7 Support', ar: 'دعم على مدار الساعة' }[lang],
-        description: { ru: 'Круглосуточная связь с координатором для решения любых вопросов.', en: '24/7 contact with coordinator to solve any issues.', ar: 'اتصال على مدار الساعة مع المنسق لحل أي مشاكل.' }[lang],
+        description: { ru: 'Круглосуточная связь с координатором для решения любых вопросов.', en: '24/7 contact with coordinator to solve any issues.', ar: 'اتصال على مدار الساعة لحل أي مشاكل.' }[lang],
       },
     ],
     'south-korea': [
@@ -159,7 +161,7 @@ export default function CountryAccommodation({ dict, lang, country }) {
       {
         icon: 'food',
         title: { ru: 'Адаптация питания', en: 'Food Adaptation', ar: 'تكييف الطعام' }[lang],
-        description: { ru: 'Помощь в выборе привычной еды, рекомендации ресторанов.', en: 'Help in choosing familiar food, restaurant recommendations.', ar: 'المساعدة في اختيار الطعام المألوف، توصيات المطاعم.' }[lang],
+        description: { ru: 'Помощь в выборе привычной еды, рекомендации ресторанов.', en: 'Help in choosing familiar food, restaurant recommendations.', ar: 'المساعدة في اختيار الطعام المألوف.' }[lang],
       },
       {
         icon: 'coordinator',
@@ -169,7 +171,7 @@ export default function CountryAccommodation({ dict, lang, country }) {
       {
         icon: 'translator',
         title: { ru: 'Перевод документов', en: 'Document Translation', ar: 'ترجمة الوثائق' }[lang],
-        description: { ru: 'Перевод медицинских документов и сопровождение на приемах.', en: 'Translation of medical documents and accompaniment at appointments.', ar: 'ترجمة الوثائق الطبية والمرافقة في المواعيد.' }[lang],
+        description: { ru: 'Перевод медицинских документов и сопровождение на приёмах.', en: 'Translation of medical documents and accompaniment at appointments.', ar: 'ترجمة الوثائق الطبية والمرافقة في المواعيد.' }[lang],
       },
       {
         icon: 'support',
@@ -181,31 +183,58 @@ export default function CountryAccommodation({ dict, lang, country }) {
 
   const services = servicesData[country] || servicesData.turkey;
 
-  return (
-    <section className="relative py-20 md:py-28 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#FAF8F0] to-white" />
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from('.ca-header', {
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', once: true },
+        opacity: 0, y: 40, duration: 1, ease: 'power3.out',
+        immediateRender: false,
+      });
+      gsap.from('.ca-card', {
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 65%', once: true },
+        opacity: 0, y: 30, duration: 0.7, stagger: 0.1, ease: 'power3.out',
+        immediateRender: false,
+      });
+      gsap.from('.ca-footer', {
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 40%', once: true },
+        opacity: 0, y: 20, duration: 0.8, ease: 'power3.out',
+        immediateRender: false,
+      });
+    }, sectionRef);
 
-      {/* Decorative gradient */}
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section ref={sectionRef} className="relative py-20 md:py-28 overflow-hidden" style={{ backgroundColor: '#FEFBF6' }}>
+      {/* Background gradient */}
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, #FEFBF6 0%, #FAF7EF 50%, #FEFBF6 100%)' }} />
+
+      {/* Central soft orb */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-30 blur-3xl"
-        style={{
-          background: `radial-gradient(circle, ${config.accentColor}10, transparent 70%)`,
-        }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-3xl opacity-25 pointer-events-none"
+        style={{ background: `radial-gradient(circle, ${config.accent}18, transparent 70%)` }}
       />
 
       <div className="relative max-w-7xl mx-auto px-6">
-        {/* Section Header */}
-        <div
-          className="text-center mb-16 md:mb-20"
-          style={{
-            opacity: 0,
-            animation: mounted ? 'fadeInUp 1s ease-out forwards' : 'none',
-          }}
-        >
+        {/* Header */}
+        <div className="ca-header text-center mb-14">
+          <div
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border bg-white/60 backdrop-blur-sm mb-5"
+            style={{ borderColor: `${config.accent}30` }}
+          >
+            <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: config.accent }} />
+            <span
+              className="text-xs font-semibold uppercase tracking-widest"
+              style={{ fontFamily: BODY_FONT, color: config.accent }}
+            >
+              {lang === 'ru' ? 'Сервис и комфорт' : lang === 'en' ? 'Service & Comfort' : 'الخدمة والراحة'}
+            </span>
+          </div>
+
           <h2
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#4A3B2C] mb-4"
-            style={{ fontFamily: "'Crimson Pro', Georgia, serif" }}
+            className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#4A3B2C] mb-4 leading-tight"
+            style={{ fontFamily: DISPLAY_FONT }}
           >
             {lang === 'ru' && 'Комфорт и забота'}
             {lang === 'en' && 'Comfort & Care'}
@@ -213,84 +242,50 @@ export default function CountryAccommodation({ dict, lang, country }) {
           </h2>
 
           <p
-            className="text-lg text-[#4A3B2C]/70 max-w-2xl mx-auto"
-            style={{ fontFamily: "'DM Sans', -apple-system, sans-serif" }}
+            className="text-lg text-[#4A3B2C]/60 max-w-xl mx-auto"
+            style={{ fontFamily: BODY_FONT }}
           >
             {lang === 'ru' && 'Мы заботимся о вашем комфорте на всех этапах лечения'}
-            {lang === 'en' && 'We take care of your comfort at every stage'}
-            {lang === 'ar' && 'نحن نعتني براحتك في كل مرحلة'}
+            {lang === 'en' && 'We take care of your comfort at every stage of treatment'}
+            {lang === 'ar' && 'نحن نعتني براحتك في كل مرحلة من مراحل العلاج'}
           </p>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        {/* Services grid */}
+        <div className="ca-grid grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
           {services.map((service, index) => (
             <ServiceCard
               key={index}
               service={service}
+              accentColor={config.accent}
               index={index}
-              accentColor={config.accentColor}
             />
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <div
-          className="mt-16 text-center"
-          style={{
-            opacity: 0,
-            animation: mounted ? 'fadeInUp 1s ease-out 0.8s forwards' : 'none',
-          }}
-        >
-          <div className="inline-flex flex-col items-center gap-3 px-8 py-6 bg-white/80 backdrop-blur-sm rounded-2xl border border-[#4A3B2C]/10">
-            <p
-              className="text-[#4A3B2C]/70"
-              style={{ fontFamily: "'DM Sans', -apple-system, sans-serif" }}
+        {/* Footer note */}
+        <div className="ca-footer mt-14 text-center">
+          <div className="inline-flex flex-col sm:flex-row items-center gap-3 px-8 py-5 bg-white/80 backdrop-blur-sm rounded-2xl border border-white/60" style={{ boxShadow: '0 4px 24px rgba(74,59,44,0.07), inset 0 1px 0 rgba(255,255,255,0.9)' }}>
+            <span
+              className="text-[#4A3B2C]/55 text-sm"
+              style={{ fontFamily: BODY_FONT }}
             >
               {lang === 'ru' && 'Все услуги включены в стоимость пакета'}
               {lang === 'en' && 'All services included in package price'}
               {lang === 'ar' && 'جميع الخدمات مشمولة في سعر الباقة'}
-            </p>
-            <div
-              className="text-2xl font-bold"
-              style={{
-                fontFamily: "'Crimson Pro', Georgia, serif",
-                color: config.accentColor,
-              }}
+            </span>
+            <span className="hidden sm:block text-[#4A3B2C]/20">·</span>
+            <span
+              className="text-xl font-semibold"
+              style={{ fontFamily: DISPLAY_FONT, color: config.accent }}
             >
               {lang === 'ru' && 'Никаких скрытых платежей'}
               {lang === 'en' && 'No Hidden Fees'}
               {lang === 'ar' && 'لا رسوم خفية'}
-            </div>
+            </span>
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes scaleIn {
-          from {
-            opacity: 0;
-            transform: scale(0.9);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
-      `}</style>
     </section>
   );
 }

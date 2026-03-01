@@ -163,6 +163,21 @@
           "role": "Founder, TrustMedX"
         }
       },
+      "telegramBanner": {
+        "liveLabel": "Updates",
+        "cta": "Subscribe to our channel",
+        "ctaSub": "Tips on medical travel abroad",
+        "btnLabel": "Subscribe",
+        "link": "https://t.me/trustmedx",
+        "items": [
+          "Medical tourism news",
+          "Patient success stories",
+          "Clinic selection tips",
+          "Current treatment costs",
+          "Recovery journeys",
+          "Destination updates"
+        ]
+      },
       "finalCta": {
         "badge": "Start Now",
         "title": "Ready to Start Your Journey to Health?",
@@ -279,10 +294,6 @@
           "Our goal is not just to organize the trip, but to ensure a safe and professional medical process."
         ]
       }
-    },
-    "onlineConsultation": {
-      "title": "Online Consultation",
-      "description": "Book an online consultation"
     },
     "academy": {
       "title": "TrustMedX Academy",

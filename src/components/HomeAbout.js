@@ -57,7 +57,7 @@ export default function HomeAbout({ dict, lang }) {
   return (
     <section
       ref={sectionRef}
-      className="relative pt-12 pb-12 md:pt-[4.5rem] md:pb-[4.5rem] overflow-hidden"
+      className="relative pt-12 pb-20 md:pt-[4.5rem] md:pb-[6rem] overflow-hidden"
       style={{ background: 'linear-gradient(168deg, #FEFBF6 0%, #FAF7F0 55%, #FEFBF6 100%)' }}
     >
       {/* Grain texture */}

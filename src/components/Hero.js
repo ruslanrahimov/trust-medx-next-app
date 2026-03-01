@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, Star } from 'lucide-react';
+import TelegramBanner from '@/components/TelegramBanner';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -137,8 +138,8 @@ export default function Hero({ dict, lang }) {
 
                 {/* CTA buttons */}
                 <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:gap-4">
-                  <Link
-                    href={`/${lang}/online-consultation`}
+                  <button
+                    onClick={() => window.dispatchEvent(new Event('open-consultation-modal'))}
                     className="hero-cta-btn group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-2xl px-7 py-3.5 text-sm font-semibold uppercase text-white transition-all duration-300 hover:-translate-y-0.5"
                     style={{
                       fontFamily: 'var(--font-dm-sans)',
@@ -150,7 +151,7 @@ export default function Hero({ dict, lang }) {
                     <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
                     <span className="relative z-10">{heroDict.ctaPrimary}</span>
                     <ArrowRight className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2.5} />
-                  </Link>
+                  </button>
 
                   <Link
                     href={`/${lang}/about`}
@@ -162,12 +163,16 @@ export default function Hero({ dict, lang }) {
                   </Link>
                 </div>
 
-                {/* Stats row */}
-                <div className="grid grid-cols-3 gap-4 border-t border-[#4A3B2C]/10 pt-5">
+              </div>
+
+              {/* Stats + Trust — равный отступ сверху и снизу */}
+              <div className="my-auto flex flex-col">
+                <div className="grid grid-cols-4 gap-4 border-t border-[#4A3B2C]/10 pt-5">
                   {[
                     { value: '50+', label: 'Клиник\nпартнёров' },
                     { value: '12', label: 'Стран\nмира' },
                     { value: '98%', label: 'Успешных\nслучаев' },
+                    { value: '24/7', label: 'Поддержка\nпациентов' },
                   ].map(({ value, label }, i) => (
                     <div key={value} className="hero-stat flex flex-col" style={{ borderLeft: i > 0 ? '1px solid rgba(74,59,44,0.10)' : 'none', paddingLeft: i > 0 ? '1rem' : '0' }}>
                       <span className="text-xl font-bold leading-none text-[#4A3B2C] xl:text-2xl" style={{ fontFamily: DISPLAY_FONT }}>{value}</span>
@@ -175,38 +180,37 @@ export default function Hero({ dict, lang }) {
                     </div>
                   ))}
                 </div>
-              </div>
 
-              {/* Trust row — прижат ко дну колонки */}
-              <div className="hero-trust-row mt-auto pt-5 flex flex-wrap items-center gap-3 sm:gap-4">
-                <div className="flex -space-x-2.5">
-                  {[
-                    { initials: 'АМ', bg: 'linear-gradient(135deg, #5FA8A3, #4A9691)' },
-                    { initials: 'ЕК', bg: 'linear-gradient(135deg, #D4A574, #C89563)' },
-                    { initials: 'НС', bg: 'linear-gradient(135deg, #7EBDB8, #5FA8A3)' },
-                    { initials: 'ВО', bg: 'linear-gradient(135deg, #C89563, #D4A574)' },
-                  ].map(({ initials, bg }) => (
-                    <div key={initials}
-                      className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#FEFBF6] text-[10px] font-bold text-white shadow-sm"
-                      style={{ background: bg, fontFamily: 'var(--font-dm-sans)' }}>
-                      {initials}
-                    </div>
-                  ))}
+                <div className="hero-trust-row mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
+                  <div className="flex -space-x-2.5">
+                    {[
+                      { initials: 'АМ', bg: 'linear-gradient(135deg, #5FA8A3, #4A9691)' },
+                      { initials: 'ЕК', bg: 'linear-gradient(135deg, #D4A574, #C89563)' },
+                      { initials: 'НС', bg: 'linear-gradient(135deg, #7EBDB8, #5FA8A3)' },
+                      { initials: 'ВО', bg: 'linear-gradient(135deg, #C89563, #D4A574)' },
+                    ].map(({ initials, bg }) => (
+                      <div key={initials}
+                        className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#FEFBF6] text-[10px] font-bold text-white shadow-sm"
+                        style={{ background: bg, fontFamily: 'var(--font-dm-sans)' }}>
+                        {initials}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex items-center gap-0.5">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} className="h-3.5 w-3.5 fill-[#D4A574] text-[#D4A574]" strokeWidth={0} />
+                    ))}
+                  </div>
+                  <span className="text-xs font-medium text-[#4A3B2C]/60"
+                    style={{ fontFamily: 'var(--font-dm-sans)' }}>
+                    1,200+ довольных пациентов
+                  </span>
                 </div>
-                <div className="flex items-center gap-0.5">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="h-3.5 w-3.5 fill-[#D4A574] text-[#D4A574]" strokeWidth={0} />
-                  ))}
-                </div>
-                <span className="text-xs font-medium text-[#4A3B2C]/60"
-                  style={{ fontFamily: 'var(--font-dm-sans)' }}>
-                  1,200+ довольных пациентов
-                </span>
               </div>
             </div>
 
             {/* Right column — full-height image, no rounding, no badges */}
-            <div className="hero-image-col order-1 lg:order-2 relative h-[30dvh] min-h-[160px] sm:h-[36dvh] lg:h-auto lg:flex-1 shrink-0 lg:shrink">
+            <div className="hero-image-col order-1 lg:order-2 relative h-[22dvh] min-h-[120px] sm:h-[26dvh] lg:h-auto lg:flex-1 shrink-0 lg:shrink">
               <Image
                 src="/hero.png"
                 alt="TrustMedX — medical care worldwide"
@@ -220,6 +224,9 @@ export default function Hero({ dict, lang }) {
             </div>
 
       </div>
+
+      {/* Telegram banner — bottom of hero */}
+      <TelegramBanner dict={dict} lang={lang} />
 
     </section>
   );

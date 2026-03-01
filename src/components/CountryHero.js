@@ -1,92 +1,34 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Award, Users, TrendingUp, MapPin } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { Award, Users, TrendingUp, Stethoscope, ChevronRight } from 'lucide-react';
 
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin();
+}
+
+// Harmonized accent colors — muted to complement the warm teal palette
 const countryConfig = {
   turkey: {
-    accentColor: '#E30A17',
+    accent: '#C06558',
     flag: '🇹🇷',
-    gradient: 'from-[#E30A17]/10 via-transparent to-[#E30A17]/5',
   },
   'south-korea': {
-    accentColor: '#0047A0',
+    accent: '#4E7EA6',
     flag: '🇰🇷',
-    gradient: 'from-[#0047A0]/10 via-transparent to-[#0047A0]/5',
   },
   china: {
-    accentColor: '#DE2910',
+    accent: '#9E4D4D',
     flag: '🇨🇳',
-    gradient: 'from-[#DE2910]/10 via-transparent to-[#DE2910]/5',
   },
 };
 
-function StatCard({ icon: Icon, value, label, delay, accentColor }) {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), delay);
-    return () => clearTimeout(timer);
-  }, [delay]);
-
-  return (
-    <div
-      className="relative group"
-      style={{
-        opacity: 0,
-        transform: 'translateY(20px)',
-        animation: isVisible ? `slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards` : 'none',
-      }}
-    >
-      <div className="relative bg-white/80 backdrop-blur-md rounded-2xl p-6 border border-[#4A3B2C]/10 hover:border-[#4A3B2C]/20 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-[#4A3B2C]/5">
-        {/* Glow effect */}
-        <div
-          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"
-          style={{ background: `${accentColor}15` }}
-        />
-
-        <div className="relative">
-          {/* Icon */}
-          <div
-            className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-all duration-500 group-hover:scale-110"
-            style={{
-              background: `linear-gradient(135deg, ${accentColor}15, ${accentColor}05)`,
-            }}
-          >
-            <Icon
-              className="transition-all duration-500"
-              size={24}
-              strokeWidth={2}
-              style={{ color: accentColor }}
-            />
-          </div>
-
-          {/* Value */}
-          <div
-            className="text-3xl font-bold mb-1 transition-colors duration-300"
-            style={{
-              fontFamily: "'Crimson Pro', Georgia, serif",
-              color: '#4A3B2C',
-            }}
-          >
-            {value}
-          </div>
-
-          {/* Label */}
-          <div
-            className="text-sm text-[#4A3B2C]/60"
-            style={{ fontFamily: "'DM Sans', -apple-system, sans-serif" }}
-          >
-            {label}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+const DISPLAY_FONT = "'Fraunces', 'Crimson Pro', Georgia, serif";
+const BODY_FONT = "'DM Sans', -apple-system, sans-serif";
 
 export default function CountryHero({ dict, lang, country }) {
-  const mounted = true;
+  const heroRef = useRef(null);
   const config = countryConfig[country] || countryConfig.turkey;
 
   const countryData = {
@@ -147,180 +89,252 @@ export default function CountryHero({ dict, lang, country }) {
   };
 
   const data = countryData[country] || countryData.turkey;
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Set natural state first so GSAP captures opacity:1 as the target
+      gsap.set(['.ch-badge', '.ch-title', '.ch-sub', '.ch-desc', '.ch-cta', '.ch-visual-panel'], { opacity: 1 });
+
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      // Left column — sequential stagger
+      tl.from('.ch-badge',  { opacity: 0, y: 20, duration: 0.75 })
+        .from('.ch-title',  { opacity: 0, y: 44, duration: 1.0  }, '-=0.45')
+        .from('.ch-sub',    { opacity: 0, y: 20, duration: 0.8  }, '-=0.55')
+        .from('.ch-desc',   { opacity: 0, y: 18, duration: 0.7  }, '-=0.45')
+        .from('.ch-cta',    { opacity: 0, y: 16, duration: 0.65 }, '-=0.35')
+        // Right panel — animate as ONE unit (no children animated separately)
+        .from('.ch-visual-panel', { opacity: 0, x: 36, duration: 1.0 }, '-=1.4');
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const stats = [
+    { icon: Award, value: data.stats.clinics, label: data.stats.clinicsLabel },
+    { icon: TrendingUp, value: data.stats.success, label: data.stats.successLabel },
+    { icon: Stethoscope, value: data.stats.experience, label: data.stats.experienceLabel },
+    { icon: Users, value: data.stats.patients, label: data.stats.patientsLabel },
+  ];
+
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-      {/* Background with gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#FAF8F0] via-[#FEFBF6] to-[#F8F5EE]" />
-
-      {/* Country-specific gradient accent */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${config.gradient}`} />
-
-      {/* Decorative shapes */}
-      <div className="absolute inset-0 overflow-hidden">
+    <section
+      ref={heroRef}
+      className="relative min-h-[92vh] flex items-center overflow-hidden"
+      style={{ backgroundColor: '#FEFBF6' }}
+    >
+      {/* Decorative layer */}
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        {/* Grain texture */}
         <div
-          className="absolute -top-40 -right-40 w-80 h-80 rounded-full blur-3xl opacity-20"
-          style={{ background: config.accentColor }}
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)'/%3E%3C/svg%3E")`,
+            backgroundRepeat: 'repeat',
+          }}
         />
+        {/* Teal brand orb — top right */}
         <div
-          className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full blur-3xl opacity-15"
-          style={{ background: config.accentColor }}
+          className="absolute"
+          style={{
+            top: '-140px', right: '-160px',
+            width: '700px', height: '700px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(95,168,163,0.15) 0%, rgba(95,168,163,0.05) 60%, transparent 100%)',
+            filter: 'blur(64px)',
+          }}
+        />
+        {/* Country accent orb — bottom left */}
+        <div
+          className="absolute"
+          style={{
+            bottom: '-160px', left: '-180px',
+            width: '780px', height: '780px',
+            borderRadius: '50%',
+            background: `radial-gradient(circle, ${config.accent}22 0%, ${config.accent}08 60%, transparent 100%)`,
+            filter: 'blur(72px)',
+          }}
         />
       </div>
 
-      {/* Texture overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.015] mix-blend-overlay"
-        style={{
-          backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 400\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' /%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\' /%3E%3C/svg%3E")',
-        }}
-      />
+      {/* Content */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-20 lg:py-28">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Content */}
+          {/* Left — text content */}
           <div>
-            {/* Flag badge */}
+            {/* Badge */}
             <div
-              className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm border mb-6"
-              style={{
-                borderColor: `${config.accentColor}30`,
-                opacity: 0,
-                animation: mounted ? 'fadeIn 0.8s ease-out 0.2s forwards' : 'none',
-              }}
+              className="ch-badge inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/70 backdrop-blur-sm border border-[#4A3B2C]/10 mb-8 shadow-sm"
             >
-              <span className="text-2xl">{config.flag}</span>
+              <span className="text-xl">{config.flag}</span>
               <span
-                className="text-sm font-semibold"
-                style={{
-                  fontFamily: "'DM Sans', -apple-system, sans-serif",
-                  color: config.accentColor,
-                }}
+                className="text-[13px] font-semibold tracking-wide"
+                style={{ fontFamily: BODY_FONT, color: config.accent }}
               >
                 {data.name}
               </span>
+              <span
+                className="w-1.5 h-1.5 rounded-full animate-pulse"
+                style={{ background: config.accent }}
+              />
             </div>
 
             {/* Title */}
             <h1
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#4A3B2C] mb-6 leading-tight"
-              style={{
-                fontFamily: "'Crimson Pro', Georgia, serif",
-                opacity: 0,
-                animation: mounted ? 'slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards' : 'none',
-              }}
+              className="ch-title text-[2.6rem] md:text-[3.25rem] lg:text-[3.75rem] font-semibold leading-[1.1] tracking-tight text-[#4A3B2C] mb-5"
+              style={{ fontFamily: DISPLAY_FONT }}
             >
               {data.hero.title}
             </h1>
 
             {/* Subtitle */}
             <p
-              className="text-xl md:text-2xl mb-4"
-              style={{
-                fontFamily: "'Crimson Pro', Georgia, serif",
-                color: config.accentColor,
-                opacity: 0,
-                animation: mounted ? 'slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards' : 'none',
-              }}
+              className="ch-sub text-xl md:text-2xl mb-5 leading-snug"
+              style={{ fontFamily: DISPLAY_FONT, color: config.accent }}
             >
               {data.hero.subtitle}
             </p>
 
             {/* Description */}
             <p
-              className="text-lg text-[#4A3B2C]/70 leading-relaxed mb-8"
-              style={{
-                fontFamily: "'DM Sans', -apple-system, sans-serif",
-                opacity: 0,
-                animation: mounted ? 'slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards' : 'none',
-              }}
+              className="ch-desc text-base text-[#4A3B2C]/65 leading-relaxed mb-9 max-w-[500px]"
+              style={{ fontFamily: BODY_FONT }}
             >
               {data.hero.description}
             </p>
 
-            {/* CTA Button */}
-            <div
-              style={{
-                opacity: 0,
-                animation: mounted ? 'slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards' : 'none',
-              }}
-            >
+            {/* CTA buttons */}
+            <div className="ch-cta flex items-center gap-4 flex-wrap">
               <button
-                className="group relative px-8 py-4 rounded-xl font-semibold text-white overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-xl"
+                className="group relative px-7 py-3.5 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:shadow-xl"
                 style={{
-                  background: `linear-gradient(135deg, ${config.accentColor}, ${config.accentColor}dd)`,
-                  fontFamily: "'DM Sans', -apple-system, sans-serif",
+                  background: 'linear-gradient(135deg, #1a3a38, #2C5F5D)',
+                  fontFamily: BODY_FONT,
+                  boxShadow: '0 6px 24px rgba(44,95,93,0.28)',
                 }}
               >
-                {/* Shimmer effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                 <span className="relative flex items-center gap-2">
                   {lang === 'ru' && 'Получить консультацию'}
                   {lang === 'en' && 'Get Consultation'}
                   {lang === 'ar' && 'احصل على استشارة'}
-                  <MapPin size={18} />
+                  <ChevronRight size={16} />
                 </span>
+              </button>
+
+              <button
+                className="px-6 py-3.5 rounded-xl font-medium text-[#4A3B2C] border border-[#4A3B2C]/15 bg-white/50 hover:bg-white/80 transition-all duration-300 text-sm"
+                style={{ fontFamily: BODY_FONT }}
+              >
+                {lang === 'ru' && 'Узнать больше'}
+                {lang === 'en' && 'Learn More'}
+                {lang === 'ar' && 'اعرف المزيد'}
               </button>
             </div>
           </div>
 
-          {/* Right: Stats Grid */}
-          <div className="grid grid-cols-2 gap-4">
-            <StatCard
-              icon={Award}
-              value={data.stats.clinics}
-              label={data.stats.clinicsLabel}
-              delay={700}
-              accentColor={config.accentColor}
-            />
-            <StatCard
-              icon={TrendingUp}
-              value={data.stats.success}
-              label={data.stats.successLabel}
-              delay={800}
-              accentColor={config.accentColor}
-            />
-            <StatCard
-              icon={Award}
-              value={data.stats.experience}
-              label={data.stats.experienceLabel}
-              delay={900}
-              accentColor={config.accentColor}
-            />
-            <StatCard
-              icon={Users}
-              value={data.stats.patients}
-              label={data.stats.patientsLabel}
-              delay={1000}
-              accentColor={config.accentColor}
-            />
+          {/* Right — visual panel */}
+          <div className="ch-visual-panel relative">
+            {/* Main card */}
+            <div
+              className="relative rounded-3xl overflow-hidden border border-white/50"
+              style={{
+                background: `linear-gradient(150deg, ${config.accent}0A 0%, ${config.accent}05 45%, rgba(95,168,163,0.07) 100%)`,
+                boxShadow: '0 8px 48px rgba(74,59,44,0.08), inset 0 1px 0 rgba(255,255,255,0.7)',
+              }}
+            >
+              {/* Top area — flag + country name */}
+              <div className="px-8 pt-8 pb-4">
+                <div className="flex items-center gap-4 mb-5">
+                  <span className="text-6xl leading-none">{config.flag}</span>
+                  <div>
+                    <div
+                      className="text-[10px] uppercase tracking-[0.18em] text-[#4A3B2C]/40 mb-1"
+                      style={{ fontFamily: BODY_FONT }}
+                    >
+                      {lang === 'ru' ? 'Медицинский туризм' : lang === 'en' ? 'Medical Tourism' : 'السياحة الطبية'}
+                    </div>
+                    <div
+                      className="text-2xl font-semibold text-[#4A3B2C]"
+                      style={{ fontFamily: DISPLAY_FONT }}
+                    >
+                      {data.name}
+                    </div>
+                  </div>
+                </div>
+                {/* Accent divider */}
+                <div
+                  className="h-px"
+                  style={{
+                    background: `linear-gradient(to right, ${config.accent}45, ${config.accent}15, transparent)`,
+                  }}
+                />
+              </div>
+
+              {/* Stats grid */}
+              <div className="grid grid-cols-2 gap-3 px-6 pb-8 pt-4">
+                {stats.map(({ icon: Icon, value, label }, i) => (
+                  <div
+                    key={i}
+                    className="group relative p-4 rounded-2xl bg-white/80 backdrop-blur-sm border border-white/60 hover:bg-white/95 hover:-translate-y-0.5 transition-all duration-300"
+                  style={{ boxShadow: '0 2px 16px rgba(74,59,44,0.07), inset 0 1px 0 rgba(255,255,255,0.9)' }}
+                  >
+                    <div
+                      className="w-9 h-9 rounded-lg flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110"
+                      style={{ background: `${config.accent}18` }}
+                    >
+                      <Icon size={18} strokeWidth={2} style={{ color: config.accent }} />
+                    </div>
+                    <div
+                      className="text-2xl font-bold text-[#4A3B2C] leading-none mb-1"
+                      style={{ fontFamily: DISPLAY_FONT }}
+                    >
+                      {value}
+                    </div>
+                    <div
+                      className="text-xs text-[#4A3B2C]/50 leading-tight"
+                      style={{ fontFamily: BODY_FONT }}
+                    >
+                      {label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Floating TrustMedX partner badge */}
+            <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl px-5 py-3 border border-white/70" style={{ boxShadow: '0 8px 32px rgba(74,59,44,0.12), inset 0 1px 0 rgba(255,255,255,1)' }}>
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ background: 'linear-gradient(135deg, #1a3a38, #2C5F5D)' }}
+                >
+                  <span
+                    className="text-white text-xs font-bold"
+                    style={{ fontFamily: BODY_FONT }}
+                  >
+                    T
+                  </span>
+                </div>
+                <div>
+                  <div
+                    className="text-[10px] text-[#4A3B2C]/45 uppercase tracking-wider mb-0.5"
+                    style={{ fontFamily: BODY_FONT }}
+                  >
+                    TrustMedX
+                  </div>
+                  <div
+                    className="text-xs font-semibold text-[#4A3B2C]"
+                    style={{ fontFamily: BODY_FONT }}
+                  >
+                    {lang === 'ru' ? 'Официальный партнёр' : lang === 'en' ? 'Official Partner' : 'شريك رسمي'}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
-      `}</style>
     </section>
   );
 }

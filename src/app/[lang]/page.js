@@ -17,6 +17,9 @@ export default async function HomePage({ params }) {
       {/* Hero Section */}
       <Hero dict={dict} lang={lang} />
 
+      {/* Featured Destinations Section */}
+      <HomeDestinations dict={dict} lang={lang} />
+
       {/* Services Section */}
       <HomeServices dict={dict} lang={lang} />
 
@@ -28,9 +31,6 @@ export default async function HomePage({ params }) {
 
       {/* About Us Summary Section */}
       <HomeAbout dict={dict} lang={lang} />
-
-      {/* Featured Destinations Section */}
-      <HomeDestinations dict={dict} lang={lang} />
 
       {/* Testimonials Section */}
       <TestimonialsSection dict={dict} />
