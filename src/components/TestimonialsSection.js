@@ -240,7 +240,7 @@ export default function TestimonialsSection({ dict }) {
                   onClick={() => changePage(pageIndex)}
                   disabled={isAnimating}
                   className={`h-2.5 rounded-full transition-all duration-300 ${
-                    activePage === pageIndex ? 'w-8 bg-[#5FA8A3]' : 'w-2.5 bg-white/35 hover:bg-white/55'
+                    activePage === pageIndex ? 'w-8 bg-[#2C5F5D]' : 'w-2.5 bg-white/35 hover:bg-white/55'
                   }`}
                   aria-label={`Go to testimonials page ${pageIndex + 1}`}
                 />

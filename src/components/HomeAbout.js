@@ -156,13 +156,13 @@ export default function HomeAbout({ dict, lang }) {
             <div className="ha-cta-wrap pt-1">
               <Link
                 href={`/${lang}/about`}
-                className="group inline-flex items-center gap-2.5 rounded-xl border px-6 py-3 text-sm font-semibold uppercase text-[#2F8F89] transition-all duration-300 hover:-translate-y-0.5 hover:text-[#256F6A]"
+                className="group inline-flex items-center gap-2.5 rounded-xl border px-6 py-3 text-sm font-semibold uppercase text-[#2C5F5D] transition-all duration-300 hover:-translate-y-0.5 hover:text-[#1a3a38]"
                 style={{
                   fontFamily: BODY_FONT,
                   letterSpacing: '0.07em',
-                  borderColor: 'rgba(95,168,163,0.45)',
-                  background: 'rgba(95,168,163,0.08)',
-                  boxShadow: '0 6px 20px rgba(95,168,163,0.14)',
+                  borderColor: 'rgba(44,95,93,0.45)',
+                  background: 'rgba(44,95,93,0.08)',
+                  boxShadow: '0 6px 20px rgba(44,95,93,0.14)',
                 }}
               >
                 <span>{about.cta}</span>

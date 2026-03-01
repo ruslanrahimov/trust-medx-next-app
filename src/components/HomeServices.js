@@ -11,7 +11,7 @@ if (typeof window !== 'undefined') {
 }
 
 const CARD_ACCENTS = [
-  { border: '#5FA8A3', icon: '#5FA8A3', iconBg: 'rgba(95,168,163,0.10)', IconComponent: HeartPulse },
+  { border: '#2C5F5D', icon: '#2C5F5D', iconBg: 'rgba(44,95,93,0.10)', IconComponent: HeartPulse },
   { border: '#D4A574', icon: '#D4A574', iconBg: 'rgba(212,165,116,0.10)', IconComponent: Globe },
   { border: '#4A3B2C', icon: '#4A3B2C', iconBg: 'rgba(74,59,44,0.08)', IconComponent: GraduationCap },
 ];
@@ -201,7 +201,7 @@ export default function HomeServices({ dict, lang }) {
                     className="group/cta inline-flex items-center gap-2 font-semibold transition-colors duration-300"
                     style={{
                       fontFamily: "'DM Sans', sans-serif",
-                      color: isHovered ? accent.border : '#5FA8A3',
+                      color: isHovered ? accent.border : '#2C5F5D',
                       fontSize: '0.9rem',
                     }}>
                     <span>Узнать больше</span>

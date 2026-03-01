@@ -183,11 +183,11 @@ export default function ConsultationCTA({ dict, lang }) {
                     className="group relative w-full inline-flex items-center justify-center gap-3 px-5 sm:px-6 py-3.5 sm:py-4 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:-translate-y-0.5"
                     style={{
                       fontFamily: "'DM Sans', sans-serif",
-                      background: 'linear-gradient(135deg, #5FA8A3 0%, #4A9691 100%)',
-                      boxShadow: '0 8px 24px rgba(95,168,163,0.35)',
+                      background: 'linear-gradient(135deg, #1a3a38 0%, #2C5F5D 100%)',
+                      boxShadow: '0 8px 24px rgba(44,95,93,0.35)',
                     }}
-                    onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 12px 32px rgba(95,168,163,0.50)'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 8px 24px rgba(95,168,163,0.35)'; }}
+                    onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 12px 32px rgba(44,95,93,0.50)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 8px 24px rgba(44,95,93,0.35)'; }}
                   >
                     <span className="btn-shine pointer-events-none absolute inset-y-0 w-1/3 -translate-x-full skew-x-[-20deg]"
                       style={{ background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.22), transparent)' }} />

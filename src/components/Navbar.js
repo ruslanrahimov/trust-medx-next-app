@@ -119,9 +119,9 @@ export default function Navbar({ lang, dict }) {
                                                                 <div
                                                                         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition-all duration-500 group-hover:gap-3 group-hover:px-6 cursor-pointer"
                                                                         style={{
-                                                                                background: 'linear-gradient(135deg, #5FA8A3 0%, #4A9691 100%)',
+                                                                                background: 'linear-gradient(135deg, #1a3a38 0%, #2C5F5D 100%)',
                                                                                 color: 'white',
-                                                                                boxShadow: '0 4px 12px rgba(95, 168, 163, 0.4)',
+                                                                                boxShadow: '0 4px 12px rgba(44, 95, 93, 0.4)',
                                                                                 fontFamily: 'var(--font-dm-sans)',
                                                                         }}
                                                                 >

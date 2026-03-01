@@ -329,7 +329,7 @@ export default function ConsultationModal({ isOpen, onClose, dict, lang }) {
                 <button
                   type="submit"
                   disabled={status === 'sending' || !formState.specialty}
-                  className="group/btn w-full relative overflow-hidden px-5 py-2 sm:py-2.5 rounded-lg bg-gradient-to-br from-[#5FA8A3] to-[#4A9691] text-white font-bold text-sm sm:text-base shadow-xl shadow-[#5FA8A3]/30 transition-all duration-500 hover:shadow-2xl hover:shadow-[#5FA8A3]/40 hover:-translate-y-0.5 hover:scale-[1.01] disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:scale-100"
+                  className="group/btn w-full relative overflow-hidden px-5 py-2 sm:py-2.5 rounded-lg bg-gradient-to-br from-[#1a3a38] to-[#2C5F5D] text-white font-bold text-sm sm:text-base shadow-xl shadow-[#2C5F5D]/30 transition-all duration-500 hover:shadow-2xl hover:shadow-[#2C5F5D]/40 hover:-translate-y-0.5 hover:scale-[1.01] disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:scale-100"
                   style={{ fontFamily: 'var(--font-dm-sans)' }}
                 >
                   {/* Shimmer effect */}
