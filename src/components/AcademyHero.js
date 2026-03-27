@@ -94,7 +94,7 @@ export default function AcademyHero({ dict }) {
         {/* Title */}
         <h1
           ref={titleRef}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-[1.1]"
+          className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-[1.15]"
         >
           <div className="hero-title-line mb-2">
             <span className="text-[#4A3B2C] font-[family-name:var(--font-fraunces)]">

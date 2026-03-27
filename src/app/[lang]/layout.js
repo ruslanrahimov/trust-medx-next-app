@@ -4,6 +4,7 @@ import { i18n, getTextDirection, getDictionary } from '@/lib/i18n';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import HtmlAttrs from '@/components/HtmlAttrs';
+import ContactWidget from '@/components/ContactWidget';
 import '@/components/Navbar.css';
 import '@/components/LanguageSwitcher.css';
 
@@ -54,6 +55,7 @@ export default async function LangLayout({ children, params }) {
         {children}
       </main>
       <Footer lang={lang} dict={dict} />
+      <ContactWidget lang={lang} />
     </div>
   );
 }

@@ -59,8 +59,8 @@ export default function CountryCTA({ dict, lang, country }) {
     {
       icon: Phone,
       title: lang === 'ru' ? 'Телефон' : lang === 'en' ? 'Phone' : 'الهاتف',
-      value: '+7 (999) 123-45-67',
-      href: 'tel:+79991234567',
+      value: '+90 (533) 509 00 32',
+      href: 'tel:+905335090032',
     },
     {
       icon: Mail,
@@ -71,8 +71,8 @@ export default function CountryCTA({ dict, lang, country }) {
     {
       icon: MessageCircle,
       title: lang === 'ru' ? 'WhatsApp' : lang === 'en' ? 'WhatsApp' : 'واتساب',
-      value: '+7 (999) 123-45-67',
-      href: 'https://wa.me/79991234567',
+      value: '+90 (533) 509 00 32',
+      href: 'https://wa.me/905335090032',
     },
   ];
 

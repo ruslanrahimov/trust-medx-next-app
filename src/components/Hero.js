@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, Star } from 'lucide-react';
@@ -120,11 +119,7 @@ export default function Hero({ dict, lang }) {
 
                 {/* Feature highlights */}
                 <ul className="mb-5 space-y-2">
-                  {[
-                    'Подбор клиники и врача под ваш диагноз',
-                    'Визовая поддержка и организация трансфера',
-                    'Личный куратор на всех этапах лечения',
-                  ].map((item) => (
+                  {forPatientsDict.features.map((item) => (
                     <li key={item} className="hero-feature flex items-center gap-3 text-sm text-[#4A3B2C]/70" style={{ fontFamily: 'var(--font-dm-sans)' }}>
                       <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full" style={{ background: 'rgba(95,168,163,0.15)' }}>
                         <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
@@ -136,31 +131,24 @@ export default function Hero({ dict, lang }) {
                   ))}
                 </ul>
 
-                {/* CTA buttons */}
-                <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:gap-4">
+                {/* CTA */}
+                <div className="mb-5">
                   <button
                     onClick={() => window.dispatchEvent(new Event('open-consultation-modal'))}
-                    className="hero-cta-btn group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-2xl px-7 py-3.5 text-sm font-semibold uppercase text-white transition-all duration-300 hover:-translate-y-0.5"
+                    className="hero-cta-btn group relative inline-flex w-full sm:w-auto items-center justify-center sm:justify-start gap-3 rounded-xl px-6 py-3.5 sm:py-3 text-white shadow-md shadow-[#4A9691]/25 transition-all duration-300 hover:shadow-lg hover:shadow-[#4A9691]/35 hover:-translate-y-0.5 active:translate-y-0 active:shadow-sm"
                     style={{
                       fontFamily: 'var(--font-dm-sans)',
-                      background: 'linear-gradient(135deg, #1a3a38 0%, #2C5F5D 100%)',
-                      boxShadow: '0 8px 28px rgba(44,95,93,0.30)',
-                      letterSpacing: '0.06em',
+                      background: 'linear-gradient(135deg, #4A9691 0%, #2C5F5D 100%)',
                     }}
                   >
-                    <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-                    <span className="relative z-10">{heroDict.ctaPrimary}</span>
-                    <ArrowRight className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2.5} />
+                    <span className="text-sm font-semibold tracking-wide">
+                      {forPatientsDict.ctaModal}
+                    </span>
+                    <ArrowRight
+                      className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                      strokeWidth={2.5}
+                    />
                   </button>
-
-                  <Link
-                    href={`/${lang}/about`}
-                    className="hero-cta-btn group inline-flex items-center justify-center gap-2 rounded-2xl bg-white/70 px-7 py-3.5 text-sm font-semibold uppercase text-[#4A3B2C] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-md"
-                    style={{ fontFamily: 'var(--font-dm-sans)', letterSpacing: '0.06em', border: '1px solid rgba(74,59,44,0.18)' }}
-                  >
-                    <span>{heroDict.ctaSecondary}</span>
-                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2} />
-                  </Link>
                 </div>
 
               </div>
@@ -210,7 +198,7 @@ export default function Hero({ dict, lang }) {
             </div>
 
             {/* Right column — full-height image, no rounding, no badges */}
-            <div className="hero-image-col order-1 lg:order-2 relative h-[22dvh] min-h-[120px] sm:h-[26dvh] lg:h-auto lg:flex-1 shrink-0 lg:shrink">
+            <div className="hero-image-col order-1 lg:order-2 relative h-[52dvh] min-h-[260px] sm:h-[42dvh] lg:h-auto lg:flex-1 shrink-0 lg:shrink">
               <Image
                 src="/hero.png"
                 alt="TrustMedX — medical care worldwide"
