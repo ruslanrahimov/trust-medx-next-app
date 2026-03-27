@@ -77,7 +77,7 @@ function formatPhoneAsYouType(digits, countryCode) {
   return result;
 }
 
-export default function PhoneInputField({ onChange, required }) {
+export default function PhoneInputField({ onChange, hasError, onBlur }) {
   const [selectedCountry, setSelectedCountry] = useState(
     ALL_COUNTRIES.find(c => c.code === 'RU')
   );
@@ -187,7 +187,11 @@ export default function PhoneInputField({ onChange, required }) {
     <>
       <div
         ref={containerRef}
-        className="flex rounded-lg border-2 border-[#4A3B2C]/10 bg-white/60 transition-all duration-300 focus-within:border-[#D4A574] focus-within:bg-white focus-within:shadow-lg focus-within:shadow-[#D4A574]/20 hover:border-[#4A3B2C]/20"
+        className={`flex rounded-lg border-2 bg-white/60 transition-all duration-300 focus-within:bg-white focus-within:shadow-lg hover:border-[#4A3B2C]/20 ${
+          hasError
+            ? 'border-red-400 focus-within:border-red-400 focus-within:shadow-red-200/50'
+            : 'border-[#4A3B2C]/10 focus-within:border-[#D4A574] focus-within:shadow-[#D4A574]/20'
+        }`}
       >
         {/* Country selector button */}
         <button
@@ -214,8 +218,8 @@ export default function PhoneInputField({ onChange, required }) {
           type="tel"
           value={displayValue}
           onChange={handlePhoneInput}
+          onBlur={onBlur}
           placeholder={selectedCountry.example}
-          required={required}
           className="flex-1 min-w-0 px-2.5 py-1.5 sm:py-2 bg-transparent text-[#4A3B2C] placeholder-[#4A3B2C]/40 focus:outline-none text-sm sm:text-base rounded-r-[6px]"
           style={{ fontFamily: 'var(--font-dm-sans)' }}
           dir="ltr"

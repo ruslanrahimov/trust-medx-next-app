@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { isValidPhoneNumber } from 'libphonenumber-js';
 import { X, Send, CheckCircle, AlertCircle, Heart, Activity, Bone, Smile, Sparkles, Stethoscope } from 'lucide-react';
 import PhoneInputField from './PhoneInputField';
 
@@ -16,6 +17,8 @@ export default function ConsultationModal({ isOpen, onClose, dict, lang }) {
   const [status, setStatus] = useState('idle'); // idle, sending, success, error
   const [isClosing, setIsClosing] = useState(false);
   const [phoneKey, setPhoneKey] = useState(0);
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
 
   // Specialties with icons
   const specialties = [
@@ -55,35 +58,122 @@ export default function ConsultationModal({ isOpen, onClose, dict, lang }) {
       });
       setStatus('idle');
       setPhoneKey(k => k + 1);
+      setErrors({});
+      setTouched({});
     }, 300);
   };
 
+  const validate = (fields) => {
+    const e = {};
+    if (!fields.firstName.trim()) {
+      e.firstName = 'Введите имя';
+    } else if (fields.firstName.trim().length < 2) {
+      e.firstName = 'Минимум 2 символа';
+    }
+    if (!fields.lastName.trim()) {
+      e.lastName = 'Введите фамилию';
+    } else if (fields.lastName.trim().length < 2) {
+      e.lastName = 'Минимум 2 символа';
+    }
+    if (!fields.email.trim()) {
+      e.email = 'Введите email';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email)) {
+      e.email = 'Некорректный email';
+    }
+    if (!fields.phone) {
+      e.phone = 'Введите телефон';
+    } else {
+      try {
+        if (!isValidPhoneNumber(fields.phone)) {
+          e.phone = 'Неверный номер телефона';
+        }
+      } catch {
+        e.phone = 'Неверный номер телефона';
+      }
+    }
+    if (!fields.specialty) {
+      e.specialty = 'Выберите направление';
+    }
+    if (!fields.description.trim()) {
+      e.description = 'Опишите вашу ситуацию';
+    } else if (fields.description.trim().length < 10) {
+      e.description = 'Минимум 10 символов';
+    }
+    return e;
+  };
+
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    setTouched(prev => ({ ...prev, [name]: true }));
+    const fieldErrors = validate(formState);
+    setErrors(prev => ({ ...prev, [name]: fieldErrors[name] }));
+  };
+
   const handleChange = (e) => {
-    setFormState({
-      ...formState,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    const newState = { ...formState, [name]: value };
+    setFormState(newState);
+    if (touched[name]) {
+      const fieldErrors = validate(newState);
+      setErrors(prev => ({ ...prev, [name]: fieldErrors[name] }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const fieldErrors = validate(formState);
+    if (Object.keys(fieldErrors).length > 0) {
+      setErrors(fieldErrors);
+      setTouched({ firstName: true, lastName: true, email: true, phone: true, specialty: true, description: true });
+      return;
+    }
+
     setStatus('sending');
 
-    // Simulate form submission
-    setTimeout(() => {
-      const success = Math.random() > 0.1; // 90% success rate
-      setStatus(success ? 'success' : 'error');
+    const specialtyLabel = specialties.find(s => s.value === formState.specialty)?.label || formState.specialty || '—';
 
-      if (success) {
-        // Auto-close after success
+    const message = [
+      '🏥 *Новая заявка на консультацию*',
+      '',
+      `👤 *Имя:* ${formState.firstName} ${formState.lastName}`,
+      `📧 *Email:* ${formState.email}`,
+      `📱 *Телефон:* ${formState.phone || '—'}`,
+      `🩺 *Специальность:* ${specialtyLabel}`,
+      `📝 *Описание:*\n${formState.description}`,
+    ].join('\n');
+
+    try {
+      const token = process.env.NEXT_PUBLIC_TELEGRAM_BOT_TOKEN;
+      const chatId = process.env.NEXT_PUBLIC_TELEGRAM_CHAT_ID;
+
+      const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: 'Markdown',
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.ok) {
+        setStatus('success');
         setTimeout(() => {
           handleClose();
         }, 2500);
       } else {
-        // Reset to idle after error
+        console.error('Telegram error:', data);
+        setStatus('error');
         setTimeout(() => setStatus('idle'), 4000);
       }
-    }, 1500);
+    } catch (err) {
+      console.error('Submit error:', err);
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 4000);
+    }
   };
 
   if (!isOpen && !isClosing) return null;
@@ -168,12 +258,19 @@ export default function ConsultationModal({ isOpen, onClose, dict, lang }) {
                     name="firstName"
                     value={formState.firstName}
                     onChange={handleChange}
-                    required
+                    onBlur={handleBlur}
                     placeholder={dict?.consultationModal?.placeholders?.firstName || 'Введите ваше имя'}
-                    className="w-full px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg border-2 border-[#4A3B2C]/10 bg-white/60 text-[#4A3B2C] placeholder-[#4A3B2C]/40 transition-all duration-300 focus:outline-none focus:border-[#D4A574] focus:bg-white focus:shadow-lg focus:shadow-[#D4A574]/20 hover:border-[#4A3B2C]/20 text-sm sm:text-base"
+                    className={`w-full px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg border-2 bg-white/60 text-[#4A3B2C] placeholder-[#4A3B2C]/40 transition-all duration-300 focus:outline-none focus:bg-white focus:shadow-lg hover:border-[#4A3B2C]/20 text-sm sm:text-base ${
+                      touched.firstName && errors.firstName
+                        ? 'border-red-400 focus:border-red-400 focus:shadow-red-200/50'
+                        : 'border-[#4A3B2C]/10 focus:border-[#D4A574] focus:shadow-[#D4A574]/20'
+                    }`}
                     style={{ fontFamily: 'var(--font-dm-sans)' }}
                     dir={lang === 'ar' ? 'rtl' : 'ltr'}
                   />
+                  {touched.firstName && errors.firstName && (
+                    <p className="mt-0.5 text-[11px] text-red-500" style={{ fontFamily: 'var(--font-dm-sans)' }}>{errors.firstName}</p>
+                  )}
                 </div>
 
                 {/* Last Name */}
@@ -191,12 +288,19 @@ export default function ConsultationModal({ isOpen, onClose, dict, lang }) {
                     name="lastName"
                     value={formState.lastName}
                     onChange={handleChange}
-                    required
+                    onBlur={handleBlur}
                     placeholder={dict?.consultationModal?.placeholders?.lastName || 'Введите вашу фамилию'}
-                    className="w-full px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg border-2 border-[#4A3B2C]/10 bg-white/60 text-[#4A3B2C] placeholder-[#4A3B2C]/40 transition-all duration-300 focus:outline-none focus:border-[#D4A574] focus:bg-white focus:shadow-lg focus:shadow-[#D4A574]/20 hover:border-[#4A3B2C]/20 text-sm sm:text-base"
+                    className={`w-full px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg border-2 bg-white/60 text-[#4A3B2C] placeholder-[#4A3B2C]/40 transition-all duration-300 focus:outline-none focus:bg-white focus:shadow-lg hover:border-[#4A3B2C]/20 text-sm sm:text-base ${
+                      touched.lastName && errors.lastName
+                        ? 'border-red-400 focus:border-red-400 focus:shadow-red-200/50'
+                        : 'border-[#4A3B2C]/10 focus:border-[#D4A574] focus:shadow-[#D4A574]/20'
+                    }`}
                     style={{ fontFamily: 'var(--font-dm-sans)' }}
                     dir={lang === 'ar' ? 'rtl' : 'ltr'}
                   />
+                  {touched.lastName && errors.lastName && (
+                    <p className="mt-0.5 text-[11px] text-red-500" style={{ fontFamily: 'var(--font-dm-sans)' }}>{errors.lastName}</p>
+                  )}
                 </div>
               </div>
 
@@ -217,12 +321,19 @@ export default function ConsultationModal({ isOpen, onClose, dict, lang }) {
                     name="email"
                     value={formState.email}
                     onChange={handleChange}
-                    required
+                    onBlur={handleBlur}
                     placeholder={dict?.consultationModal?.placeholders?.email || 'example@mail.com'}
-                    className="w-full px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg border-2 border-[#4A3B2C]/10 bg-white/60 text-[#4A3B2C] placeholder-[#4A3B2C]/40 transition-all duration-300 focus:outline-none focus:border-[#D4A574] focus:bg-white focus:shadow-lg focus:shadow-[#D4A574]/20 hover:border-[#4A3B2C]/20 text-sm sm:text-base"
+                    className={`w-full px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg border-2 bg-white/60 text-[#4A3B2C] placeholder-[#4A3B2C]/40 transition-all duration-300 focus:outline-none focus:bg-white focus:shadow-lg hover:border-[#4A3B2C]/20 text-sm sm:text-base ${
+                      touched.email && errors.email
+                        ? 'border-red-400 focus:border-red-400 focus:shadow-red-200/50'
+                        : 'border-[#4A3B2C]/10 focus:border-[#D4A574] focus:shadow-[#D4A574]/20'
+                    }`}
                     style={{ fontFamily: 'var(--font-dm-sans)' }}
                     dir="ltr"
                   />
+                  {touched.email && errors.email && (
+                    <p className="mt-0.5 text-[11px] text-red-500" style={{ fontFamily: 'var(--font-dm-sans)' }}>{errors.email}</p>
+                  )}
                 </div>
 
                 {/* Phone */}
@@ -235,9 +346,23 @@ export default function ConsultationModal({ isOpen, onClose, dict, lang }) {
                   </label>
                   <PhoneInputField
                     key={phoneKey}
-                    onChange={(val) => setFormState(prev => ({ ...prev, phone: val }))}
-                    required
+                    onChange={(val) => {
+                      setFormState(prev => ({ ...prev, phone: val }));
+                      if (touched.phone) {
+                        const fe = validate({ ...formState, phone: val });
+                        setErrors(prev => ({ ...prev, phone: fe.phone }));
+                      }
+                    }}
+                    onBlur={() => {
+                      setTouched(prev => ({ ...prev, phone: true }));
+                      const fe = validate(formState);
+                      setErrors(prev => ({ ...prev, phone: fe.phone }));
+                    }}
+                    hasError={!!(touched.phone && errors.phone)}
                   />
+                  {touched.phone && errors.phone && (
+                    <p className="mt-0.5 text-[11px] text-red-500" style={{ fontFamily: 'var(--font-dm-sans)' }}>{errors.phone}</p>
+                  )}
                 </div>
               </div>
 
@@ -258,10 +383,16 @@ export default function ConsultationModal({ isOpen, onClose, dict, lang }) {
                       <button
                         key={spec.value}
                         type="button"
-                        onClick={() => setFormState({ ...formState, specialty: spec.value })}
+                        onClick={() => {
+                          setFormState({ ...formState, specialty: spec.value });
+                          setTouched(prev => ({ ...prev, specialty: true }));
+                          setErrors(prev => ({ ...prev, specialty: undefined }));
+                        }}
                         className={`relative p-2 rounded-lg border-2 transition-all duration-300 text-left group/spec ${
                           isSelected
                             ? 'border-[#D4A574] bg-gradient-to-br from-[#D4A574]/20 to-[#D4A574]/5 shadow-lg shadow-[#D4A574]/20'
+                            : touched.specialty && errors.specialty
+                            ? 'border-red-300 bg-white/60 hover:border-[#D4A574]/50 hover:bg-white/80'
                             : 'border-[#4A3B2C]/10 bg-white/60 hover:border-[#D4A574]/50 hover:bg-white/80'
                         }`}
                       >
@@ -288,6 +419,9 @@ export default function ConsultationModal({ isOpen, onClose, dict, lang }) {
                     );
                   })}
                 </div>
+                {touched.specialty && errors.specialty && (
+                  <p className="mt-1 text-[11px] text-red-500" style={{ fontFamily: 'var(--font-dm-sans)' }}>{errors.specialty}</p>
+                )}
               </div>
 
               {/* Description */}
@@ -304,20 +438,27 @@ export default function ConsultationModal({ isOpen, onClose, dict, lang }) {
                   name="description"
                   value={formState.description}
                   onChange={handleChange}
-                  required
+                  onBlur={handleBlur}
                   rows={2}
                   placeholder={dict?.consultationModal?.placeholders?.description || 'Опишите вашу ситуацию или вопрос...'}
-                  className="w-full px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg border-2 border-[#4A3B2C]/10 bg-white/60 text-[#4A3B2C] placeholder-[#4A3B2C]/40 transition-all duration-300 focus:outline-none focus:border-[#D4A574] focus:bg-white focus:shadow-lg focus:shadow-[#D4A574]/20 resize-none hover:border-[#4A3B2C]/20 text-sm sm:text-base"
+                  className={`w-full px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg border-2 bg-white/60 text-[#4A3B2C] placeholder-[#4A3B2C]/40 transition-all duration-300 focus:outline-none focus:bg-white focus:shadow-lg resize-none hover:border-[#4A3B2C]/20 text-sm sm:text-base ${
+                    touched.description && errors.description
+                      ? 'border-red-400 focus:border-red-400 focus:shadow-red-200/50'
+                      : 'border-[#4A3B2C]/10 focus:border-[#D4A574] focus:shadow-[#D4A574]/20'
+                  }`}
                   style={{ fontFamily: 'var(--font-dm-sans)' }}
                   dir={lang === 'ar' ? 'rtl' : 'ltr'}
                 />
+                {touched.description && errors.description && (
+                  <p className="mt-0.5 text-[11px] text-red-500" style={{ fontFamily: 'var(--font-dm-sans)' }}>{errors.description}</p>
+                )}
               </div>
 
               {/* Submit Button */}
               <div style={{ animation: 'slideUp 0.6s ease-out 0.6s both' }}>
                 <button
                   type="submit"
-                  disabled={status === 'sending' || !formState.specialty}
+                  disabled={status === 'sending'}
                   className="group/btn w-full relative overflow-hidden px-5 py-2 sm:py-2.5 rounded-lg bg-gradient-to-br from-[#1a3a38] to-[#2C5F5D] text-white font-bold text-sm sm:text-base shadow-xl shadow-[#2C5F5D]/30 transition-all duration-500 hover:shadow-2xl hover:shadow-[#2C5F5D]/40 hover:-translate-y-0.5 hover:scale-[1.01] disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:scale-100"
                   style={{ fontFamily: 'var(--font-dm-sans)' }}
                 >
