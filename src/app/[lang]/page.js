@@ -2,7 +2,7 @@ import { getDictionary } from '@/lib/i18n';
 import Hero from '@/components/Hero';
 import HomeServices from '@/components/HomeServices';
 import HomeWhyUs from '@/components/HomeWhyUs';
-import HomeProcess from '@/components/HomeProcess';
+import HowWeWork from '@/components/HowWeWork';
 import HomeAbout from '@/components/HomeAbout';
 import HomeDestinations from '@/components/HomeDestinations';
 import TestimonialsSection from '@/components/TestimonialsSection';
@@ -27,7 +27,7 @@ export default async function HomePage({ params }) {
       <HomeWhyUs dict={dict} />
 
       {/* Process/How We Work Section */}
-      <HomeProcess dict={dict} />
+      <HowWeWork dict={dict} lang={lang} />
 
       {/* About Us Summary Section */}
       <HomeAbout dict={dict} lang={lang} />

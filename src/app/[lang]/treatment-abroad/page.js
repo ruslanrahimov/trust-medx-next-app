@@ -1,7 +1,7 @@
 import { getDictionary } from '@/lib/i18n';
 import TreatmentAbroadHero from '@/components/TreatmentAbroadHero';
 import CountrySelection from '@/components/CountrySelection';
-import ProcessSteps from '@/components/ProcessSteps';
+import HowWeWork from '@/components/HowWeWork';
 import ConsultationCTA from '@/components/ConsultationCTA';
 
 export default async function TreatmentAbroadPage({ params }) {
@@ -12,7 +12,7 @@ export default async function TreatmentAbroadPage({ params }) {
     <main className="min-h-screen">
       <TreatmentAbroadHero dict={dict} lang={lang} />
       <CountrySelection dict={dict} lang={lang} />
-      <ProcessSteps dict={dict} />
+      <HowWeWork dict={dict} lang={lang} />
       <ConsultationCTA dict={dict} lang={lang} />
     </main>
   );
