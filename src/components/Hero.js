@@ -156,12 +156,7 @@ export default function Hero({ dict, lang }) {
               {/* Stats + Trust — равный отступ сверху и снизу */}
               <div className="my-auto flex flex-col">
                 <div className="grid grid-cols-4 gap-4 border-t border-[#4A3B2C]/10 pt-5">
-                  {[
-                    { value: '50+', label: 'Клиник\nпартнёров' },
-                    { value: '12', label: 'Стран\nмира' },
-                    { value: '98%', label: 'Успешных\nслучаев' },
-                    { value: '24/7', label: 'Поддержка\nпациентов' },
-                  ].map(({ value, label }, i) => (
+                  {heroDict.stats.map(({ value, label }, i) => (
                     <div key={value} className="hero-stat flex flex-col" style={{ borderLeft: i > 0 ? '1px solid rgba(74,59,44,0.10)' : 'none', paddingLeft: i > 0 ? '1rem' : '0' }}>
                       <span className="text-xl font-bold leading-none text-[#4A3B2C] xl:text-2xl" style={{ fontFamily: DISPLAY_FONT }}>{value}</span>
                       <span className="mt-1 text-[11px] leading-snug text-[#4A3B2C]/50 whitespace-pre-line" style={{ fontFamily: 'var(--font-dm-sans)', letterSpacing: '0.02em' }}>{label}</span>
@@ -191,7 +186,7 @@ export default function Hero({ dict, lang }) {
                   </div>
                   <span className="text-xs font-medium text-[#4A3B2C]/60"
                     style={{ fontFamily: 'var(--font-dm-sans)' }}>
-                    1,200+ довольных пациентов
+                    {heroDict.trustRow}
                   </span>
                 </div>
               </div>

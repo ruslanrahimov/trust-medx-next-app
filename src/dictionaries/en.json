@@ -20,7 +20,14 @@
         "titleAccent": "Mission",
         "subtitle": "Access to the world's best clinics with full support at every stage",
         "ctaPrimary": "Start Consultation",
-        "ctaSecondary": "Learn More"
+        "ctaSecondary": "Learn More",
+        "stats": [
+          { "value": "200+", "label": "Partner\nClinics" },
+          { "value": "18", "label": "Countries\nWorldwide" },
+          { "value": "98%", "label": "Successful\nCases" },
+          { "value": "24/7", "label": "Patient\nSupport" }
+        ],
+        "trustRow": "15,000+ satisfied patients"
       },
       "services": {
         "badge": "Our Services",
