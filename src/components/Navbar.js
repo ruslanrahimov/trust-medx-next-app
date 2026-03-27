@@ -155,78 +155,78 @@ export default function Navbar({ lang, dict }) {
                                                 </button>
                                         </div>
                                 </div>
+                        </nav>
 
-                                {/* Mobile Menu - Fullscreen */}
-                                <div className={`mobile-menu ${isMenuOpen ? 'mobile-menu-open' : ''}`}>
-                                        <div className="mobile-menu-overlay" onClick={() => setIsMenuOpen(false)} />
+                        {/* Mobile Menu - Fullscreen (outside <nav> to avoid stacking context issues) */}
+                        <div className={`mobile-menu ${isMenuOpen ? 'mobile-menu-open' : ''}`}>
+                                <div className="mobile-menu-overlay" onClick={() => setIsMenuOpen(false)} />
 
-                                        <div className="mobile-menu-content">
-                                                {/* Navigation Links */}
-                                                <nav className="mobile-nav-links">
-                                                        {navItems.map((item, index) => (
-                                                                <Link
-                                                                        key={index}
-                                                                        href={item.href}
-                                                                        className="mobile-menu-item"
-                                                                        style={{ animationDelay: `${index * 0.08}s` }}
-                                                                        onClick={() => setIsMenuOpen(false)}
-                                                                >
-                                                                        <span className="mobile-menu-item-number">0{index + 1}</span>
-                                                                        <span className="mobile-menu-item-text">{item.label}</span>
-                                                                        <svg
-                                                                                className="mobile-menu-item-arrow"
-                                                                                width="24"
-                                                                                height="24"
-                                                                                viewBox="0 0 24 24"
-                                                                                fill="none"
-                                                                                stroke="currentColor"
-                                                                                strokeWidth="2"
-                                                                                strokeLinecap="round"
-                                                                                strokeLinejoin="round"
-                                                                        >
-                                                                                <path d="M5 12h14M12 5l7 7-7 7" />
-                                                                        </svg>
-                                                                </Link>
-                                                        ))}
-                                                </nav>
-
-                                                {/* Bottom Actions */}
-                                                <div className="mobile-menu-bottom">
-                                                        {/* Language Switcher */}
-                                                        <div className="mobile-language-wrapper" style={{ animationDelay: `${navItems.length * 0.08}s` }}>
-                                                                <LanguageSwitcher currentLang={lang} isMobileMenu={true} />
-                                                        </div>
-
-                                                        {/* Consultation Button */}
-                                                        <button
-                                                                onClick={() => {
-                                                                        setIsMenuOpen(false);
-                                                                        setIsConsultationModalOpen(true);
-                                                                }}
-                                                                className="mobile-consultation-cta"
-                                                                style={{ animationDelay: `${(navItems.length + 1) * 0.08}s` }}
+                                <div className="mobile-menu-content">
+                                        {/* Navigation Links */}
+                                        <nav className="mobile-nav-links">
+                                                {navItems.map((item, index) => (
+                                                        <Link
+                                                                key={index}
+                                                                href={item.href}
+                                                                className="mobile-menu-item"
+                                                                style={{ animationDelay: `${index * 0.08}s` }}
+                                                                onClick={() => setIsMenuOpen(false)}
                                                         >
-                                                                <span className="mobile-consultation-cta-text">
-                                                                        {(dict?.nav?.onlineConsultation || 'Online Consultation').toUpperCase()}
-                                                                </span>
+                                                                <span className="mobile-menu-item-number">0{index + 1}</span>
+                                                                <span className="mobile-menu-item-text">{item.label}</span>
                                                                 <svg
-                                                                        className="mobile-consultation-cta-arrow"
-                                                                        width="20"
-                                                                        height="20"
+                                                                        className="mobile-menu-item-arrow"
+                                                                        width="24"
+                                                                        height="24"
                                                                         viewBox="0 0 24 24"
                                                                         fill="none"
                                                                         stroke="currentColor"
-                                                                        strokeWidth="2.5"
+                                                                        strokeWidth="2"
                                                                         strokeLinecap="round"
                                                                         strokeLinejoin="round"
                                                                 >
                                                                         <path d="M5 12h14M12 5l7 7-7 7" />
                                                                 </svg>
-                                                        </button>
+                                                        </Link>
+                                                ))}
+                                        </nav>
+
+                                        {/* Bottom Actions */}
+                                        <div className="mobile-menu-bottom">
+                                                {/* Language Switcher */}
+                                                <div className="mobile-language-wrapper" style={{ animationDelay: `${navItems.length * 0.08}s` }}>
+                                                        <LanguageSwitcher currentLang={lang} isMobileMenu={true} />
                                                 </div>
+
+                                                {/* Consultation Button */}
+                                                <button
+                                                        onClick={() => {
+                                                                setIsMenuOpen(false);
+                                                                setIsConsultationModalOpen(true);
+                                                        }}
+                                                        className="mobile-consultation-cta"
+                                                        style={{ animationDelay: `${(navItems.length + 1) * 0.08}s` }}
+                                                >
+                                                        <span className="mobile-consultation-cta-text">
+                                                                {(dict?.nav?.onlineConsultation || 'Online Consultation').toUpperCase()}
+                                                        </span>
+                                                        <svg
+                                                                className="mobile-consultation-cta-arrow"
+                                                                width="20"
+                                                                height="20"
+                                                                viewBox="0 0 24 24"
+                                                                fill="none"
+                                                                stroke="currentColor"
+                                                                strokeWidth="2.5"
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                        >
+                                                                <path d="M5 12h14M12 5l7 7-7 7" />
+                                                        </svg>
+                                                </button>
                                         </div>
                                 </div>
-                        </nav>
+                        </div>
 
                         {/* Backdrop */}
                         {isMenuOpen && (
