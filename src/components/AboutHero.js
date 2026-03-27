@@ -2,153 +2,186 @@
 
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Sparkles, Heart, Shield } from 'lucide-react';
+import { Quote } from 'lucide-react';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+const DISPLAY_FONT = "'Fraunces', 'Crimson Pro', Georgia, serif";
+const BODY_FONT = "'DM Sans', sans-serif";
 
 export default function AboutHero({ dict }) {
   const heroRef = useRef(null);
-  const floatingRef = useRef([]);
+  const mission = dict.aboutPage.mission;
+  const homeAbout = dict.pages.homePage.homeAbout;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Hero animation
-      gsap.from('.hero-badge', {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-      });
-
-      gsap.from('.hero-title', {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        delay: 0.2,
-      });
-
-      gsap.from('.hero-subtitle', {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        delay: 0.4,
-      });
-
-      gsap.from('.hero-intro', {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        delay: 0.6,
-      });
-
-      // Floating elements animation
-      floatingRef.current.forEach((el, index) => {
-        if (el) {
-          gsap.to(el, {
-            y: '-20px',
-            duration: 2 + index * 0.5,
-            repeat: -1,
-            yoyo: true,
-            ease: 'sine.inOut',
-            delay: index * 0.3,
-          });
-        }
-      });
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      tl.from('.ah-label', { opacity: 0, y: 18, duration: 0.7 })
+        .from('.ah-title-1', { opacity: 0, y: 56, duration: 1.05 }, '-=0.4')
+        .from('.ah-title-2', { opacity: 0, y: 56, duration: 1.05 }, '-=0.75')
+        .from('.ah-desc', { opacity: 0, y: 24, duration: 0.8 }, '-=0.55')
+        .from('.ah-stat', { opacity: 0, y: 14, duration: 0.5, stagger: 0.12 }, '-=0.45')
+        .from('.ah-visual', { opacity: 0, x: 30, duration: 1.2 }, '-=1.4');
     }, heroRef);
-
     return () => ctx.revert();
   }, []);
 
   return (
     <section
       ref={heroRef}
-      className="relative py-24 md:py-32 lg:py-40 overflow-hidden bg-gradient-to-br from-[#FEFBF6] via-white to-[#FAF8F0]"
+      className="relative overflow-hidden"
+      style={{ backgroundColor: '#FEFBF6' }}
     >
-      {/* Decorative background elements */}
-      <div className="absolute inset-0 z-0">
-        {/* Gradient orbs */}
-        <div className="absolute top-20 right-10 w-96 h-96 bg-gradient-to-br from-[#5FA8A3]/20 to-[#7EBDB8]/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-10 w-96 h-96 bg-gradient-to-tr from-[#D4A574]/20 to-[#E8C9A0]/10 rounded-full blur-3xl" />
+      {/* Subtle grain */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0 opacity-[0.018]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)'/%3E%3C/svg%3E")`,
+          backgroundRepeat: 'repeat',
+        }}
+      />
 
-        {/* Floating decorative elements */}
-        <div
-          ref={(el) => (floatingRef.current[0] = el)}
-          className="absolute top-1/4 left-1/4 w-20 h-20 opacity-10"
-        >
-          <Shield className="w-full h-full text-[#5FA8A3]" strokeWidth={1} />
-        </div>
-        <div
-          ref={(el) => (floatingRef.current[1] = el)}
-          className="absolute top-1/3 right-1/4 w-16 h-16 opacity-10"
-        >
-          <Heart className="w-full h-full text-[#D4A574]" strokeWidth={1} />
-        </div>
-        <div
-          ref={(el) => (floatingRef.current[2] = el)}
-          className="absolute bottom-1/4 left-1/3 w-24 h-24 opacity-10"
-        >
-          <Sparkles className="w-full h-full text-[#5FA8A3]" strokeWidth={1} />
-        </div>
-
-        {/* Subtle pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, #4A3B2C 1px, transparent 0)',
-            backgroundSize: '48px 48px',
-          }}
-        />
-      </div>
-
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
-        {/* Badge */}
-        <div className="text-center mb-8">
-          <div className="hero-badge inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/80 backdrop-blur-sm border border-[#5FA8A3]/30 shadow-lg shadow-[#5FA8A3]/10">
-            <div className="w-2 h-2 rounded-full bg-[#5FA8A3] animate-pulse" />
-            <span className="text-sm font-semibold text-[#4A3B2C]/80 uppercase tracking-wider font-[family-name:var(--font-dm-sans)]">
-              {dict.aboutPage.mission.badge}
+      <div className="relative z-10 grid lg:grid-cols-2 min-h-[92dvh]">
+        {/* ── LEFT ── */}
+        <div className="flex flex-col justify-center px-6 lg:pl-14 xl:pl-20 lg:pr-12 py-24 lg:py-0">
+          {/* Section label */}
+          <div className="ah-label flex items-center gap-3 mb-10">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#5FA8A3] shrink-0" />
+            <span
+              className="text-[11px] font-semibold uppercase tracking-[0.20em] text-[#4A3B2C]/50"
+              style={{ fontFamily: BODY_FONT }}
+            >
+              {mission.badge}
             </span>
+          </div>
+
+          {/* Headline */}
+          <div className="mb-8 overflow-hidden">
+            <h1
+              className="ah-title-1 text-[3rem] md:text-[4rem] lg:text-[3.6rem] xl:text-[4.5rem] font-bold text-[#4A3B2C] leading-[1.04] tracking-tight"
+              style={{ fontFamily: DISPLAY_FONT }}
+            >
+              {mission.title}
+            </h1>
+            <h2
+              className="ah-title-2 text-[3rem] md:text-[4rem] lg:text-[3.6rem] xl:text-[4.5rem] font-bold leading-[1.04] tracking-tight"
+              style={{
+                fontFamily: DISPLAY_FONT,
+                background: 'linear-gradient(110deg, #5FA8A3 0%, #4A9691 55%, #7EBDB8 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              {mission.subtitle}
+            </h2>
+          </div>
+
+          {/* Lead text */}
+          <p
+            className="ah-desc max-w-md text-base md:text-[1.05rem] text-[#4A3B2C]/58 leading-relaxed mb-14"
+            style={{ fontFamily: BODY_FONT }}
+          >
+            {mission.intro}
+          </p>
+
+          {/* Stats row */}
+          <div className="flex flex-wrap items-stretch gap-0 border-t border-[#4A3B2C]/10 pt-8">
+            {homeAbout.stats.map(({ number, suffix, label }, i) => (
+              <div
+                key={i}
+                className="ah-stat flex flex-col"
+                style={{
+                  paddingRight: '2rem',
+                  paddingLeft: i > 0 ? '2rem' : '0',
+                  borderLeft: i > 0 ? '1px solid rgba(74,59,44,0.11)' : 'none',
+                }}
+              >
+                <span
+                  className="text-[2.2rem] md:text-[2.6rem] font-bold text-[#4A3B2C] leading-none"
+                  style={{ fontFamily: DISPLAY_FONT }}
+                >
+                  {number}
+                  <span style={{ color: '#5FA8A3' }}>{suffix}</span>
+                </span>
+                <span
+                  className="mt-2 text-[11px] uppercase tracking-[0.14em] text-[#4A3B2C]/42"
+                  style={{ fontFamily: BODY_FONT }}
+                >
+                  {label}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Title */}
-        <h1
-          className="hero-title text-5xl md:text-6xl lg:text-7xl font-bold text-center text-[#4A3B2C] mb-6"
-          style={{
-            fontFamily: "'Crimson Pro', Georgia, serif",
-          }}
-        >
-          {dict.aboutPage.mission.title}
-        </h1>
+        {/* ── RIGHT — visual ── */}
+        <div className="ah-visual relative h-[52dvh] min-h-[300px] lg:h-auto">
+          <div
+            className="absolute inset-0 flex items-end justify-center overflow-hidden"
+            style={{ background: 'linear-gradient(150deg, #F0E8DE 0%, #E6D8CB 40%, #D9CCBC 70%, #D0C4B0 100%)' }}
+          >
+            <div
+              className="absolute inset-0 opacity-[0.04]"
+              style={{ backgroundImage: 'repeating-linear-gradient(45deg, #4A3B2C 0px, #4A3B2C 1px, transparent 0px, transparent 44px)' }}
+            />
 
-        {/* Subtitle */}
-        <p className="hero-subtitle text-2xl md:text-3xl text-center font-semibold mb-8">
-          <span className="bg-gradient-to-r from-[#5FA8A3] to-[#4A9691] bg-clip-text text-transparent">
-            {dict.aboutPage.mission.subtitle}
-          </span>
-        </p>
+            {/* Accent circles */}
+            <div className="absolute top-12 right-12 w-36 h-36 rounded-full opacity-18" style={{ background: 'radial-gradient(circle, #5FA8A3 0%, transparent 70%)' }} />
+            <div className="absolute top-28 left-16 w-24 h-24 rounded-full opacity-15" style={{ background: 'radial-gradient(circle, #D4A574 0%, transparent 70%)' }} />
+            <div className="absolute top-[45%] right-[30%] w-16 h-16 rounded-full opacity-20" style={{ background: 'radial-gradient(circle, #7EBDB8 0%, transparent 70%)' }} />
 
-        {/* Intro Text */}
-        <div className="hero-intro max-w-4xl mx-auto">
-          <p className="text-lg md:text-xl text-center text-[#4A3B2C]/70 leading-relaxed font-[family-name:var(--font-dm-sans)]">
-            {dict.aboutPage.mission.intro}
-          </p>
-        </div>
+            {/* Silhouettes */}
+            {[
+              { xPct: 14, headR: 22, bodyW: 48, bodyH: 130, color: '#5FA8A3' },
+              { xPct: 33, headR: 29, bodyW: 64, bodyH: 162, color: '#D4A574' },
+              { xPct: 54, headR: 24, bodyW: 54, bodyH: 142, color: '#5FA8A3' },
+              { xPct: 74, headR: 20, bodyW: 44, bodyH: 118, color: '#7EBDB8' },
+            ].map((p, i) => (
+              <div
+                key={i}
+                className="absolute bottom-0 flex flex-col items-center"
+                style={{ left: `${p.xPct}%`, transform: 'translateX(-50%)' }}
+              >
+                <div className="rounded-full mb-1 shrink-0" style={{ width: p.headR * 2, height: p.headR * 2, background: `${p.color}2a`, border: `1.5px solid ${p.color}55` }} />
+                <div className="rounded-t-[50%] shrink-0" style={{ width: p.bodyW, height: p.bodyH, background: `linear-gradient(to bottom, ${p.color}22, ${p.color}0e)`, border: `1.5px solid ${p.color}38`, borderBottom: 'none' }} />
+              </div>
+            ))}
 
-        {/* Decorative divider */}
-        <div className="flex items-center justify-center gap-3 mt-12">
-          <div className="w-24 h-px bg-gradient-to-r from-transparent via-[#5FA8A3]/50 to-transparent" />
-          <div className="w-2 h-2 rounded-full bg-[#5FA8A3]" />
-          <div className="w-24 h-px bg-gradient-to-r from-transparent via-[#D4A574]/50 to-transparent" />
+            {/* Quote */}
+            <div className="absolute top-8 left-8 flex items-start gap-2 max-w-[190px]">
+              <Quote className="shrink-0 mt-0.5 opacity-18" style={{ width: 18, height: 18, color: '#4A3B2C' }} strokeWidth={2} />
+              <p className="text-[11px] italic text-[#4A3B2C]/32 leading-relaxed" style={{ fontFamily: DISPLAY_FONT }}>
+                {homeAbout.quoteText}
+              </p>
+            </div>
+
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(74,59,44,0.14) 0%, transparent 48%)' }} />
+          </div>
+
+          {/* Founder card */}
+          <div
+            className="absolute -left-4 top-[30%] hidden md:flex items-center gap-3 rounded-xl border border-[#4A3B2C]/10 bg-white px-4 py-3 z-10"
+            style={{ boxShadow: '0 12px 40px rgba(74,59,44,0.12)' }}
+          >
+            <div
+              className="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
+              style={{ background: 'linear-gradient(135deg, #D4A574, #C89563)' }}
+            >
+              <span className="text-white font-bold text-sm" style={{ fontFamily: DISPLAY_FONT }}>
+                {homeAbout.founderCard.initial}
+              </span>
+            </div>
+            <div>
+              <p className="text-xs font-bold text-[#4A3B2C] leading-tight" style={{ fontFamily: BODY_FONT }}>
+                {homeAbout.founderCard.name}
+              </p>
+              <p className="text-[10px] uppercase tracking-wide text-[#4A3B2C]/45 mt-0.5" style={{ fontFamily: BODY_FONT }}>
+                {homeAbout.founderCard.role}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-
-      {/* Load fonts */}
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
-      `}</style>
     </section>
   );
 }

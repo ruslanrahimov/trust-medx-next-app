@@ -1,194 +1,173 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Sparkles, Heart, Lightbulb, Users } from 'lucide-react';
+import { Heart, Lightbulb } from 'lucide-react';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+const DISPLAY_FONT = "'Fraunces', 'Crimson Pro', Georgia, serif";
+const BODY_FONT = "'DM Sans', sans-serif";
+
 export default function FounderSection({ dict }) {
   const sectionRef = useRef(null);
-  const sectionsRef = useRef([]);
+  const founder = dict.aboutPage.founder;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Sections animation
-      sectionsRef.current.forEach((section, index) => {
-        if (section) {
-          gsap.from(section, {
-            scrollTrigger: {
-              trigger: section,
-              start: 'top 80%',
-            },
-            opacity: 0,
-            y: 60,
-            duration: 1,
-            delay: index * 0.2,
-            ease: 'power3.out',
-          });
-        }
+      gsap.from('.fs-top', {
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 82%', once: true },
+        opacity: 0, y: 36, duration: 1, ease: 'power3.out',
+      });
+      gsap.from('.fs-left', {
+        scrollTrigger: { trigger: '.fs-body', start: 'top 80%', once: true },
+        opacity: 0, x: -36, duration: 1, ease: 'power3.out',
+      });
+      gsap.from('.fs-right', {
+        scrollTrigger: { trigger: '.fs-body', start: 'top 78%', once: true },
+        opacity: 0, x: 36, duration: 1, ease: 'power3.out', delay: 0.14,
+      });
+      gsap.from('.fs-bottom', {
+        scrollTrigger: { trigger: '.fs-bottom', start: 'top 86%', once: true },
+        opacity: 0, y: 36, duration: 1, ease: 'power3.out',
       });
     }, sectionRef);
-
     return () => ctx.revert();
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="relative py-20 md:py-28 overflow-hidden bg-gradient-to-b from-white via-[#FEFBF6] to-white"
+      className="relative py-28 md:py-36 overflow-hidden"
+      style={{ backgroundColor: '#fff' }}
     >
-      {/* Decorative background */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/4 -right-40 w-96 h-96 bg-gradient-to-bl from-[#D4A574]/15 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 -left-40 w-96 h-96 bg-gradient-to-tr from-[#5FA8A3]/15 to-transparent rounded-full blur-3xl" />
-      </div>
+      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'rgba(74,59,44,0.07)' }} />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-[#5FA8A3]/30 shadow-lg mb-6">
-            <div className="w-2 h-2 rounded-full bg-[#5FA8A3] animate-pulse" />
-            <span className="text-sm font-semibold text-[#4A3B2C]/80 uppercase tracking-wider">
-              {dict.aboutPage.founder.badge}
+      <div className="max-w-7xl mx-auto px-6 lg:px-14 xl:px-20">
+
+        {/* ── TOP — founder identity ── */}
+        <div className="fs-top mb-16 md:mb-20">
+          <div className="flex items-center gap-3 mb-8">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#D4A574] shrink-0" />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.20em] text-[#4A3B2C]/50" style={{ fontFamily: BODY_FONT }}>
+              {founder.badge}
             </span>
           </div>
 
-          <h2
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#4A3B2C]"
-            style={{ fontFamily: "'Crimson Pro', Georgia, serif" }}
-          >
-            {dict.aboutPage.founder.title}
-          </h2>
-        </div>
-
-        {/* Intro Card */}
-        <div
-          ref={(el) => (sectionsRef.current[0] = el)}
-          className="max-w-5xl mx-auto mb-12"
-        >
-          <div className="relative p-10 md:p-12 bg-white rounded-[2.5rem] border border-[#4A3B2C]/10 shadow-xl">
-            {/* Name and Title */}
-            <div className="flex items-start gap-6 mb-8">
-              {/* Avatar Placeholder */}
-              <div className="flex-shrink-0 w-20 h-20 rounded-2xl bg-gradient-to-br from-[#5FA8A3] to-[#4A9691] shadow-lg flex items-center justify-center">
-                <Users className="w-10 h-10 text-white" strokeWidth={2} />
-              </div>
-
-              {/* Name Info */}
-              <div className="flex-1">
-                <h3
-                  className="text-3xl md:text-4xl font-bold text-[#4A3B2C] mb-2"
-                  style={{ fontFamily: "'Crimson Pro', Georgia, serif" }}
-                >
-                  {dict.aboutPage.founder.name}
-                </h3>
-                <p className="text-lg text-[#5FA8A3] font-semibold mb-1">
-                  {dict.aboutPage.founder.role}
-                </p>
-                <p className="text-sm text-[#D4A574] font-medium">
-                  {dict.aboutPage.founder.experience}
-                </p>
-              </div>
-            </div>
-
-            {/* Intro Text */}
-            <p className="text-lg text-[#4A3B2C]/80 leading-relaxed">
-              {dict.aboutPage.founder.intro}
-            </p>
-
-            {/* Decorative corner */}
-            <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-gradient-to-br from-[#5FA8A3]/20 to-transparent rounded-[2rem] -z-10 blur-xl" />
-          </div>
-        </div>
-
-        {/* Story Section - Two Column */}
-        <div
-          ref={(el) => (sectionsRef.current[1] = el)}
-          className="max-w-6xl mx-auto mb-12"
-        >
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Left - Story */}
-            <div className="relative p-8 md:p-10 bg-gradient-to-br from-[#FEFBF6] to-white rounded-[2rem] border border-[#4A3B2C]/10 shadow-lg">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-[#5FA8A3]/20 mb-6">
-                <Heart className="w-4 h-4 text-[#5FA8A3]" />
-                <span className="text-sm font-semibold text-[#5FA8A3] uppercase tracking-wider">
-                  История создания
-                </span>
-              </div>
-
-              <div className="space-y-4">
-                <p className="text-base text-[#4A3B2C]/70 leading-relaxed">
-                  {dict.aboutPage.founder.story}
-                </p>
-                <p className="text-base text-[#4A3B2C]/70 leading-relaxed">
-                  {dict.aboutPage.founder.motivation}
-                </p>
-              </div>
-            </div>
-
-            {/* Right - Approach */}
-            <div className="relative p-8 md:p-10 bg-gradient-to-br from-white to-[#FEFBF6] rounded-[2rem] border border-[#4A3B2C]/10 shadow-lg">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-[#D4A574]/20 mb-6">
-                <Lightbulb className="w-4 h-4 text-[#D4A574]" />
-                <span className="text-sm font-semibold text-[#D4A574] uppercase tracking-wider">
-                  Подход к работе
-                </span>
-              </div>
-
-              <div className="space-y-4">
-                <p className="text-base text-[#4A3B2C]/70 leading-relaxed">
-                  {dict.aboutPage.founder.approach}
-                </p>
-                <p className="text-base text-[#4A3B2C]/70 leading-relaxed">
-                  {dict.aboutPage.founder.today}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Philosophy - Feature Card */}
-        <div
-          ref={(el) => (sectionsRef.current[2] = el)}
-          className="max-w-5xl mx-auto"
-        >
-          <div className="relative p-10 md:p-14 bg-gradient-to-br from-[#5FA8A3]/10 via-white to-[#D4A574]/10 rounded-[2.5rem] border-2 border-[#4A3B2C]/10 shadow-2xl overflow-hidden">
-            {/* Decorative background elements */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-[#5FA8A3]/20 to-transparent rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-[#D4A574]/20 to-transparent rounded-full blur-3xl" />
-
-            {/* Icon */}
-            <div className="relative inline-flex items-center justify-center w-16 h-16 mb-6 rounded-2xl bg-gradient-to-br from-[#5FA8A3] to-[#4A9691] shadow-xl">
-              <Sparkles className="w-8 h-8 text-white" strokeWidth={2} />
-            </div>
-
-            {/* Title */}
-            <h3
-              className="relative text-2xl md:text-3xl font-bold text-[#4A3B2C] mb-6"
-              style={{ fontFamily: "'Crimson Pro', Georgia, serif" }}
+          <div className="flex items-center gap-6 flex-wrap">
+            {/* Avatar */}
+            <div
+              className="shrink-0 w-20 h-20 rounded-2xl overflow-hidden"
+              style={{ boxShadow: '0 10px 32px rgba(212,165,116,0.30)' }}
             >
-              Философия работы
-            </h3>
+              <Image
+                src="/daria.jpg"
+                alt={founder.name}
+                width={80}
+                height={80}
+                className="w-full h-full object-cover"
+              />
+            </div>
 
-            {/* Philosophy Text */}
-            <p className="relative text-lg md:text-xl text-[#4A3B2C]/80 leading-relaxed font-medium">
-              {dict.aboutPage.founder.philosophy}
-            </p>
-
-            {/* Decorative line */}
-            <div className="relative w-24 h-1 bg-gradient-to-r from-[#5FA8A3] to-[#D4A574] rounded-full mt-8" />
+            <div>
+              <h2
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#4A3B2C] leading-[1.06] tracking-tight"
+                style={{ fontFamily: DISPLAY_FONT }}
+              >
+                {founder.name}
+              </h2>
+              <div className="flex items-center gap-3 mt-2">
+                <span className="text-base font-medium text-[#5FA8A3]" style={{ fontFamily: BODY_FONT }}>
+                  {founder.role}
+                </span>
+                <span className="w-1 h-1 rounded-full bg-[#4A3B2C]/25" />
+                <span className="text-sm text-[#D4A574]" style={{ fontFamily: BODY_FONT }}>
+                  {founder.experience}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Load fonts */}
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
-      `}</style>
+        {/* Intro text */}
+        <div className="max-w-3xl mb-14">
+          <p className="text-base md:text-[1.1rem] text-[#4A3B2C]/62 leading-relaxed" style={{ fontFamily: BODY_FONT }}>
+            {founder.intro}
+          </p>
+        </div>
+
+        <div className="w-full h-px mb-14" style={{ background: 'rgba(74,59,44,0.07)' }} />
+
+        {/* ── BODY — story + approach ── */}
+        <div className="fs-body grid lg:grid-cols-2 gap-10 mb-14">
+          {/* Story */}
+          <div className="fs-left">
+            <div className="flex items-center gap-2 mb-6">
+              <Heart className="w-3.5 h-3.5 shrink-0" style={{ color: '#5FA8A3' }} strokeWidth={2} />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#5FA8A3]" style={{ fontFamily: BODY_FONT }}>
+                История создания
+              </span>
+            </div>
+            <div className="space-y-4">
+              <p className="text-[15px] text-[#4A3B2C]/62 leading-relaxed" style={{ fontFamily: BODY_FONT }}>{founder.story}</p>
+              <p className="text-[15px] text-[#4A3B2C]/62 leading-relaxed" style={{ fontFamily: BODY_FONT }}>{founder.motivation}</p>
+            </div>
+          </div>
+
+          {/* Approach */}
+          <div className="fs-right">
+            <div className="flex items-center gap-2 mb-6">
+              <Lightbulb className="w-3.5 h-3.5 shrink-0" style={{ color: '#D4A574' }} strokeWidth={2} />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#D4A574]" style={{ fontFamily: BODY_FONT }}>
+                Подход к работе
+              </span>
+            </div>
+            <div className="space-y-4">
+              <p className="text-[15px] text-[#4A3B2C]/62 leading-relaxed" style={{ fontFamily: BODY_FONT }}>{founder.approach}</p>
+              <p className="text-[15px] text-[#4A3B2C]/62 leading-relaxed" style={{ fontFamily: BODY_FONT }}>{founder.today}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full h-px mb-14" style={{ background: 'rgba(74,59,44,0.07)' }} />
+
+        {/* ── BOTTOM — philosophy (dark accent) ── */}
+        <div
+          className="fs-bottom relative rounded-2xl overflow-hidden"
+          style={{ background: 'linear-gradient(135deg, #1a3a38 0%, #2C5F5D 100%)' }}
+        >
+          {/* Grid overlay */}
+          <div
+            className="absolute inset-0 opacity-[0.05]"
+            style={{
+              backgroundImage: 'linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)',
+              backgroundSize: '48px 48px',
+            }}
+          />
+          <div className="absolute top-0 right-0 w-48 h-48 rounded-full blur-3xl opacity-25" style={{ background: 'radial-gradient(circle, #5FA8A3 0%, transparent 70%)' }} />
+
+          <div className="relative p-10 md:p-14 lg:p-16">
+            <div className="flex items-center gap-3 mb-8">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#7EBDB8] shrink-0" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.20em] text-white/40" style={{ fontFamily: BODY_FONT }}>
+                Философия работы
+              </span>
+            </div>
+            <div className="w-8 h-0.5 mb-8 rounded-full" style={{ background: 'linear-gradient(90deg, #5FA8A3, #D4A574)' }} />
+            <p
+              className="text-2xl md:text-3xl lg:text-4xl font-medium text-white leading-[1.35] tracking-tight max-w-3xl"
+              style={{ fontFamily: DISPLAY_FONT }}
+            >
+              {founder.philosophy}
+            </p>
+          </div>
+        </div>
+
+      </div>
     </section>
   );
 }

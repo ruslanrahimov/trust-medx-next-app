@@ -8,60 +8,52 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+const DISPLAY_FONT = "'Fraunces', 'Crimson Pro', Georgia, serif";
+const BODY_FONT = "'DM Sans', sans-serif";
+
 export default function AboutStats({ dict }) {
   const sectionRef = useRef(null);
   const statsRef = useRef([]);
   const [animatedNumbers, setAnimatedNumbers] = useState([]);
 
   useEffect(() => {
-    // Initialize animated numbers
     setAnimatedNumbers(dict.aboutPage.stats.items.map(() => 0));
 
     const ctx = gsap.context(() => {
-      // Animate each stat card
+      gsap.from('.ast-head', {
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 82%', once: true },
+        opacity: 0, y: 36, duration: 1, ease: 'power3.out',
+      });
+      gsap.from('.ast-rule', {
+        scrollTrigger: { trigger: '.ast-rule', start: 'top 88%', once: true },
+        scaleX: 0, transformOrigin: 'left center', duration: 1.4, ease: 'power3.out',
+      });
+
       statsRef.current.forEach((stat, index) => {
-        if (stat) {
-          // Card entrance animation
-          gsap.from(stat, {
-            scrollTrigger: {
-              trigger: stat,
-              start: 'top 85%',
-            },
-            opacity: 0,
-            y: 40,
-            scale: 0.9,
-            duration: 0.8,
-            delay: index * 0.15,
-            ease: 'power3.out',
-          });
-
-          // Number counter animation
-          const targetNumber = parseInt(dict.aboutPage.stats.items[index].number);
-
-          ScrollTrigger.create({
-            trigger: stat,
-            start: 'top 80%',
-            onEnter: () => {
-              gsap.to(
-                {},
-                {
-                  duration: 2,
-                  ease: 'power2.out',
-                  onUpdate: function () {
-                    const progress = this.progress();
-                    const currentNumber = Math.floor(targetNumber * progress);
-                    setAnimatedNumbers((prev) => {
-                      const newNumbers = [...prev];
-                      newNumbers[index] = currentNumber;
-                      return newNumbers;
-                    });
-                  },
-                }
-              );
-            },
-            once: true,
-          });
-        }
+        if (!stat) return;
+        gsap.from(stat, {
+          scrollTrigger: { trigger: stat, start: 'top 85%', once: true },
+          opacity: 0, y: 24, duration: 0.7, delay: index * 0.1, ease: 'power3.out',
+        });
+        const targetNumber = parseInt(dict.aboutPage.stats.items[index].number);
+        ScrollTrigger.create({
+          trigger: stat,
+          start: 'top 80%',
+          onEnter: () => {
+            gsap.to({}, {
+              duration: 2.2,
+              ease: 'power2.out',
+              onUpdate: function () {
+                const current = Math.floor(targetNumber * this.progress());
+                setAnimatedNumbers((prev) => { const next = [...prev]; next[index] = current; return next; });
+              },
+              onComplete: () => {
+                setAnimatedNumbers((prev) => { const next = [...prev]; next[index] = targetNumber; return next; });
+              },
+            });
+          },
+          once: true,
+        });
       });
     }, sectionRef);
 
@@ -71,138 +63,84 @@ export default function AboutStats({ dict }) {
   return (
     <section
       ref={sectionRef}
-      className="relative py-20 md:py-28 overflow-hidden"
-      style={{
-        background: 'linear-gradient(135deg, #2C5F5D 0%, #4A3B2C 100%)',
-      }}
+      className="relative py-28 md:py-40 overflow-hidden"
+      style={{ background: 'linear-gradient(135deg, #1a3a38 0%, #2C5F5D 50%, #2a4a47 100%)' }}
     >
-      {/* Decorative elements */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/4 right-10 w-96 h-96 bg-[#5FA8A3]/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-10 w-96 h-96 bg-[#D4A574]/10 rounded-full blur-3xl" />
+      {/* Grid */}
+      <div
+        className="absolute inset-0 z-0 opacity-[0.05]"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)',
+          backgroundSize: '48px 48px',
+        }}
+      />
+      <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none z-0" style={{ background: 'radial-gradient(circle, rgba(95,168,163,0.28) 0%, transparent 70%)' }} />
+      <div className="absolute -bottom-48 -left-40 w-[580px] h-[580px] rounded-full blur-3xl pointer-events-none z-0" style={{ background: 'radial-gradient(circle, rgba(212,165,116,0.22) 0%, transparent 70%)' }} />
 
-        {/* Geometric pattern */}
-        <div
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage: `
-              linear-gradient(30deg, #5FA8A3 12%, transparent 12.5%, transparent 87%, #5FA8A3 87.5%, #5FA8A3),
-              linear-gradient(150deg, #5FA8A3 12%, transparent 12.5%, transparent 87%, #5FA8A3 87.5%, #5FA8A3),
-              linear-gradient(30deg, #5FA8A3 12%, transparent 12.5%, transparent 87%, #5FA8A3 87.5%, #5FA8A3),
-              linear-gradient(150deg, #5FA8A3 12%, transparent 12.5%, transparent 87%, #5FA8A3 87.5%, #5FA8A3)
-            `,
-            backgroundSize: '80px 140px',
-            backgroundPosition: '0 0, 0 0, 40px 70px, 40px 70px',
-          }}
-        />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-6">
-            <div className="w-2 h-2 rounded-full bg-[#5FA8A3] animate-pulse" />
-            <span className="text-sm font-medium text-white/90 uppercase tracking-wider font-[family-name:var(--font-dm-sans)]">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-14 xl:px-20">
+        {/* Header */}
+        <div className="ast-head mb-16 md:mb-20">
+          <div className="flex items-center gap-3 mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#5FA8A3] shrink-0" />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.20em] text-white/40" style={{ fontFamily: BODY_FONT }}>
               {dict.aboutPage.stats.badge}
             </span>
           </div>
-
           <h2
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4"
-            style={{
-              fontFamily: "'Crimson Pro', Georgia, serif",
-            }}
+            className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.06] tracking-tight"
+            style={{ fontFamily: DISPLAY_FONT }}
           >
             {dict.aboutPage.stats.title}
           </h2>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="ast-rule w-full h-px mb-16 md:mb-20" style={{ background: 'rgba(255,255,255,0.10)' }} />
+
+        {/* Stats row */}
+        <div className="grid grid-cols-2 lg:grid-cols-4">
           {dict.aboutPage.stats.items.map((item, index) => (
             <div
               key={index}
               ref={(el) => (statsRef.current[index] = el)}
-              className="group relative"
+              className={[
+                'flex flex-col py-10 px-8',
+                index > 0 ? 'border-l border-white/10' : '',
+                index >= 2 ? 'border-t border-white/10 lg:border-t-0' : '',
+              ].filter(Boolean).join(' ')}
             >
-              {/* Card */}
-              <div className="relative p-8 bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 transition-all duration-500 hover:bg-white/15 hover:border-white/30 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#5FA8A3]/20">
-                {/* Glow effect */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#5FA8A3]/0 to-[#D4A574]/0 group-hover:from-[#5FA8A3]/10 group-hover:to-[#D4A574]/10 transition-all duration-500 pointer-events-none" />
-
-                {/* Number */}
-                <div className="relative mb-2">
+              {/* Number */}
+              <div className="flex items-baseline gap-0.5 mb-3">
+                <span
+                  className="text-5xl md:text-6xl font-bold text-white leading-none"
+                  style={{ fontFamily: DISPLAY_FONT }}
+                >
+                  {(animatedNumbers[index] ?? 0).toLocaleString()}
+                </span>
+                {item.suffix && (
                   <span
-                    className="text-5xl md:text-6xl font-bold text-white"
+                    className="text-3xl md:text-4xl font-bold leading-none"
                     style={{
-                      fontFamily: "'Crimson Pro', Georgia, serif",
-                    }}
-                  >
-                    {animatedNumbers[index]?.toLocaleString() || 0}
-                  </span>
-                  <span
-                    className="text-4xl md:text-5xl font-bold text-[#5FA8A3]"
-                    style={{
-                      fontFamily: "'Crimson Pro', Georgia, serif",
+                      fontFamily: DISPLAY_FONT,
+                      background: 'linear-gradient(135deg, #5FA8A3 0%, #7EBDB8 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
                     }}
                   >
                     {item.suffix}
                   </span>
-                </div>
-
-                {/* Label */}
-                <h3
-                  className="text-xl md:text-2xl font-semibold text-white mb-2"
-                  style={{
-                    fontFamily: "'Crimson Pro', Georgia, serif",
-                  }}
-                >
-                  {item.label}
-                </h3>
-
-                {/* Description */}
-                <p className="text-white/60 text-sm font-[family-name:var(--font-dm-sans)]">
-                  {item.description}
-                </p>
-
-                {/* Decorative corner glow */}
-                <div className="absolute -bottom-3 -right-3 w-24 h-24 bg-gradient-to-tl from-[#5FA8A3]/20 to-transparent rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                {/* Icon decoration */}
-                <div className="absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
-                  <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    {index === 0 && (
-                      <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                    )}
-                    {index === 1 && (
-                      <path
-                        fillRule="evenodd"
-                        d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z"
-                        clipRule="evenodd"
-                      />
-                    )}
-                    {index === 2 && (
-                      <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
-                    )}
-                    {index === 3 && (
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-                        clipRule="evenodd"
-                      />
-                    )}
-                  </svg>
-                </div>
+                )}
               </div>
+              <p className="text-sm font-semibold text-white/70 mb-1" style={{ fontFamily: DISPLAY_FONT }}>
+                {item.label}
+              </p>
+              <p className="text-[12px] text-white/38 leading-snug max-w-[130px]" style={{ fontFamily: BODY_FONT }}>
+                {item.description}
+              </p>
             </div>
           ))}
         </div>
       </div>
-
-      {/* Load fonts */}
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
-      `}</style>
     </section>
   );
 }
