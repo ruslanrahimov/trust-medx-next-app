@@ -168,7 +168,7 @@
         "cta": "Subscribe to our channel",
         "ctaSub": "Tips on medical travel abroad",
         "btnLabel": "Subscribe",
-        "link": "https://t.me/trustmedx",
+        "link": "https://t.me/dariainturkey",
         "items": [
           "Medical tourism news",
           "Patient success stories",
@@ -479,23 +479,13 @@
     "title": "World-Class",
     "titleAccent": "Medical Care",
     "titleEnd": "Made Simple",
-    "description": "We guide you through every step of your treatment abroad—from finding the right clinic to supporting your recovery at home.",
-    "ctaPrimary": "Start Consultation",
-    "ctaSecondary": "Learn More",
-    "features": {
-      "trustedCare": {
-        "title": "Trusted Care",
-        "description": "Verified clinics & specialists"
-      },
-      "personalSupport": {
-        "title": "Personal Support",
-        "description": "With you every step"
-      },
-      "expertGuidance": {
-        "title": "Expert Guidance",
-        "description": "Transparent process"
-      }
-    },
+    "description": "We select and arrange treatment abroad tailored to your individual case.\nYou get a clear plan, transparent pricing, and support at every step.",
+    "ctaModal": "Get a treatment plan",
+    "features": [
+      "Doctor selection tailored to your request",
+      "Fixed cost with no hidden fees",
+      "Personal coordinator 24/7"
+    ],
     "stats": {
       "successRate": "Success Rate",
       "happyPatients": "Happy Patients",
