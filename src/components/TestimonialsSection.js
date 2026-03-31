@@ -98,7 +98,7 @@ export default function TestimonialsSection({ dict }) {
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 md:py-36 overflow-hidden"
+      className="relative py-14 md:py-20 overflow-hidden"
       style={{ background: 'linear-gradient(135deg, #1a3a38 0%, #2C5F5D 60%, #1e3533 100%)' }}
     >
       {/* Decorative background */}
@@ -122,7 +122,7 @@ export default function TestimonialsSection({ dict }) {
             </span>
           </div>
 
-          <h2 className="testimonials-title text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-5 leading-tight"
+          <h2 className="testimonials-title text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-white mb-5 leading-tight"
             style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif" }}>
             {testimonialsDict.title}
           </h2>
@@ -139,7 +139,7 @@ export default function TestimonialsSection({ dict }) {
           {visibleTestimonials.map((testimonial, index) => (
             <div
               key={`${startIndex + index}-${testimonial.name}`}
-              className="testimonial-card group relative rounded-2xl p-8 flex flex-col cursor-default min-h-[430px] md:min-h-[460px] lg:min-h-[500px]"
+              className="testimonial-card group relative rounded-2xl p-8 flex flex-col cursor-default"
               style={{
                 background: 'rgba(255,255,255,0.08)',
                 backdropFilter: 'blur(24px)',

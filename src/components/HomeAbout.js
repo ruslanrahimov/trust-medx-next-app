@@ -125,13 +125,13 @@ export default function HomeAbout({ dict, lang }) {
             {/* Headline */}
             <div className="ha-headline space-y-1">
               <h2
-                className="text-4xl md:text-5xl xl:text-[3.25rem] font-bold text-[#4A3B2C] leading-[1.09] tracking-tight"
+                className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-[#4A3B2C] leading-[1.09] tracking-tight"
                 style={{ fontFamily: DISPLAY_FONT }}
               >
                 {about.titleStart}
               </h2>
               <h2
-                className="text-4xl md:text-5xl xl:text-[3.25rem] font-bold leading-[1.09] tracking-tight"
+                className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold leading-[1.09] tracking-tight"
                 style={{
                   fontFamily: DISPLAY_FONT,
                   background: 'linear-gradient(108deg, #D4A574 0%, #C89563 40%, #5FA8A3 100%)',

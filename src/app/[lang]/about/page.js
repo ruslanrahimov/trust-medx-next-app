@@ -7,7 +7,7 @@ import AboutPhilosophy from '@/components/AboutPhilosophy';
 import AboutValues from '@/components/AboutValues';
 import FounderSection from '@/components/FounderSection';
 import AboutStats from '@/components/AboutStats';
-import AboutCTA from '@/components/AboutCTA';
+import ConsultationCTA from '@/components/ConsultationCTA';
 
 export default async function AboutPage({ params }) {
   const { lang } = await params;
@@ -16,7 +16,7 @@ export default async function AboutPage({ params }) {
   return (
     <main>
       {/* Hero Section */}
-      <AboutHero dict={dict} />
+      <AboutHero dict={dict} lang={lang} />
 
       {/* Company Introduction */}
       <AboutIntro dict={dict} />
@@ -40,7 +40,7 @@ export default async function AboutPage({ params }) {
       <AboutStats dict={dict} />
 
       {/* Call to Action */}
-      <AboutCTA dict={dict} lang={lang} />
+      <ConsultationCTA dict={dict} lang={lang} />
     </main>
   );
 }

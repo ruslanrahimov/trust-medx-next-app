@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Facebook, Instagram, MessageCircle, Send } from 'lucide-react';
+import Image from 'next/image';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -62,23 +62,27 @@ export default function SocialMedia({ dict, footer }) {
   const socialLinks = [
     {
       name: footer.socialMedia.facebook,
-      icon: Facebook,
+      img: '/facebook.png',
       href: 'https://facebook.com/trustmedx',
+      shadow: 'shadow-[#1877F2]/20',
     },
     {
       name: footer.socialMedia.instagram,
-      icon: Instagram,
+      img: '/instagram.png',
       href: 'https://instagram.com/trustmedx',
+      shadow: 'shadow-[#E1306C]/20',
     },
     {
       name: footer.socialMedia.whatsapp,
-      icon: MessageCircle,
+      img: '/whatsapp.png',
       href: 'https://wa.me/994XXXXXXXXX',
+      shadow: 'shadow-[#25D366]/20',
     },
     {
       name: footer.socialMedia.telegram,
-      icon: Send,
+      img: '/telegram.png',
       href: 'https://t.me/trustmedx',
+      shadow: 'shadow-[#2AABEE]/20',
     },
   ];
 
@@ -101,8 +105,8 @@ export default function SocialMedia({ dict, footer }) {
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-10">
-          <div className="social-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm border border-[#4A3B2C]/10 mb-6">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#4A3B2C]/40" />
+          <div className="social-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm border border-[#5FA8A3]/20 mb-6">
+            <div className="w-2 h-2 rounded-full bg-[#5FA8A3] animate-pulse" />
             <span className="text-xs font-medium text-[#4A3B2C]/70 uppercase tracking-[0.2em] font-[family-name:var(--font-dm-sans)]">
               {dict.socialMedia.badge}
             </span>
@@ -119,38 +123,50 @@ export default function SocialMedia({ dict, footer }) {
           </p>
         </div>
 
-        {/* Social Links Grid - Minimalist */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-          {socialLinks.map((social, index) => {
-            const Icon = social.icon;
-            return (
-              <a
-                key={index}
-                ref={(el) => (cardsRef.current[index] = el)}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative"
-              >
-                <div className="relative p-6 bg-white/50 backdrop-blur-sm rounded-2xl border border-[#4A3B2C]/8 transition-all duration-300 hover:bg-white/80 hover:border-[#4A3B2C]/15 hover:shadow-sm">
-                  {/* Icon Container - Minimalist outline */}
-                  <div className="relative flex flex-col items-center gap-3">
-                    <div className="flex items-center justify-center w-12 h-12 rounded-xl border border-[#4A3B2C]/15 bg-[#4A3B2C]/[0.02] transition-all duration-300 group-hover:border-[#4A3B2C]/25 group-hover:bg-[#4A3B2C]/[0.04] group-hover:scale-105">
-                      <Icon className="w-5 h-5 text-[#4A3B2C]/60" strokeWidth={1.5} />
-                    </div>
-
-                    {/* Name */}
-                    <span
-                      className="text-xs font-medium text-[#4A3B2C]/60 text-center uppercase tracking-wider"
-                      style={{ fontFamily: "'DM Sans', sans-serif" }}
-                    >
-                      {social.name}
-                    </span>
-                  </div>
+        {/* Social Links Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {socialLinks.map((social, index) => (
+            <a
+              key={index}
+              ref={(el) => (cardsRef.current[index] = el)}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative"
+            >
+              <div className="relative p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-[#4A3B2C]/8 transition-all duration-300 hover:bg-white/90 hover:shadow-lg overflow-hidden flex items-center gap-4">
+                {/* Icon image */}
+                <div className={`relative flex-shrink-0 transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg ${social.shadow}`}>
+                  <Image
+                    src={social.img}
+                    alt={social.name}
+                    width={44}
+                    height={44}
+                    className="rounded-xl"
+                  />
                 </div>
-              </a>
-            );
-          })}
+
+                {/* Name */}
+                <div className="relative min-w-0">
+                  <p className="text-[10px] font-semibold text-[#4A3B2C]/40 mb-0.5 uppercase tracking-widest leading-none"
+                    style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                    Написать нам
+                  </p>
+                  <p className="text-base font-bold text-[#4A3B2C]"
+                    style={{ fontFamily: "'Crimson Pro', Georgia, serif" }}>
+                    {social.name}
+                  </p>
+                </div>
+
+                {/* Arrow */}
+                <div className="ml-auto flex-shrink-0 w-7 h-7 rounded-full border border-[#4A3B2C]/10 flex items-center justify-center transition-all duration-300 group-hover:border-[#4A3B2C]/25 group-hover:bg-white">
+                  <svg className="w-3 h-3 text-[#4A3B2C]/40 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:text-[#4A3B2C]/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+          ))}
         </div>
 
         {/* Optional: Subtle divider line */}

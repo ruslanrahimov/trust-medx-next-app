@@ -62,7 +62,7 @@ export default function HomeServices({ dict, lang }) {
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 md:py-36 overflow-hidden"
+      className="relative py-14 md:py-20 overflow-hidden"
       style={{ background: 'linear-gradient(180deg, #FEFBF6 0%, #F8F5EE 100%)' }}
     >
       {/* Ambient blobs */}
@@ -101,7 +101,7 @@ export default function HomeServices({ dict, lang }) {
           </div>
 
           <h2 ref={titleRef}
-            className="relative z-10 text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-5"
+            className="relative z-10 text-3xl md:text-4xl lg:text-[2.75rem] font-bold leading-tight mb-5"
             style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif", color: '#4A3B2C' }}>
             {services.title}
           </h2>

@@ -36,12 +36,12 @@ export default async function ContactsPage({ params }) {
         </div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 lg:items-start">
             {/* Left Column - Contact Info */}
             <ContactInfo dict={dict.pages.contacts} lang={lang} />
 
             {/* Right Column - Contact Form */}
-            <ContactForm dict={dict.pages.contacts} lang={lang} />
+            <ContactForm dict={dict} lang={lang} />
           </div>
         </div>
       </section>

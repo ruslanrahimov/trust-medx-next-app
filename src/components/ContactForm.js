@@ -1,249 +1,128 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { CheckCircle2, Phone, MessageCircle } from 'lucide-react';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+export default function ContactForm({ dict }) {
 
-export default function ContactForm({ dict, lang }) {
-  const formRef = useRef(null);
-  const [formState, setFormState] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
-  });
-  const [status, setStatus] = useState('idle'); // idle, sending, success, error
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Badge animation
-      gsap.from('.contact-form-badge', {
-        scrollTrigger: {
-          trigger: formRef.current,
-          start: 'top 80%',
-        },
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-      });
-
-      // Form card animation
-      gsap.from('.contact-form-card', {
-        scrollTrigger: {
-          trigger: formRef.current,
-          start: 'top 75%',
-        },
-        opacity: 0,
-        y: 60,
-        x: 20,
-        rotation: 1,
-        duration: 1,
-        ease: 'power3.out',
-      });
-    }, formRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  const handleChange = (e) => {
-    setFormState({
-      ...formState,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setStatus('sending');
-
-    // Simulate form submission
-    setTimeout(() => {
-      // In production, replace with actual API call
-      const success = Math.random() > 0.2; // 80% success rate for demo
-      setStatus(success ? 'success' : 'error');
-
-      if (success) {
-        setFormState({ name: '', email: '', phone: '', message: '' });
-      }
-
-      // Reset status after 5 seconds
-      setTimeout(() => setStatus('idle'), 5000);
-    }, 1500);
-  };
+  const cta = dict?.pages?.homePage?.finalCta;
 
   return (
-    <div ref={formRef} className="space-y-6">
+    <div className="h-full flex flex-col gap-5">
       {/* Badge */}
-      <div className="contact-form-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm border border-[#D4A574]/20">
-        <div className="w-2 h-2 rounded-full bg-[#D4A574] animate-pulse" />
-        <span className="text-sm font-medium text-[#4A3B2C]/80 uppercase tracking-wider font-[family-name:var(--font-dm-sans)]">
-          {dict.contactForm.badge}
+      <div className="cta-card-badge inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[#5FA8A3]/25 self-start"
+        style={{ background: 'rgba(95,168,163,0.08)' }}>
+        <span className="relative flex h-2 w-2">
+          <span className="cta-badge-dot absolute inline-flex h-full w-full rounded-full" style={{ background: '#5FA8A3' }} />
+          <span className="relative inline-flex h-2 w-2 rounded-full" style={{ background: '#5FA8A3' }} />
+        </span>
+        <span className="text-xs font-semibold uppercase tracking-[0.18em]"
+          style={{ fontFamily: "'DM Sans', sans-serif", color: '#5FA8A3' }}>
+          {cta?.badge || 'Начните прямо сейчас'}
         </span>
       </div>
 
-      {/* Form Card */}
-      <div className="contact-form-card group relative">
-        <div className="relative p-8 md:p-10 bg-white/95 backdrop-blur-sm rounded-[2.5rem] border border-[#4A3B2C]/10 shadow-2xl shadow-[#D4A574]/10 transition-all duration-500">
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-[#D4A574]/0 to-[#D4A574]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      {/* CTA Card */}
+      <div
+        className="relative bg-white rounded-[2rem] border overflow-hidden"
+        style={{ borderColor: 'rgba(74,59,44,0.08)', boxShadow: '0 25px 60px rgba(74,59,44,0.10)' }}
+      >
+        {/* Top gradient bar */}
+        <div className="absolute top-0 left-0 right-0 h-[5px]"
+          style={{ background: 'linear-gradient(to right, #5FA8A3, #D4A574)', borderRadius: '2rem 2rem 0 0' }} />
 
-          {/* Title */}
-          <h3
-            className="relative text-2xl md:text-3xl font-bold text-[#4A3B2C] mb-2"
-            style={{ fontFamily: "'Crimson Pro', Georgia, serif" }}
-          >
-            {dict.contactForm.title}
-          </h3>
-          <p className="relative text-[#4A3B2C]/70 mb-8 font-[family-name:var(--font-dm-sans)]">
-            {dict.contactForm.description}
-          </p>
+        {/* Ornamental watermark */}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.04]" aria-hidden="true">
+          <div className="relative w-64 h-64">
+            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-10 rounded-full" style={{ background: '#4A3B2C' }} />
+            <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-10 rounded-full" style={{ background: '#4A3B2C' }} />
+          </div>
+        </div>
 
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="relative space-y-5">
-            {/* Name Field */}
-            <div className="group/field">
-              <label
-                htmlFor="name"
-                className="block text-sm font-semibold text-[#4A3B2C] mb-2 font-[family-name:var(--font-dm-sans)]"
+        <div className="relative z-10 p-8 md:p-10 flex flex-col gap-6">
+          {/* Title + subtitle */}
+          <div>
+            <h3 className="text-3xl md:text-4xl font-bold leading-snug mb-2"
+              style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif", color: '#4A3B2C' }}>
+              {cta?.title || 'Готовы начать ваш путь к здоровью?'}
+            </h3>
+            <p className="text-base leading-relaxed"
+              style={{ fontFamily: "'DM Sans', sans-serif", color: 'rgba(74,59,44,0.55)' }}>
+              {cta?.subtitle || 'Получите бесплатную консультацию и узнайте, какие возможности лечения доступны для вас'}
+            </p>
+          </div>
+
+          {/* Divider */}
+          <div className="h-px" style={{ background: 'rgba(74,59,44,0.07)' }} />
+
+          {/* Benefits */}
+          <div className="flex flex-col gap-2.5">
+            {(cta?.benefits || []).map((benefit, i) => (
+              <div key={i} className="cta-benefit-item flex items-center gap-3 p-3.5 rounded-xl border transition-all duration-300 cursor-default"
+                style={{ borderColor: 'rgba(74,59,44,0.08)', boxShadow: '0 1px 3px rgba(74,59,44,0.05)' }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.borderColor = 'rgba(95,168,163,0.30)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(74,59,44,0.08)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.borderColor = 'rgba(74,59,44,0.08)';
+                  e.currentTarget.style.boxShadow = '0 1px 3px rgba(74,59,44,0.05)';
+                }}
               >
-                {dict.contactForm.fields.name.label}
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formState.name}
-                onChange={handleChange}
-                required
-                placeholder={dict.contactForm.fields.name.placeholder}
-                className="w-full px-5 py-3.5 rounded-2xl border-2 border-[#4A3B2C]/10 bg-white/50 text-[#4A3B2C] placeholder-[#4A3B2C]/40 transition-all duration-300 focus:outline-none focus:border-[#5FA8A3] focus:bg-white focus:shadow-lg focus:shadow-[#5FA8A3]/10 font-[family-name:var(--font-dm-sans)]"
-                dir={lang === 'ar' ? 'rtl' : 'ltr'}
-              />
-            </div>
-
-            {/* Email & Phone Fields - Grid */}
-            <div className="grid md:grid-cols-2 gap-5">
-              {/* Email Field */}
-              <div className="group/field">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-semibold text-[#4A3B2C] mb-2 font-[family-name:var(--font-dm-sans)]"
-                >
-                  {dict.contactForm.fields.email.label}
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                  required
-                  placeholder={dict.contactForm.fields.email.placeholder}
-                  className="w-full px-5 py-3.5 rounded-2xl border-2 border-[#4A3B2C]/10 bg-white/50 text-[#4A3B2C] placeholder-[#4A3B2C]/40 transition-all duration-300 focus:outline-none focus:border-[#5FA8A3] focus:bg-white focus:shadow-lg focus:shadow-[#5FA8A3]/10 font-[family-name:var(--font-dm-sans)]"
-                  dir="ltr"
-                />
+                <CheckCircle2 className="w-5 h-5 flex-shrink-0" style={{ color: '#5FA8A3' }} strokeWidth={2.2} />
+                <span className="text-sm font-medium"
+                  style={{ fontFamily: "'DM Sans', sans-serif", color: '#4A3B2C' }}>
+                  {benefit}
+                </span>
               </div>
+            ))}
+          </div>
 
-              {/* Phone Field */}
-              <div className="group/field">
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-semibold text-[#4A3B2C] mb-2 font-[family-name:var(--font-dm-sans)]"
-                >
-                  {dict.contactForm.fields.phone.label}
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formState.phone}
-                  onChange={handleChange}
-                  placeholder={dict.contactForm.fields.phone.placeholder}
-                  className="w-full px-5 py-3.5 rounded-2xl border-2 border-[#4A3B2C]/10 bg-white/50 text-[#4A3B2C] placeholder-[#4A3B2C]/40 transition-all duration-300 focus:outline-none focus:border-[#5FA8A3] focus:bg-white focus:shadow-lg focus:shadow-[#5FA8A3]/10 font-[family-name:var(--font-dm-sans)]"
-                  dir="ltr"
-                />
-              </div>
-            </div>
+          {/* Divider */}
+          <div className="h-px" style={{ background: 'rgba(74,59,44,0.07)' }} />
 
-            {/* Message Field */}
-            <div className="group/field">
-              <label
-                htmlFor="message"
-                className="block text-sm font-semibold text-[#4A3B2C] mb-2 font-[family-name:var(--font-dm-sans)]"
-              >
-                {dict.contactForm.fields.message.label}
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formState.message}
-                onChange={handleChange}
-                required
-                rows={5}
-                placeholder={dict.contactForm.fields.message.placeholder}
-                className="w-full px-5 py-3.5 rounded-2xl border-2 border-[#4A3B2C]/10 bg-white/50 text-[#4A3B2C] placeholder-[#4A3B2C]/40 transition-all duration-300 focus:outline-none focus:border-[#5FA8A3] focus:bg-white focus:shadow-lg focus:shadow-[#5FA8A3]/10 resize-none font-[family-name:var(--font-dm-sans)]"
-                dir={lang === 'ar' ? 'rtl' : 'ltr'}
-              />
-            </div>
-
-            {/* Submit Button */}
+          {/* Buttons */}
+          <div className="flex flex-col gap-3">
+            {/* Primary */}
             <button
-              type="submit"
-              disabled={status === 'sending'}
-              className="group/btn w-full relative overflow-hidden px-8 py-4 rounded-2xl bg-gradient-to-br from-[#5FA8A3] to-[#4A9691] text-white font-semibold shadow-lg shadow-[#5FA8A3]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#5FA8A3]/40 hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed font-[family-name:var(--font-dm-sans)]"
+              type="button"
+              onClick={() => window.dispatchEvent(new Event('open-consultation-modal'))}
+              className="group relative w-full inline-flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-semibold text-white overflow-hidden transition-all duration-300 hover:-translate-y-0.5"
+              style={{
+                fontFamily: "'DM Sans', sans-serif",
+                background: 'linear-gradient(135deg, #1a3a38 0%, #2C5F5D 100%)',
+                boxShadow: '0 8px 24px rgba(44,95,93,0.35)',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 12px 32px rgba(44,95,93,0.50)'; }}
+              onMouseLeave={e => { e.currentTarget.style.boxShadow = '0 8px 24px rgba(44,95,93,0.35)'; }}
             >
-              {/* Button background animation */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#4A9691] to-[#5FA8A3] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
-
-              <span className="relative flex items-center justify-center gap-2">
-                {status === 'sending' ? (
-                  <>
-                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    {dict.contactForm.sending}
-                  </>
-                ) : (
-                  <>
-                    {dict.contactForm.submit}
-                    <Send className="w-5 h-5 transition-transform duration-300 group-hover/btn:translate-x-1" />
-                  </>
-                )}
-              </span>
+              <span className="btn-shine pointer-events-none absolute inset-y-0 w-1/3 -translate-x-full skew-x-[-20deg]"
+                style={{ background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.22), transparent)' }} />
+              <Phone className="w-5 h-5 flex-shrink-0" strokeWidth={2} />
+              <span>{cta?.ctaPrimary || 'Получить консультацию'}</span>
             </button>
 
-            {/* Success/Error Messages */}
-            {status === 'success' && (
-              <div className="flex items-start gap-3 p-4 rounded-2xl bg-green-50 border border-green-200">
-                <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                <p className="text-sm text-green-800 font-[family-name:var(--font-dm-sans)]">
-                  {dict.contactForm.success}
-                </p>
-              </div>
-            )}
+            {/* WhatsApp */}
+            <a
+              href="https://wa.me/994XXXXXXXXX"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group w-full inline-flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-semibold bg-white border transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+              style={{ fontFamily: "'DM Sans', sans-serif", borderColor: 'rgba(74,59,44,0.20)', color: '#4A3B2C' }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(37,211,102,0.40)'; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(74,59,44,0.20)'; }}
+            >
+              <MessageCircle className="w-5 h-5 flex-shrink-0" style={{ color: '#25D366' }} strokeWidth={2} />
+              <span>{cta?.ctaSecondary || 'Связаться в WhatsApp'}</span>
+            </a>
+          </div>
 
-            {status === 'error' && (
-              <div className="flex items-start gap-3 p-4 rounded-2xl bg-red-50 border border-red-200">
-                <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                <p className="text-sm text-red-800 font-[family-name:var(--font-dm-sans)]">
-                  {dict.contactForm.error}
-                </p>
-              </div>
-            )}
-          </form>
-
-          {/* Decorative corner element */}
-          <div className="absolute -bottom-3 -left-3 w-24 h-24 bg-gradient-to-bl from-[#D4A574]/20 to-transparent rounded-[2rem] -z-10 blur-xl" />
+          {/* Footer note */}
+          <p className="text-center text-xs"
+            style={{ fontFamily: "'DM Sans', sans-serif", color: 'rgba(74,59,44,0.40)' }}>
+            ✓ Бесплатная консультация&nbsp;&nbsp;·&nbsp;&nbsp;✓ Ответ за 2 часа
+          </p>
         </div>
       </div>
-
-      {/* Load fonts */}
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
-      `}</style>
     </div>
   );
 }

@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Target, HeartHandshake, Stethoscope, Eye, Baby, Smile } from 'lucide-react';
+import { Target, HeartHandshake, Stethoscope, Eye, Baby, Smile, ArrowRight } from 'lucide-react';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -13,20 +13,20 @@ const DISPLAY_FONT = "'Fraunces', 'Crimson Pro', Georgia, serif";
 const BODY_FONT = "'DM Sans', sans-serif";
 
 const specialties = [
-  { icon: Smile, name: 'Стоматология', color: '#5FA8A3' },
-  { icon: Stethoscope, name: 'Эстетическая медицина', color: '#D4A574' },
-  { icon: HeartHandshake, name: 'Пластическая хирургия', color: '#5FA8A3' },
-  { icon: Eye, name: 'Офтальмология', color: '#D4A574' },
-  { icon: Baby, name: 'Репродуктивные программы', color: '#5FA8A3' },
-  { icon: Target, name: 'И другие направления', color: '#D4A574' },
+  { icon: Smile,          name: 'Стоматология',            sub: 'Имплантация, виниры, протезирование',    color: '#5FA8A3', tag: 'Популярно' },
+  { icon: Stethoscope,    name: 'Эстетическая медицина',   sub: 'Омоложение, инъекции, аппаратная косметология', color: '#D4A574', tag: null },
+  { icon: HeartHandshake, name: 'Пластическая хирургия',   sub: 'Ринопластика, липосакция, маммопластика',color: '#5FA8A3', tag: null },
+  { icon: Eye,            name: 'Офтальмология',            sub: 'Лазерная коррекция, катаракта, глаукома',color: '#D4A574', tag: null },
+  { icon: Baby,           name: 'Репродуктология',          sub: 'ЭКО, суррогатное материнство, диагностика', color: '#5FA8A3', tag: 'Популярно' },
+  { icon: Target,         name: 'Другие направления',       sub: 'Онкология, ортопедия, кардиология и др.', color: '#D4A574', tag: null },
 ];
 
 const processSteps = [
-  { step: '01', text: 'Первичный запрос и анализ ситуации', color: '#5FA8A3' },
-  { step: '02', text: 'Подбор врача и клиники', color: '#D4A574' },
-  { step: '03', text: 'Организация и планирование', color: '#5FA8A3' },
-  { step: '04', text: 'Лечение и координация', color: '#D4A574' },
-  { step: '05', text: 'Возвращение домой и поддержка', color: '#5FA8A3' },
+  { step: '01', text: 'Первичный запрос и анализ ситуации',   color: '#5FA8A3' },
+  { step: '02', text: 'Подбор врача и клиники',               color: '#D4A574' },
+  { step: '03', text: 'Организация и планирование поездки',   color: '#5FA8A3' },
+  { step: '04', text: 'Лечение и координация на месте',       color: '#D4A574' },
+  { step: '05', text: 'Возвращение домой и поддержка',        color: '#5FA8A3' },
 ];
 
 export default function AboutApproach({ dict }) {
@@ -36,15 +36,19 @@ export default function AboutApproach({ dict }) {
     const ctx = gsap.context(() => {
       gsap.from('.aap-head', {
         scrollTrigger: { trigger: sectionRef.current, start: 'top 82%', once: true },
-        opacity: 0, y: 36, duration: 1, ease: 'power3.out',
+        opacity: 0, y: 32, duration: 1, ease: 'power3.out',
       });
-      gsap.from('.aap-steps', {
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 78%', once: true },
-        opacity: 0, x: 36, duration: 1, ease: 'power3.out', delay: 0.15,
+      gsap.from('.aap-left', {
+        scrollTrigger: { trigger: '.aap-body', start: 'top 80%', once: true },
+        opacity: 0, x: -32, duration: 1, ease: 'power3.out', delay: 0.1,
+      });
+      gsap.from('.aap-right', {
+        scrollTrigger: { trigger: '.aap-body', start: 'top 80%', once: true },
+        opacity: 0, x: 32, duration: 1, ease: 'power3.out', delay: 0.2,
       });
       gsap.fromTo(
         '.aap-spec',
-        { opacity: 0, y: 24 },
+        { opacity: 0, y: 20 },
         {
           scrollTrigger: { trigger: '.aap-spec-grid', start: 'top 85%', once: true },
           opacity: 1, y: 0, stagger: 0.07, duration: 0.55, ease: 'power3.out', immediateRender: false,
@@ -57,24 +61,25 @@ export default function AboutApproach({ dict }) {
   return (
     <section
       ref={sectionRef}
-      className="relative py-28 md:py-36 overflow-hidden"
+      className="relative py-12 md:py-16 overflow-hidden"
       style={{ backgroundColor: '#FEFBF6' }}
     >
       <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'rgba(74,59,44,0.07)' }} />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-14 xl:px-20">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-start mb-24">
 
-          {/* ── LEFT ── */}
-          <div className="aap-head">
-            <div className="flex items-center gap-3 mb-8">
+        {/* ── Full-width header ── */}
+        <div className="aap-head flex flex-col md:flex-row md:items-stretch gap-0 mb-8">
+          {/* Left: label + title */}
+          <div className="flex-1 flex flex-col justify-between pr-10 md:pr-14 pb-8 md:pb-0">
+            <div className="flex items-center gap-3 mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#5FA8A3] shrink-0" />
               <span className="text-[11px] font-semibold uppercase tracking-[0.20em] text-[#4A3B2C]/50" style={{ fontFamily: BODY_FONT }}>
                 Наш подход
               </span>
             </div>
             <h2
-              className="text-4xl md:text-5xl font-bold text-[#4A3B2C] leading-[1.1] tracking-tight mb-8"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#4A3B2C] leading-[1.06] tracking-tight"
               style={{ fontFamily: DISPLAY_FONT }}
             >
               Комплексное{' '}
@@ -89,101 +94,139 @@ export default function AboutApproach({ dict }) {
                 сопровождение
               </span>
             </h2>
-            <p className="text-base md:text-[1.05rem] text-[#4A3B2C]/58 leading-relaxed mb-8" style={{ fontFamily: BODY_FONT }}>
+          </div>
+
+          {/* Vertical divider */}
+          <div className="hidden md:block w-px self-stretch" style={{ background: 'linear-gradient(to bottom, transparent, rgba(74,59,44,0.12) 20%, rgba(74,59,44,0.12) 80%, transparent)' }} />
+
+          {/* Right: description */}
+          <div className="flex-1 flex flex-col justify-end pl-0 md:pl-14">
+            <div
+              className="mb-4 w-6 h-0.5 rounded-full hidden md:block"
+              style={{ background: 'linear-gradient(90deg, #D4A574, #5FA8A3)' }}
+            />
+            <p
+              className="text-base text-[#4A3B2C]/60 leading-[1.8]"
+              style={{ fontFamily: BODY_FONT }}
+            >
               {dict.aboutPage.mission.paragraph2}
             </p>
+          </div>
+        </div>
 
-            {/* Accent feature */}
-            <div
-              className="flex items-start gap-4 p-6 rounded-xl border border-[#4A3B2C]/08"
-              style={{ backgroundColor: '#F7F3EE' }}
-            >
-              <div
-                className="shrink-0 w-11 h-11 rounded-lg flex items-center justify-center"
-                style={{ background: 'linear-gradient(135deg, #5FA8A3, #4A9691)' }}
-              >
-                <HeartHandshake className="w-5 h-5 text-white" strokeWidth={2} />
-              </div>
-              <div>
-                <p className="text-sm font-bold text-[#4A3B2C] mb-1" style={{ fontFamily: DISPLAY_FONT }}>
-                  Общая цель команды
-                </p>
-                <p className="text-[13px] text-[#4A3B2C]/55 leading-relaxed" style={{ fontFamily: BODY_FONT }}>
-                  Обеспечить пациенту уверенность, безопасность и результат
-                </p>
-              </div>
+        {/* Divider */}
+        <div className="w-full h-px mb-8" style={{ background: 'rgba(74,59,44,0.07)' }} />
+
+        {/* ── Body: 2 equal columns ── */}
+        <div className="aap-body grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+
+          {/* ── LEFT — specialties 3×2 ── */}
+          <div className="aap-left flex flex-col">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#D4A574] shrink-0" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.20em] text-[#4A3B2C]/50" style={{ fontFamily: BODY_FONT }}>
+                Направления
+              </span>
+            </div>
+            <div className="aap-spec-grid grid grid-cols-2 md:grid-cols-3 gap-2.5">
+              {specialties.map((s, i) => {
+                const Icon = s.icon;
+                return (
+                  <div key={i} className="aap-spec group">
+                    <div
+                      className="h-full flex flex-col rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-0.5 cursor-default"
+                      style={{
+                        background: '#fff',
+                        boxShadow: '0 2px 8px rgba(74,59,44,0.08), 0 1px 2px rgba(74,59,44,0.04)',
+                      }}
+                    >
+                      {/* Accent top bar — always visible, per-card colour */}
+                      <div
+                        className="h-1 w-full shrink-0"
+                        style={{ background: `linear-gradient(90deg, ${s.color}, ${s.color}70)` }}
+                      />
+
+                      <div className="flex flex-col gap-3 p-4">
+                        {/* Icon + tag */}
+                        <div className="flex items-center justify-between">
+                          <div
+                            className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110"
+                            style={{ background: `${s.color}15`, border: `1px solid ${s.color}30` }}
+                          >
+                            <Icon className="w-4 h-4" style={{ color: s.color }} strokeWidth={1.75} />
+                          </div>
+                          {s.tag && (
+                            <span
+                              className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full"
+                              style={{ color: s.color, background: `${s.color}15`, fontFamily: BODY_FONT }}
+                            >
+                              {s.tag}
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Name */}
+                        <p
+                          className="text-[13px] font-semibold leading-snug text-[#4A3B2C]"
+                          style={{ fontFamily: DISPLAY_FONT }}
+                        >
+                          {s.name}
+                        </p>
+
+                        {/* Sub */}
+                        <p
+                          className="text-[11px] leading-relaxed text-[#4A3B2C]/50"
+                          style={{ fontFamily: BODY_FONT }}
+                        >
+                          {s.sub}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
           {/* ── RIGHT — numbered steps ── */}
-          <div className="aap-steps">
-            <p className="text-sm font-semibold text-[#4A3B2C]/40 uppercase tracking-[0.14em] mb-8" style={{ fontFamily: BODY_FONT }}>
-              Этапы сопровождения
-            </p>
-            <div className="space-y-0">
+          <div className="aap-right flex flex-col">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#5FA8A3] shrink-0" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.20em] text-[#4A3B2C]/50" style={{ fontFamily: BODY_FONT }}>
+                Этапы сопровождения
+              </span>
+            </div>
+            <div className="flex flex-col gap-5">
               {processSteps.map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-5 py-5 group"
-                  style={{ borderBottom: index < processSteps.length - 1 ? '1px solid rgba(74,59,44,0.07)' : 'none' }}
+                  className="group relative flex items-center gap-4 px-4 py-4 rounded-xl overflow-hidden transition-all duration-300 hover:-translate-x-0.5 cursor-default"
+                  style={{
+                    background: '#fff',
+                    boxShadow: '0 1px 4px rgba(74,59,44,0.06)',
+                    borderLeft: `3px solid ${item.color}`,
+                  }}
                 >
+                  {/* Watermark number */}
                   <span
-                    className="shrink-0 text-xs font-bold tracking-widest"
-                    style={{ color: item.color, fontFamily: BODY_FONT, minWidth: '2rem' }}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[3.5rem] font-bold leading-none pointer-events-none select-none"
+                    style={{ fontFamily: DISPLAY_FONT, color: `${item.color}0e` }}
                   >
                     {item.step}
                   </span>
-                  <p className="flex-1 text-sm md:text-[15px] text-[#4A3B2C]/65 group-hover:text-[#4A3B2C]/85 transition-colors duration-200" style={{ fontFamily: BODY_FONT }}>
+
+                  <p
+                    className="flex-1 text-[16px] text-[#4A3B2C]/70 group-hover:text-[#4A3B2C]/90 transition-colors duration-200 leading-snug relative z-10"
+                    style={{ fontFamily: BODY_FONT }}
+                  >
                     {item.text}
                   </p>
-                  <div className="shrink-0 w-1.5 h-1.5 rounded-full" style={{ backgroundColor: item.color, opacity: 0.4 }} />
+
                 </div>
               ))}
             </div>
           </div>
-        </div>
 
-        {/* ── Specialties ── */}
-        <div>
-          <div className="flex items-end justify-between mb-12">
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#D4A574] shrink-0" />
-                <span className="text-[11px] font-semibold uppercase tracking-[0.20em] text-[#4A3B2C]/50" style={{ fontFamily: BODY_FONT }}>
-                  Направления
-                </span>
-              </div>
-              <h3 className="text-3xl md:text-4xl font-bold text-[#4A3B2C] leading-tight" style={{ fontFamily: DISPLAY_FONT }}>
-                Направления работы
-              </h3>
-            </div>
-            <p className="hidden md:block text-sm text-[#4A3B2C]/45 max-w-xs text-right leading-relaxed" style={{ fontFamily: BODY_FONT }}>
-              {dict.aboutPage.mission.paragraph3}
-            </p>
-          </div>
-
-          <div className="aap-spec-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-            {specialties.map((specialty, index) => {
-              const Icon = specialty.icon;
-              return (
-                <div key={index} className="aap-spec group">
-                  <div
-                    className="p-5 bg-white rounded-xl border border-[#4A3B2C]/08 transition-all duration-300 hover:border-[#4A3B2C]/16 hover:shadow-md hover:-translate-y-0.5 text-center"
-                  >
-                    <div
-                      className="w-11 h-11 mx-auto mb-3 rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
-                      style={{ background: `${specialty.color}12`, border: `1px solid ${specialty.color}22` }}
-                    >
-                      <Icon className="w-5 h-5" style={{ color: specialty.color }} strokeWidth={1.75} />
-                    </div>
-                    <p className="text-[12px] font-medium text-[#4A3B2C]/60 leading-snug" style={{ fontFamily: BODY_FONT }}>
-                      {specialty.name}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
         </div>
       </div>
     </section>

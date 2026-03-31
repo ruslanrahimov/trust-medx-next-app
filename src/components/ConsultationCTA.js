@@ -105,7 +105,7 @@ export default function ConsultationCTA({ dict, lang }) {
             {/* Title */}
             <h2
               ref={titleRef}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.08] mb-5"
+              className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold leading-[1.08] mb-5"
               style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif", color: '#4A3B2C' }}
             >
               {cta.title}

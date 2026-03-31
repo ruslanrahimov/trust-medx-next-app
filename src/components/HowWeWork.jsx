@@ -799,7 +799,7 @@ export default function HowWeWork({ dict, lang }) {
           </div>
 
           <h2
-            className="hww-title text-4xl md:text-5xl lg:text-6xl font-bold text-[#2D3748] mb-5 leading-tight"
+            className="hww-title text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-[#2D3748] mb-5 leading-tight"
             style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif" }}
           >
             {title}

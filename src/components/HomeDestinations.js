@@ -59,7 +59,7 @@ export default function HomeDestinations({ dict, lang }) {
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 md:py-36 overflow-hidden"
+      className="relative py-14 md:py-20 overflow-hidden"
       style={{ background: '#F0EDE6' }}
     >
       {/* Dot grid texture */}
@@ -85,7 +85,7 @@ export default function HomeDestinations({ dict, lang }) {
           </div>
 
           <h2 ref={titleRef}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#4A3B2C] mb-5 leading-tight"
+            className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-[#4A3B2C] mb-5 leading-tight"
             style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif" }}>
             {destinations.title}
           </h2>

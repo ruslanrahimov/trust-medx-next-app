@@ -1,186 +1,150 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { gsap } from 'gsap';
-import { Quote } from 'lucide-react';
 
-const DISPLAY_FONT = "'Fraunces', 'Crimson Pro', Georgia, serif";
-const BODY_FONT = "'DM Sans', sans-serif";
-
-export default function AboutHero({ dict }) {
+export default function AboutHero({ dict, lang }) {
   const heroRef = useRef(null);
   const mission = dict.aboutPage.mission;
-  const homeAbout = dict.pages.homePage.homeAbout;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-      tl.from('.ah-label', { opacity: 0, y: 18, duration: 0.7 })
-        .from('.ah-title-1', { opacity: 0, y: 56, duration: 1.05 }, '-=0.4')
-        .from('.ah-title-2', { opacity: 0, y: 56, duration: 1.05 }, '-=0.75')
-        .from('.ah-desc', { opacity: 0, y: 24, duration: 0.8 }, '-=0.55')
-        .from('.ah-stat', { opacity: 0, y: 14, duration: 0.5, stagger: 0.12 }, '-=0.45')
-        .from('.ah-visual', { opacity: 0, x: 30, duration: 1.2 }, '-=1.4');
+
+      tl.from('.hero-badge', {
+        opacity: 0,
+        y: -16,
+        duration: 0.6,
+      })
+      .from('.hero-title-line', {
+        opacity: 0,
+        y: 40,
+        duration: 1,
+        stagger: 0.15,
+      }, '-=0.3')
+      .from('.hero-subtitle', {
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+      }, '-=0.5')
+
+      .from('.hero-scroll', {
+        opacity: 0,
+        duration: 0.6,
+      }, '-=0.2');
+
+      // Floating shapes
+      gsap.utils.toArray('.floating-shape').forEach((shape, i) => {
+        gsap.to(shape, {
+          y: -20 - (i * 10),
+          x: i % 2 === 0 ? 15 : -15,
+          rotation: i % 2 === 0 ? 5 : -5,
+          duration: 3 + (i * 0.5),
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+        });
+      });
+
+      // Scroll indicator bounce
+      gsap.to('.scroll-dot', {
+        y: 8,
+        duration: 0.9,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+      });
     }, heroRef);
+
     return () => ctx.revert();
   }, []);
 
   return (
     <section
       ref={heroRef}
-      className="relative overflow-hidden"
-      style={{ backgroundColor: '#FEFBF6' }}
+      className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#FAF8F0] via-[#FEFBF6] to-[#F8F5EE]"
     >
-      {/* Subtle grain */}
+      {/* Organic Background Shapes */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="floating-shape absolute -top-32 -right-32 w-[600px] h-[600px] rounded-[40%_60%_70%_30%/40%_50%_60%_50%] bg-gradient-to-br from-[#5FA8A3]/8 to-[#2C5F5D]/5 blur-3xl" />
+        <div className="floating-shape absolute -bottom-24 -left-24 w-[500px] h-[500px] rounded-[60%_40%_30%_70%/60%_30%_70%_40%] bg-gradient-to-tr from-[#D4A574]/8 to-[#967259]/5 blur-3xl" />
+        <div className="floating-shape absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-[40%_60%_60%_40%/60%_40%_40%_60%] bg-[#5FA8A3]/5 blur-2xl" />
+      </div>
+
+      {/* Subtle dot pattern */}
       <div
-        className="pointer-events-none absolute inset-0 z-0 opacity-[0.018]"
+        className="absolute inset-0 opacity-[0.025]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)'/%3E%3C/svg%3E")`,
-          backgroundRepeat: 'repeat',
+          backgroundImage: 'radial-gradient(circle, #4A3B2C 1px, transparent 1px)',
+          backgroundSize: '32px 32px',
         }}
       />
 
-      <div className="relative z-10 grid lg:grid-cols-2 min-h-[92dvh]">
-        {/* ── LEFT ── */}
-        <div className="flex flex-col justify-center px-6 lg:pl-14 xl:pl-20 lg:pr-12 py-24 lg:py-0">
-          {/* Section label */}
-          <div className="ah-label flex items-center gap-3 mb-10">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#5FA8A3] shrink-0" />
-            <span
-              className="text-[11px] font-semibold uppercase tracking-[0.20em] text-[#4A3B2C]/50"
-              style={{ fontFamily: BODY_FONT }}
-            >
-              {mission.badge}
-            </span>
-          </div>
+      {/* Content */}
+      <div className="relative z-10 max-w-5xl mx-auto px-6 py-10 w-full">
 
-          {/* Headline */}
-          <div className="mb-8 overflow-hidden">
-            <h1
-              className="ah-title-1 text-[3rem] md:text-[4rem] lg:text-[3.6rem] xl:text-[4.5rem] font-bold text-[#4A3B2C] leading-[1.04] tracking-tight"
-              style={{ fontFamily: DISPLAY_FONT }}
-            >
-              {mission.title}
-            </h1>
-            <h2
-              className="ah-title-2 text-[3rem] md:text-[4rem] lg:text-[3.6rem] xl:text-[4.5rem] font-bold leading-[1.04] tracking-tight"
-              style={{
-                fontFamily: DISPLAY_FONT,
-                background: 'linear-gradient(110deg, #5FA8A3 0%, #4A9691 55%, #7EBDB8 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              {mission.subtitle}
-            </h2>
-          </div>
-
-          {/* Lead text */}
-          <p
-            className="ah-desc max-w-md text-base md:text-[1.05rem] text-[#4A3B2C]/58 leading-relaxed mb-14"
-            style={{ fontFamily: BODY_FONT }}
-          >
-            {mission.intro}
-          </p>
-
-          {/* Stats row */}
-          <div className="flex flex-wrap items-stretch gap-0 border-t border-[#4A3B2C]/10 pt-8">
-            {homeAbout.stats.map(({ number, suffix, label }, i) => (
-              <div
-                key={i}
-                className="ah-stat flex flex-col"
-                style={{
-                  paddingRight: '2rem',
-                  paddingLeft: i > 0 ? '2rem' : '0',
-                  borderLeft: i > 0 ? '1px solid rgba(74,59,44,0.11)' : 'none',
-                }}
-              >
-                <span
-                  className="text-[2.2rem] md:text-[2.6rem] font-bold text-[#4A3B2C] leading-none"
-                  style={{ fontFamily: DISPLAY_FONT }}
-                >
-                  {number}
-                  <span style={{ color: '#5FA8A3' }}>{suffix}</span>
-                </span>
-                <span
-                  className="mt-2 text-[11px] uppercase tracking-[0.14em] text-[#4A3B2C]/42"
-                  style={{ fontFamily: BODY_FONT }}
-                >
-                  {label}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ── RIGHT — visual ── */}
-        <div className="ah-visual relative h-[52dvh] min-h-[300px] lg:h-auto">
-          <div
-            className="absolute inset-0 flex items-end justify-center overflow-hidden"
-            style={{ background: 'linear-gradient(150deg, #F0E8DE 0%, #E6D8CB 40%, #D9CCBC 70%, #D0C4B0 100%)' }}
-          >
-            <div
-              className="absolute inset-0 opacity-[0.04]"
-              style={{ backgroundImage: 'repeating-linear-gradient(45deg, #4A3B2C 0px, #4A3B2C 1px, transparent 0px, transparent 44px)' }}
+        {/* Title row: logo left | divider | subtitle right */}
+        <div className="hero-title-line flex flex-col md:flex-row items-center gap-0 mb-8 w-full">
+          {/* Logo */}
+          <div className="shrink-0 flex items-center justify-center">
+            <Image
+              src="/trustmedx-logo-mobile.png"
+              alt="TrustMedX"
+              width={220}
+              height={136}
+              priority
+              className="w-[180px] md:w-[220px] h-auto"
             />
-
-            {/* Accent circles */}
-            <div className="absolute top-12 right-12 w-36 h-36 rounded-full opacity-18" style={{ background: 'radial-gradient(circle, #5FA8A3 0%, transparent 70%)' }} />
-            <div className="absolute top-28 left-16 w-24 h-24 rounded-full opacity-15" style={{ background: 'radial-gradient(circle, #D4A574 0%, transparent 70%)' }} />
-            <div className="absolute top-[45%] right-[30%] w-16 h-16 rounded-full opacity-20" style={{ background: 'radial-gradient(circle, #7EBDB8 0%, transparent 70%)' }} />
-
-            {/* Silhouettes */}
-            {[
-              { xPct: 14, headR: 22, bodyW: 48, bodyH: 130, color: '#5FA8A3' },
-              { xPct: 33, headR: 29, bodyW: 64, bodyH: 162, color: '#D4A574' },
-              { xPct: 54, headR: 24, bodyW: 54, bodyH: 142, color: '#5FA8A3' },
-              { xPct: 74, headR: 20, bodyW: 44, bodyH: 118, color: '#7EBDB8' },
-            ].map((p, i) => (
-              <div
-                key={i}
-                className="absolute bottom-0 flex flex-col items-center"
-                style={{ left: `${p.xPct}%`, transform: 'translateX(-50%)' }}
-              >
-                <div className="rounded-full mb-1 shrink-0" style={{ width: p.headR * 2, height: p.headR * 2, background: `${p.color}2a`, border: `1.5px solid ${p.color}55` }} />
-                <div className="rounded-t-[50%] shrink-0" style={{ width: p.bodyW, height: p.bodyH, background: `linear-gradient(to bottom, ${p.color}22, ${p.color}0e)`, border: `1.5px solid ${p.color}38`, borderBottom: 'none' }} />
-              </div>
-            ))}
-
-            {/* Quote */}
-            <div className="absolute top-8 left-8 flex items-start gap-2 max-w-[190px]">
-              <Quote className="shrink-0 mt-0.5 opacity-18" style={{ width: 18, height: 18, color: '#4A3B2C' }} strokeWidth={2} />
-              <p className="text-[11px] italic text-[#4A3B2C]/32 leading-relaxed" style={{ fontFamily: DISPLAY_FONT }}>
-                {homeAbout.quoteText}
-              </p>
-            </div>
-
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(74,59,44,0.14) 0%, transparent 48%)' }} />
           </div>
 
-          {/* Founder card */}
-          <div
-            className="absolute -left-4 top-[30%] hidden md:flex items-center gap-3 rounded-xl border border-[#4A3B2C]/10 bg-white px-4 py-3 z-10"
-            style={{ boxShadow: '0 12px 40px rgba(74,59,44,0.12)' }}
-          >
-            <div
-              className="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
-              style={{ background: 'linear-gradient(135deg, #D4A574, #C89563)' }}
-            >
-              <span className="text-white font-bold text-sm" style={{ fontFamily: DISPLAY_FONT }}>
-                {homeAbout.founderCard.initial}
+          {/* Horizontal divider — mobile */}
+          <div className="block md:hidden w-24 h-px my-3 bg-gradient-to-r from-transparent via-[#4A3B2C]/20 to-transparent" />
+          {/* Vertical divider — desktop */}
+          <div className="hidden md:block w-px self-stretch bg-gradient-to-b from-transparent via-[#4A3B2C]/20 to-transparent" />
+
+          {/* Subtitle */}
+          <div className="flex-1 flex items-center justify-center md:justify-start md:pl-6">
+            <h1 className="text-3xl sm:text-3xl md:text-5xl lg:text-6xl font-bold leading-tight md:leading-none text-center md:text-left">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2C5F5D] via-[#5FA8A3] to-[#2C5F5D] font-[family-name:var(--font-fraunces)]">
+                {mission.subtitle}
               </span>
-            </div>
-            <div>
-              <p className="text-xs font-bold text-[#4A3B2C] leading-tight" style={{ fontFamily: BODY_FONT }}>
-                {homeAbout.founderCard.name}
-              </p>
-              <p className="text-[10px] uppercase tracking-wide text-[#4A3B2C]/45 mt-0.5" style={{ fontFamily: BODY_FONT }}>
-                {homeAbout.founderCard.role}
-              </p>
+            </h1>
+          </div>
+        </div>
+
+        {/* Intro text */}
+        <p className="hero-subtitle text-lg md:text-xl text-[#4A3B2C]/70 font-light leading-relaxed font-[family-name:var(--font-dm-sans)] mb-10">
+          {mission.intro}{mission.description ? ` ${mission.description}` : ''}
+        </p>
+
+
+        {/* Scroll indicator */}
+        <div className="hero-scroll flex justify-center">
+          <div className="flex flex-col items-center gap-2 text-[#4A3B2C]/40">
+            <span className="text-xs tracking-widest uppercase font-[family-name:var(--font-dm-sans)]">Узнать больше</span>
+            <div className="w-5 h-8 rounded-full border border-[#4A3B2C]/20 flex items-start justify-center p-1">
+              <div className="scroll-dot w-1.5 h-1.5 rounded-full bg-[#5FA8A3]/60" />
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Bottom wave transition */}
+      <div className="absolute bottom-0 left-0 right-0 h-24">
+        <svg
+          className="w-full h-full"
+          viewBox="0 0 1440 120"
+          fill="none"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0,60 C360,20 480,100 720,60 C960,20 1080,100 1440,60 L1440,120 L0,120 Z"
+            fill="#FEFBF6"
+            fillOpacity="0.5"
+          />
+        </svg>
       </div>
     </section>
   );
