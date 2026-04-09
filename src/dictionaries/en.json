@@ -22,10 +22,22 @@
         "ctaPrimary": "Start Consultation",
         "ctaSecondary": "Learn More",
         "stats": [
-          { "value": "10+", "label": "Years of\nExperience" },
-          { "value": "20+", "label": "Countries\nWorldwide" },
-          { "value": "100%", "label": "Personal\nApproach" },
-          { "value": "24/7", "label": "Support at\nEvery Step" }
+          {
+            "value": "10+",
+            "label": "Years of\nExperience"
+          },
+          {
+            "value": "20+",
+            "label": "Countries\nWorldwide"
+          },
+          {
+            "value": "100%",
+            "label": "Personal\nApproach"
+          },
+          {
+            "value": "24/7",
+            "label": "Support at\nEvery Step"
+          }
         ],
         "trustRow": "15,000+ satisfied patients"
       },
@@ -38,19 +50,31 @@
             "title": "Treatment Abroad",
             "description": "Access to leading clinics in Turkey, Korea, and China. Cutting-edge technology and the world's best specialists.",
             "link": "/treatment-abroad",
-            "features": ["200+ partner clinics", "18 countries", "Full support"]
+            "features": [
+              "200+ partner clinics",
+              "18 countries",
+              "Full support"
+            ]
           },
           {
             "title": "TrustMedX Academy",
             "description": "Professional training for doctors and managers in medical tourism.",
             "link": "/academy",
-            "features": ["Certification", "Practical skills", "Expert instructors"]
+            "features": [
+              "Certification",
+              "Practical skills",
+              "Expert instructors"
+            ]
           },
           {
             "title": "For Patients",
             "description": "Personal support, transparent process, 24/7 assistance at all treatment stages.",
             "link": "/for-patients",
-            "features": ["Personal coordinator", "24/7 support", "Transparent pricing"]
+            "features": [
+              "Personal coordinator",
+              "24/7 support",
+              "Transparent pricing"
+            ]
           }
         ]
       },
@@ -104,7 +128,12 @@
             "name": "Turkey",
             "image": "/turkiye.jpg",
             "description": "Modern clinics and affordable prices in the heart of Eurasia",
-            "specialties": ["Plastic Surgery", "Hair Transplant", "Dentistry", "Oncology"],
+            "specialties": [
+              "Plastic Surgery",
+              "Hair Transplant",
+              "Dentistry",
+              "Oncology"
+            ],
             "stats": {
               "clinics": "80+",
               "savings": "Up to 70%"
@@ -114,7 +143,12 @@
             "name": "South Korea",
             "image": "/korea.jpg",
             "description": "World leader in innovative medical technologies",
-            "specialties": ["Cosmetology", "Oncology", "Robotic Surgery", "Diagnostics"],
+            "specialties": [
+              "Cosmetology",
+              "Oncology",
+              "Robotic Surgery",
+              "Diagnostics"
+            ],
             "stats": {
               "clinics": "60+",
               "savings": "Up to 50%"
@@ -124,7 +158,12 @@
             "name": "China",
             "image": "/china.jpg",
             "description": "Combination of ancient traditions and advanced technology",
-            "specialties": ["Traditional Medicine", "Orthopedics", "Cardiology", "Rehabilitation"],
+            "specialties": [
+              "Traditional Medicine",
+              "Orthopedics",
+              "Cardiology",
+              "Rehabilitation"
+            ],
             "stats": {
               "clinics": "60+",
               "savings": "Up to 65%"
@@ -160,9 +199,21 @@
         "photoPlaceholder": "TrustMedX Team",
         "quoteText": "Every patient deserves quality, transparent medical care",
         "stats": [
-          { "number": "10", "suffix": "+", "label": "Years" },
-          { "number": "200", "suffix": "+", "label": "Clinics" },
-          { "number": "98", "suffix": "%", "label": "Success" }
+          {
+            "number": "10",
+            "suffix": "+",
+            "label": "Years"
+          },
+          {
+            "number": "200",
+            "suffix": "+",
+            "label": "Clinics"
+          },
+          {
+            "number": "98",
+            "suffix": "%",
+            "label": "Success"
+          }
         ],
         "founderCard": {
           "initial": "D",
@@ -304,7 +355,316 @@
     },
     "academy": {
       "title": "TrustMedX Academy",
-      "description": "TrustMedX educational platform"
+      "description": "TrustMedX educational platform",
+      "agents": {
+        "meta": {
+          "title": "Medical Tourism Specialist Program — TrustMedX Academy",
+          "description": "Training for consultants and coordinators in medical tourism. 6 modules: foundations, patient management, marketing, legal matters, agency network management. Certificate upon completion."
+        },
+        "hero": {
+          "badge": "Medical Tourism Specialists",
+          "titleLine1": "TrustMedX",
+          "titleLine2": "Academy",
+          "description": "We train consultants and coordinators who want to grow in the medical tourism industry. We share expertise, tools and real cases.",
+          "paths": [
+            "Career in medical tourism",
+            "Personal agent brand",
+            "Real case studies"
+          ],
+          "stats": [
+            {
+              "num": "6",
+              "label": "modules"
+            },
+            {
+              "num": "Online",
+              "label": "+ on-site"
+            },
+            {
+              "num": "360°",
+              "label": "training"
+            },
+            {
+              "num": "★",
+              "label": "certificate"
+            }
+          ],
+          "floatCard1Number": "100+",
+          "floatCard1Label": "agents trained",
+          "floatCard2Title": "Certificate",
+          "floatCard2Subtitle": "upon course completion",
+          "imageAlt": "Medical tourism agent training",
+          "formatBadge": "Online + On-site"
+        },
+        "modules": {
+          "badge": "Curriculum",
+          "title": "6 modules — from start to expertise",
+          "subtitle": "A sequential program focused on real practice and personal brand development",
+          "levels": [
+            {
+              "label": "Start",
+              "modRange": "mod. 1–2"
+            },
+            {
+              "label": "Growth",
+              "modRange": "mod. 3–4"
+            },
+            {
+              "label": "Expertise",
+              "modRange": "mod. 5–6"
+            }
+          ],
+          "items": [
+            {
+              "subtitle": "Foundation",
+              "title": "Fundamentals of Medical Tourism",
+              "level": "Start",
+              "items": [
+                "Market structure and the agent's role",
+                "Stages of patient support",
+                "Ethical and legal principles"
+              ],
+              "result": "Basic understanding of the industry and document templates"
+            },
+            {
+              "subtitle": "Patient & Partner Management",
+              "title": "Working with Patients and Partners",
+              "level": "Start",
+              "items": [
+                "Consultations and needs assessment",
+                "Selecting clinic and doctor",
+                "Handling objections and building trust",
+                "Financial models and reporting"
+              ],
+              "result": "Real communication scenarios and ready-made scripts"
+            },
+            {
+              "subtitle": "Marketing & Personal Brand",
+              "title": "Marketing and Promotion",
+              "level": "Growth",
+              "items": [
+                "Building a personal brand",
+                "Social media work (Instagram, Telegram, TikTok)",
+                "Content and storytelling",
+                "Reputation and reviews"
+              ],
+              "result": "Templates and strategies from TrustMedX"
+            },
+            {
+              "subtitle": "Legal & Compliance",
+              "title": "Legal and Organizational Matters",
+              "level": "Growth",
+              "items": [
+                "Agency agreements and contracts",
+                "Liability, confidentiality, taxes",
+                "GDPR and data protection"
+              ],
+              "result": "Document templates and checklists"
+            },
+            {
+              "subtitle": "Advanced: Agency Network",
+              "title": "Agency Network Management",
+              "level": "Expertise",
+              "items": [
+                "Franchise model",
+                "Team management and motivation",
+                "CRM, analytics, service standards"
+              ],
+              "result": "Individual agency strategy development"
+            },
+            {
+              "subtitle": "Online + On-site",
+              "title": "Combined Programs",
+              "level": "Expertise",
+              "items": [
+                "Online webinars and in-person trainings",
+                "Educational tours with clinic visits",
+                "Master classes from TrustMedX leadership"
+              ],
+              "result": "Certificate upon course completion"
+            }
+          ]
+        },
+        "howToJoin": {
+          "badge": "How to Join",
+          "title": "Getting started is easy",
+          "subtitle": "Training takes place in a friendly atmosphere, with a focus on real practice and personal agent brand development",
+          "steps": [
+            {
+              "title": "Contact us",
+              "description": "Write an email or call us — we'll reply and tell you about upcoming dates"
+            },
+            {
+              "title": "We'll select a program",
+              "description": "We'll consider your level and goals, and help you choose the right module"
+            },
+            {
+              "title": "Register",
+              "description": "We'll complete the enrollment — and you'll start growing in the medical tourism industry"
+            }
+          ],
+          "contactBadge": "Sign Up",
+          "contactTitle": "Contact the TrustMedX Team",
+          "contactDescription": "We'll select the right course for your level and goals, tell you about upcoming dates and help you register",
+          "communityLabel": "Friendly atmosphere and a vibrant community",
+          "emailLabel": "Email",
+          "phoneLabel": "Phone / WhatsApp"
+        },
+        "cta": {
+          "badge": "Start your career in medical tourism",
+          "title": "Become an in-demand",
+          "titleAccent": "specialist",
+          "subtitle": "Professional tools, real cases and TrustMedX team support. Work effectively, ethically and with passion.",
+          "footer": "TrustMedX Academy · Medical Tourism · Istanbul"
+        }
+      },
+      "doctors": {
+        "meta": {
+          "title": "Training Programs for Doctors — TrustMedX Academy",
+          "description": "Professional development and internships for physicians at leading clinics in Turkey. 6 specializations: hair transplant, plastic surgery, dentistry, IVF, clinic management. International certificates."
+        },
+        "hero": {
+          "badge": "Training Programs for Doctors",
+          "titleLine1": "TrustMedX",
+          "titleLine2": "Academy",
+          "description": "An international platform connecting doctors and clinics from around the world. Professional development programs and internships at leading clinics in Turkey — hands-on experience and international certificates.",
+          "stats": [
+            {
+              "num": "6",
+              "label": "specializations"
+            },
+            {
+              "num": "4–6",
+              "label": "per group"
+            },
+            {
+              "num": "100%",
+              "label": "certification"
+            },
+            {
+              "num": "TOP",
+              "label": "Turkey clinics"
+            }
+          ],
+          "floatCard1Number": "200+",
+          "floatCard1Label": "doctors trained",
+          "floatCard2Title": "Certificate",
+          "floatCard2Subtitle": "internationally recognized",
+          "imageAlt": "Doctor training at clinics in Turkey"
+        },
+        "programs": {
+          "badge": "Training Programs",
+          "title": "6 specialized directions",
+          "subtitle": "Each program is developed in partnership with leading clinics in Turkey and includes a practical component",
+          "items": [
+            {
+              "subtitle": "Hair Transplant Training",
+              "title": "Hair Transplantation",
+              "items": [
+                "FUE, DHI, Sapphire, Hybrid techniques",
+                "Hairline design and graft work",
+                "PRP, mesotherapy, post-operative care",
+                "Practice on models and live surgeries"
+              ],
+              "certificate": "Certificate upon completion",
+              "footer": null,
+              "format": null
+            },
+            {
+              "subtitle": "Plastic Surgery Observership",
+              "title": "Plastic Surgery",
+              "items": [
+                "Rhinoplasty, mammoplasty, liposuction, facelift",
+                "Observation of real surgeries",
+                "Modern rehabilitation protocols"
+              ],
+              "certificate": null,
+              "footer": "Top Istanbul clinics · internationally renowned surgeons",
+              "format": null
+            },
+            {
+              "subtitle": "Dental Training",
+              "title": "Dentistry",
+              "items": [
+                "Implantology",
+                "Aesthetic dentistry and veneers",
+                "Digital dentistry (CAD/CAM, 3D planning)"
+              ],
+              "certificate": null,
+              "footer": "Leading dental centers in Turkey",
+              "format": null
+            },
+            {
+              "subtitle": "Reproductive Medicine & IVF",
+              "title": "Gynecology & IVF",
+              "items": [
+                "Stimulation protocols, ICSI, cryo, donor programs",
+                "Lab standards and embryology",
+                "Working with patients with low ovarian reserve"
+              ],
+              "certificate": null,
+              "footer": "Certified IVF centers",
+              "format": null
+            },
+            {
+              "subtitle": "Clinic Management & Strategy",
+              "title": "For Clinic Directors",
+              "items": [
+                "Strategic management and JCI standards",
+                "International marketing and patient relations",
+                "Staff motivation and team building"
+              ],
+              "certificate": null,
+              "footer": null,
+              "format": "Lectures, hospital visits, master classes"
+            },
+            {
+              "subtitle": "Mixed Modules",
+              "title": "Combined Programs",
+              "items": [
+                "«Doctor Experience in Istanbul»",
+                "«Aesthetic & Hair Transplant Week»",
+                "«Management & Marketing for Clinics»"
+              ],
+              "certificate": "Certificate + partnership with partner clinics",
+              "footer": null,
+              "format": null
+            }
+          ]
+        },
+        "howToJoin": {
+          "badge": "How to Join",
+          "title": "Three simple steps",
+          "subtitle": "All programs are conducted in mini-groups of 4–6 people for maximum hands-on experience",
+          "steps": [
+            {
+              "title": "Contact us",
+              "description": "Write an email or call us — our team will respond within 24 hours"
+            },
+            {
+              "title": "We'll select a course",
+              "description": "We'll explain the format, dates and participation terms. Help you choose the right program"
+            },
+            {
+              "title": "Participate",
+              "description": "Come to Istanbul and gain hands-on experience at leading clinics"
+            }
+          ],
+          "contactBadge": "Sign Up",
+          "contactTitle": "Contact the TrustMedX Team",
+          "contactDescription": "We'll select the right course, explain the format, dates and participation terms",
+          "miniGroupLabel": "Mini-groups of 4–6 people",
+          "emailLabel": "Email",
+          "phoneLabel": "Phone / WhatsApp"
+        },
+        "cta": {
+          "badge": "Start your training",
+          "title": "Ready to expand",
+          "titleAccent": "your expertise?",
+          "subtitle": "Mini-groups of 4–6 people, practice at leading clinics in Turkey, international certificate. Contact us — we'll find the right program for you.",
+          "footer": "TrustMedX Academy · Istanbul, Turkey"
+        }
+      }
     },
     "contacts": {
       "title": "Contacts",
@@ -919,19 +1279,34 @@
         "name": "Turkey",
         "image": "/turkiye.jpg",
         "description": "Advanced technologies and affordable prices in modern clinics of Istanbul and Ankara",
-        "treatments": ["Cosmetic Surgery", "Hair Transplant", "Dental Care", "Oncology"]
+        "treatments": [
+          "Cosmetic Surgery",
+          "Hair Transplant",
+          "Dental Care",
+          "Oncology"
+        ]
       },
       "southKorea": {
         "name": "South Korea",
         "image": "/korea.jpg",
         "description": "World leader in cosmetic surgery and innovative medical technologies",
-        "treatments": ["Cosmetic Surgery", "Oncology", "Cardiology", "Orthopedics"]
+        "treatments": [
+          "Cosmetic Surgery",
+          "Oncology",
+          "Cardiology",
+          "Orthopedics"
+        ]
       },
       "china": {
         "name": "China",
         "image": "/china.jpg",
         "description": "Combination of ancient medicine with cutting-edge technology in modern clinics",
-        "treatments": ["Traditional Medicine", "Oncology", "Orthopedics", "Cardiology"]
+        "treatments": [
+          "Traditional Medicine",
+          "Oncology",
+          "Orthopedics",
+          "Cardiology"
+        ]
       }
     },
     "process": {

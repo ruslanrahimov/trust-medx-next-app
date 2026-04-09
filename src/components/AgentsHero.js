@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import Image from 'next/image';
 
-export default function AgentsHero() {
+export default function AgentsHero({ dict = {} }) {
   const heroRef = useRef(null);
 
   useEffect(() => {
@@ -65,18 +65,17 @@ export default function AgentsHero() {
     return () => ctx.revert();
   }, []);
 
-  const paths = [
-    { label: 'Карьера в медтуризме', icon: '→' },
-    { label: 'Личный бренд агента', icon: '→' },
-    { label: 'Реальные кейсы', icon: '→' },
-  ];
+  const pathLabels = dict.paths || ['Карьера в медтуризме', 'Личный бренд агента', 'Реальные кейсы'];
+  const paths = pathLabels.map((label) => ({ label, icon: '→' }));
 
-  const stats = [
-    { num: '6', label: 'модулей', accent: '#D4A574' },
-    { num: 'Online', label: '+ очно', accent: '#7EBDB8' },
-    { num: '360°', label: 'обучение', accent: '#D4A574' },
-    { num: '★', label: 'сертификат', accent: '#7EBDB8' },
+  const statAccents = ['#D4A574', '#7EBDB8', '#D4A574', '#7EBDB8'];
+  const rawStats = dict.stats || [
+    { num: '6', label: 'модулей' },
+    { num: 'Online', label: '+ очно' },
+    { num: '360°', label: 'обучение' },
+    { num: '★', label: 'сертификат' },
   ];
+  const stats = rawStats.map((s, i) => ({ ...s, accent: statAccents[i] }));
 
   return (
     <section
@@ -217,20 +216,20 @@ export default function AgentsHero() {
                 className="text-[#D4A574] text-xs uppercase tracking-[0.18em] font-medium"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}
               >
-                Специалисты медицинского туризма
+                {dict.badge || 'Специалисты медицинского туризма'}
               </span>
             </div>
 
             {/* Title */}
             <h1 className="mb-6 leading-[1.08]" style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif" }}>
               <span className="ah-title-1 block text-5xl md:text-6xl lg:text-7xl font-bold text-white">
-                TrustMedX
+                {dict.titleLine1 || 'TrustMedX'}
               </span>
               <span
                 className="ah-title-2 block text-5xl md:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text"
                 style={{ backgroundImage: 'linear-gradient(110deg, #5FA8A3 0%, #4A9691 45%, #D4A574 100%)' }}
               >
-                Академия
+                {dict.titleLine2 || 'Академия'}
               </span>
             </h1>
 
@@ -239,8 +238,7 @@ export default function AgentsHero() {
               className="ah-desc text-lg text-white/72 leading-relaxed mb-8 max-w-lg"
               style={{ fontFamily: "'DM Sans', sans-serif" }}
             >
-              Обучаем консультантов и координаторов, которые хотят развиваться в индустрии
-              медицинского туризма. Делимся опытом, инструментами и реальными кейсами.
+              {dict.description || 'Обучаем консультантов и координаторов, которые хотят развиваться в индустрии медицинского туризма. Делимся опытом, инструментами и реальными кейсами.'}
             </p>
 
             {/* Path bullets */}
@@ -310,7 +308,7 @@ export default function AgentsHero() {
               >
                 <Image
                   src="/agent-hero.png"
-                  alt="Обучение агентов медицинского туризма"
+                  alt={dict.imageAlt || 'Обучение агентов медицинского туризма'}
                   fill
                   className="object-cover object-center"
                   priority
@@ -337,7 +335,7 @@ export default function AgentsHero() {
                     className="text-white text-xs font-medium"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
-                    Online + On-site
+                    {dict.formatBadge || 'Online + On-site'}
                   </span>
                 </div>
               </div>
@@ -355,13 +353,13 @@ export default function AgentsHero() {
                   className="text-2xl font-bold text-white mb-0.5"
                   style={{ fontFamily: "'Fraunces', serif" }}
                 >
-                  100+
+                  {dict.floatCard1Number || '100+'}
                 </div>
                 <div
                   className="text-xs text-white/55"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
-                  агентов прошли обучение
+                  {dict.floatCard1Label || 'агентов прошли обучение'}
                 </div>
               </div>
 
@@ -394,13 +392,13 @@ export default function AgentsHero() {
                     className="text-white text-sm font-semibold"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
-                    Сертификат
+                    {dict.floatCard2Title || 'Сертификат'}
                   </div>
                   <div
                     className="text-white/70 text-xs"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
-                    по завершении курса
+                    {dict.floatCard2Subtitle || 'по завершении курса'}
                   </div>
                 </div>
               </div>

@@ -8,29 +8,8 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const STEPS = [
-  {
-    num: '01',
-    title: 'Свяжитесь с нами',
-    description:
-      'Напишите на email или позвоните — наша команда ответит в течение 24 часов',
-    color: '#D4A574',
-  },
-  {
-    num: '02',
-    title: 'Подберём курс',
-    description:
-      'Объясним формат, даты и условия участия. Поможем выбрать подходящую программу',
-    color: '#7EBDB8',
-  },
-  {
-    num: '03',
-    title: 'Участвуйте',
-    description:
-      'Приезжайте в Стамбул и получайте практический опыт в ведущих клиниках',
-    color: '#D4A574',
-  },
-];
+const STEP_COLORS = ['#D4A574', '#7EBDB8', '#D4A574'];
+const STEP_NUMS = ['01', '02', '03'];
 
 function StepCard({ step, index }) {
   const [hovered, setHovered] = useState(false);
@@ -148,8 +127,15 @@ function ContactRow({ icon, label, value, href, accent }) {
   );
 }
 
-export default function DoctorsHowToJoin() {
+export default function DoctorsHowToJoin({ dict = {} }) {
   const sectionRef = useRef(null);
+
+  const dictSteps = dict.steps || [
+    { title: 'Свяжитесь с нами', description: 'Напишите на email или позвоните — наша команда ответит в течение 24 часов' },
+    { title: 'Подберём курс', description: 'Объясним формат, даты и условия участия. Поможем выбрать подходящую программу' },
+    { title: 'Участвуйте', description: 'Приезжайте в Стамбул и получайте практический опыт в ведущих клиниках' },
+  ];
+  const STEPS = dictSteps.map((s, i) => ({ num: STEP_NUMS[i], color: STEP_COLORS[i], ...s }));
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -240,7 +226,7 @@ export default function DoctorsHowToJoin() {
               className="text-white/80 text-xs uppercase tracking-[0.18em] font-medium"
               style={{ fontFamily: "'DM Sans', sans-serif" }}
             >
-              Как попасть на обучение
+              {dict.badge || 'Как попасть на обучение'}
             </span>
           </div>
 
@@ -248,14 +234,13 @@ export default function DoctorsHowToJoin() {
             className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight"
             style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif" }}
           >
-            Три простых шага
+            {dict.title || 'Три простых шага'}
           </h2>
           <p
             className="text-base md:text-lg text-white/58 max-w-xl mx-auto leading-relaxed"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
-            Все программы проводятся в мини-группах от 4–6 человек для максимального
-            практического опыта
+            {dict.subtitle || 'Все программы проводятся в мини-группах от 4–6 человек для максимального практического опыта'}
           </p>
         </div>
 
@@ -312,7 +297,7 @@ export default function DoctorsHowToJoin() {
                   className="text-[#D4A574] text-xs uppercase tracking-wide font-medium"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
-                  Записаться
+                  {dict.contactBadge || 'Записаться'}
                 </span>
               </div>
 
@@ -320,13 +305,13 @@ export default function DoctorsHowToJoin() {
                 className="text-2xl md:text-3xl font-bold text-white mb-3 leading-snug"
                 style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif" }}
               >
-                Свяжитесь с командой TrustMedX
+                {dict.contactTitle || 'Свяжитесь с командой TrustMedX'}
               </h3>
               <p
                 className="text-white/58 text-sm leading-relaxed mb-6"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}
               >
-                Мы подберём подходящий курс, объясним формат, даты и условия участия
+                {dict.contactDescription || 'Мы подберём подходящий курс, объясним формат, даты и условия участия'}
               </p>
 
               {/* Mini-group highlight */}
@@ -352,7 +337,7 @@ export default function DoctorsHowToJoin() {
                   className="text-[#7EBDB8] text-sm font-medium"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
-                  Мини-группы 4–6 человек
+                  {dict.miniGroupLabel || 'Мини-группы 4–6 человек'}
                 </span>
               </div>
             </div>
@@ -360,7 +345,7 @@ export default function DoctorsHowToJoin() {
             {/* Right contacts */}
             <div className="space-y-3">
               <ContactRow
-                label="Email"
+                label={dict.emailLabel || 'Email'}
                 value="info@trustmedx.com.tr"
                 href="mailto:info@trustmedx.com.tr"
                 accent="#D4A574"
@@ -372,7 +357,7 @@ export default function DoctorsHowToJoin() {
                 }
               />
               <ContactRow
-                label="Телефон / WhatsApp"
+                label={dict.phoneLabel || 'Телефон / WhatsApp'}
                 value="+90 532 173 48 32"
                 href="tel:+905321734832"
                 accent="#5FA8A3"

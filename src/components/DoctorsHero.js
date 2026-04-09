@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import Image from 'next/image';
 
-export default function DoctorsHero() {
+export default function DoctorsHero({ dict = {} }) {
   const heroRef = useRef(null);
 
   useEffect(() => {
@@ -70,7 +70,7 @@ export default function DoctorsHero() {
     return () => ctx.revert();
   }, []);
 
-  const stats = [
+  const stats = dict.stats || [
     { num: '6', label: 'специализаций' },
     { num: '4–6', label: 'чел. в группе' },
     { num: '100%', label: 'сертификация' },
@@ -233,20 +233,20 @@ export default function DoctorsHero() {
                 className="text-white/85 text-xs uppercase tracking-[0.18em] font-medium"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}
               >
-                Обучающие программы для докторов
+                {dict.badge || 'Обучающие программы для докторов'}
               </span>
             </div>
 
             {/* Title */}
             <h1 className="mb-6 leading-[1.08]" style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif" }}>
               <span className="dh-title-1 block text-5xl md:text-6xl lg:text-7xl font-bold text-white">
-                TrustMedX
+                {dict.titleLine1 || 'TrustMedX'}
               </span>
               <span
                 className="dh-title-2 block text-5xl md:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text"
                 style={{ backgroundImage: 'linear-gradient(110deg, #D4A574 0%, #C89563 45%, #7EBDB8 100%)' }}
               >
-                Академия
+                {dict.titleLine2 || 'Академия'}
               </span>
             </h1>
 
@@ -255,9 +255,7 @@ export default function DoctorsHero() {
               className="dh-desc text-lg text-white/72 leading-relaxed mb-10 max-w-lg"
               style={{ fontFamily: "'DM Sans', sans-serif" }}
             >
-              Международная платформа, объединяющая врачей и клиники со всего мира. Программы
-              профессионального развития и стажировки в ведущих клиниках Турции — практический
-              опыт и международные сертификаты.
+              {dict.description || 'Международная платформа, объединяющая врачей и клиники со всего мира. Программы профессионального развития и стажировки в ведущих клиниках Турции — практический опыт и международные сертификаты.'}
             </p>
 
             {/* Stats grid */}
@@ -305,7 +303,7 @@ export default function DoctorsHero() {
               >
                 <Image
                   src="/doctors_edu_hero.png"
-                  alt="Обучение докторов в клиниках Турции"
+                  alt={dict.imageAlt || 'Обучение докторов в клиниках Турции'}
                   fill
                   className="object-cover object-center"
                   priority
@@ -349,13 +347,13 @@ export default function DoctorsHero() {
                   className="text-2xl font-bold text-white mb-0.5"
                   style={{ fontFamily: "'Fraunces', serif" }}
                 >
-                  200+
+                  {dict.floatCard1Number || '200+'}
                 </div>
                 <div
                   className="text-xs text-white/55"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
-                  врачей прошли обучение
+                  {dict.floatCard1Label || 'врачей прошли обучение'}
                 </div>
               </div>
 
@@ -388,13 +386,13 @@ export default function DoctorsHero() {
                     className="text-white text-sm font-semibold"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
-                    Сертификат
+                    {dict.floatCard2Title || 'Сертификат'}
                   </div>
                   <div
                     className="text-white/70 text-xs"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
-                    международного образца
+                    {dict.floatCard2Subtitle || 'международного образца'}
                   </div>
                 </div>
               </div>

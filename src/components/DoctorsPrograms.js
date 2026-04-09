@@ -9,111 +9,13 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const PROGRAMS = [
-  {
-    id: 'hair',
-    title: 'Трансплантация волос',
-    subtitle: 'Hair Transplant Training',
-    color: '#5FA8A3',
-    colorBg: 'rgba(95,168,163,0.10)',
-    items: [
-      'FUE, DHI, Sapphire, Hybrid техники',
-      'Планирование линии роста и работа с графтами',
-      'PRP, мезотерапия, послеоперационный уход',
-      'Практика на моделях и живые операции',
-    ],
-    certificate: 'Сертификат после окончания',
-    footer: null,
-    image: '/doctors_hair_trans.png',
-    imageDesc:
-      'Крупный план: хирург с медицинскими пинцетами выполняет FUE трансплантацию волос — видны фолликулы, линейка роста волос, яркое операционное освещение',
-  },
-  {
-    id: 'plastic',
-    title: 'Пластическая хирургия',
-    subtitle: 'Plastic Surgery Observership',
-    color: '#D4A574',
-    colorBg: 'rgba(212,165,116,0.10)',
-    items: [
-      'Ринопластика, маммопластика, липосакция, фейслифтинг',
-      'Наблюдение за реальными операциями',
-      'Современные протоколы реабилитации',
-    ],
-    certificate: null,
-    footer: 'Лучшие клиники Стамбула · хирурги международного уровня',
-    image: '/doctors_plast.png',
-    imageDesc:
-      'Два хирурга в операционной: один наблюдает, другой объясняет технику ринопластики — медицинские маски, яркий свет, современное оборудование',
-  },
-  {
-    id: 'dental',
-    title: 'Стоматология',
-    subtitle: 'Dental Training',
-    color: '#7EBDB8',
-    colorBg: 'rgba(126,189,184,0.10)',
-    items: [
-      'Имплантология',
-      'Эстетическая стоматология и виниры',
-      'Цифровая стоматология (CAD/CAM, 3D planning)',
-    ],
-    certificate: null,
-    footer: 'Ведущие стоматологические центры Турции',
-    image: '/stomotolog_3d.png',
-    imageDesc:
-      'Стоматологическая лаборатория: CAD/CAM машина фрезерует протез, монитор с 3D-моделью зуба, чистый технологичный интерьер клиники',
-  },
-  {
-    id: 'ivf',
-    title: 'Гинекология и ЭКО',
-    subtitle: 'Reproductive Medicine & IVF',
-    color: '#C89563',
-    colorBg: 'rgba(200,149,99,0.10)',
-    items: [
-      'Протоколы стимуляции, ICSI, cryo, донорские программы',
-      'Лабораторные стандарты и эмбриология',
-      'Работа с пациентами с низким овариальным резервом',
-    ],
-    certificate: null,
-    footer: 'Сертифицированные IVF-центры',
-    image: '/embrio.png',
-    imageDesc:
-      'Эмбриолог в чистой лаборатории работает с микроскопом — крио-контейнеры с жидким азотом на фоне, стерильная белая обстановка IVF-клиники',
-  },
-  {
-    id: 'management',
-    title: 'Для руководителей клиник',
-    subtitle: 'Clinic Management & Strategy',
-    color: '#2C5F5D',
-    colorBg: 'rgba(44,95,93,0.10)',
-    items: [
-      'Стратегическое управление и JCI-стандарты',
-      'Международный маркетинг и работа с пациентами',
-      'Мотивация персонала и построение команды',
-    ],
-    certificate: null,
-    format: 'Лекции, визиты в госпитали, мастер-классы',
-    footer: null,
-    image: '/rukovodstvo.png',
-    imageDesc:
-      'Конференц-зал в JCI-аккредитованной больнице Стамбула: 5–6 руководителей за столом переговоров, экран с данными по стандартам качества',
-  },
-  {
-    id: 'mixed',
-    title: 'Комбинированные программы',
-    subtitle: 'Mixed Modules',
-    color: '#967259',
-    colorBg: 'rgba(150,114,89,0.10)',
-    items: [
-      '«Doctor Experience in Istanbul»',
-      '«Aesthetic & Hair Transplant Week»',
-      '«Management & Marketing for Clinics»',
-    ],
-    certificate: 'Сертификат + сотрудничество с клиниками-партнёрами',
-    footer: null,
-    image: '/doctors_basfor.png',
-    imageDesc:
-      'Группа из 5–6 международных врачей перед панорамой Стамбула — Босфор и мечети на фоне, живая профессиональная атмосфера',
-  },
+const PROGRAM_STATIC = [
+  { id: 'hair',       color: '#5FA8A3', colorBg: 'rgba(95,168,163,0.10)',  image: '/doctors_hair_trans.png' },
+  { id: 'plastic',    color: '#D4A574', colorBg: 'rgba(212,165,116,0.10)', image: '/doctors_plast.png' },
+  { id: 'dental',     color: '#7EBDB8', colorBg: 'rgba(126,189,184,0.10)', image: '/stomotolog_3d.png' },
+  { id: 'ivf',        color: '#C89563', colorBg: 'rgba(200,149,99,0.10)',  image: '/embrio.png' },
+  { id: 'management', color: '#2C5F5D', colorBg: 'rgba(44,95,93,0.10)',   image: '/rukovodstvo.png' },
+  { id: 'mixed',      color: '#967259', colorBg: 'rgba(150,114,89,0.10)', image: '/doctors_basfor.png' },
 ];
 
 function CheckIcon({ color }) {
@@ -351,10 +253,22 @@ function ProgramCard({ program, index, cardRef }) {
   );
 }
 
-export default function DoctorsPrograms() {
+export default function DoctorsPrograms({ dict = {} }) {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const cardsRef = useRef([]);
+
+  const dictItems = dict.items || [];
+  const PROGRAMS = PROGRAM_STATIC.map((s, i) => ({
+    ...s,
+    title: dictItems[i]?.title || '',
+    subtitle: dictItems[i]?.subtitle || '',
+    items: dictItems[i]?.items || [],
+    certificate: dictItems[i]?.certificate || null,
+    footer: dictItems[i]?.footer || null,
+    format: dictItems[i]?.format || null,
+    imageDesc: '',
+  }));
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -439,7 +353,7 @@ export default function DoctorsPrograms() {
               className="text-[#2C5F5D] text-xs uppercase tracking-[0.18em] font-medium"
               style={{ fontFamily: "'DM Sans', sans-serif" }}
             >
-              Программы обучения
+              {dict.badge || 'Программы обучения'}
             </span>
           </div>
 
@@ -447,14 +361,13 @@ export default function DoctorsPrograms() {
             className="text-4xl md:text-5xl font-bold text-[#4A3B2C] mb-4 leading-tight"
             style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif" }}
           >
-            6 специализированных направлений
+            {dict.title || '6 специализированных направлений'}
           </h2>
           <p
             className="text-base md:text-lg text-[#4A3B2C]/60 max-w-2xl mx-auto leading-relaxed"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
-            Каждая программа разработана совместно с ведущими клиниками Турции и включает
-            практическую составляющую
+            {dict.subtitle || 'Каждая программа разработана совместно с ведущими клиниками Турции и включает практическую составляющую'}
           </p>
         </div>
 

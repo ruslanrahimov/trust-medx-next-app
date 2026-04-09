@@ -9,118 +9,16 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const LEVELS = [
-  { label: 'Старт', color: '#5FA8A3', range: [0, 1] },
-  { label: 'Развитие', color: '#D4A574', range: [2, 3] },
-  { label: 'Экспертиза', color: '#2C5F5D', range: [4, 5] },
-];
+const LEVEL_COLORS = ['#5FA8A3', '#D4A574', '#2C5F5D'];
+const LEVEL_RANGES = [[0, 1], [2, 3], [4, 5]];
 
-const MODULES = [
-  {
-    num: '01',
-    title: 'Основы медицинского туризма',
-    subtitle: 'Foundation',
-    level: 'Старт',
-    color: '#5FA8A3',
-    colorBg: 'rgba(95,168,163,0.09)',
-    items: [
-      'Структура рынка и роль агента',
-      'Этапы сопровождения пациента',
-      'Этические и юридические принципы',
-    ],
-    result: 'Базовое понимание индустрии и шаблоны документов',
-    image: '/medtour_entry_prog.png',
-    imageDesc:
-      'Агент изучает карту медицинского туризма — ноутбук с данными о клиниках, брошюры с маршрутами лечения, уютный рабочий стол',
-  },
-  {
-    num: '02',
-    title: 'Работа с пациентами и партнёрами',
-    subtitle: 'Patient & Partner Management',
-    level: 'Старт',
-    color: '#D4A574',
-    colorBg: 'rgba(212,165,116,0.09)',
-    items: [
-      'Консультации и выявление потребностей',
-      'Подбор клиники и врача',
-      'Работа с возражениями и доверие',
-      'Финансовые модели и отчётность',
-    ],
-    result: 'Реальные сценарии общения и готовые скрипты',
-    image: '/agent_pacients_partners.png',
-    imageDesc:
-      'Видеозвонок консультанта с пациентом — экран ноутбука с профилем клиники Стамбула, блокнот с заметками, тёплый домашний офис',
-  },
-  {
-    num: '03',
-    title: 'Маркетинг и продвижение',
-    subtitle: 'Marketing & Personal Brand',
-    level: 'Развитие',
-    color: '#7EBDB8',
-    colorBg: 'rgba(126,189,184,0.09)',
-    items: [
-      'Создание личного бренда',
-      'Работа с соцсетями (Instagram, Telegram, TikTok)',
-      'Контент и сторителлинг',
-      'Репутация и отзывы',
-    ],
-    result: 'Шаблоны и стратегии от TrustMedX',
-    image: '/agent_marketing_and _media.png',
-    imageDesc:
-      'Смартфон с открытым Instagram — профиль агента медицинского туризма, визуальная лента с фото клиник и отзывами пациентов',
-  },
-  {
-    num: '04',
-    title: 'Юридические и организационные вопросы',
-    subtitle: 'Legal & Compliance',
-    level: 'Развитие',
-    color: '#C89563',
-    colorBg: 'rgba(200,149,99,0.09)',
-    items: [
-      'Агентские соглашения и договоры',
-      'Ответственность, конфиденциальность, налоги',
-      'GDPR и защита данных',
-    ],
-    result: 'Шаблоны документов и чек-листы',
-    image: '/agent-license.png',
-    imageDesc:
-      'Стопка юридических документов и ноутбук с открытым шаблоном агентского договора — строгий деловой стол, ручка, чек-лист',
-  },
-  {
-    num: '05',
-    title: 'Управление сетью агентов',
-    subtitle: 'Advanced: Agency Network',
-    level: 'Экспертиза',
-    color: '#2C5F5D',
-    colorBg: 'rgba(44,95,93,0.09)',
-    items: [
-      'Франчайзинговая модель',
-      'Команда и мотивация',
-      'CRM, аналитика, стандарты обслуживания',
-    ],
-    result: 'Индивидуальная разработка стратегии агентства',
-    image: '/agents_network.png',
-    imageDesc:
-      'CRM дашборд на большом мониторе — карта сети агентов по городам, воронка продаж, статистика обращений пациентов',
-  },
-  {
-    num: '06',
-    title: 'Комбинированные программы',
-    subtitle: 'Online + On-site',
-    level: 'Экспертиза',
-    color: '#967259',
-    colorBg: 'rgba(150,114,89,0.09)',
-    items: [
-      'Онлайн-вебинары и очные тренинги',
-      'Обучающие туры с посещением клиник',
-      'Мастер-классы от руководителей TrustMedX',
-    ],
-    result: 'Сертификат по завершении курса',
-    hasCert: true,
-    image: '/agents_group.png',
-    imageDesc:
-      'Группа из 8–10 агентов-стажёров на экскурсии в клинику Стамбула — встреча с главным врачом, дружелюбная профессиональная атмосфера',
-  },
+const MODULE_STATIC = [
+  { num: '01', color: '#5FA8A3', colorBg: 'rgba(95,168,163,0.09)', image: '/medtour_entry_prog.png' },
+  { num: '02', color: '#D4A574', colorBg: 'rgba(212,165,116,0.09)', image: '/agent_pacients_partners.png' },
+  { num: '03', color: '#7EBDB8', colorBg: 'rgba(126,189,184,0.09)', image: '/agent_marketing_and _media.png' },
+  { num: '04', color: '#C89563', colorBg: 'rgba(200,149,99,0.09)', image: '/agent-license.png' },
+  { num: '05', color: '#2C5F5D', colorBg: 'rgba(44,95,93,0.09)', image: '/agents_network.png' },
+  { num: '06', color: '#967259', colorBg: 'rgba(150,114,89,0.09)', image: '/agents_group.png', hasCert: true },
 ];
 
 function CheckIcon({ color }) {
@@ -302,10 +200,26 @@ function ModuleCard({ mod, index, cardRef }) {
   );
 }
 
-export default function AgentsModules() {
+export default function AgentsModules({ dict = {} }) {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const cardsRef = useRef([]);
+
+  const levels = (dict.levels || [
+    { label: 'Старт', modRange: 'мод. 1–2' },
+    { label: 'Развитие', modRange: 'мод. 3–4' },
+    { label: 'Экспертиза', modRange: 'мод. 5–6' },
+  ]).map((lv, i) => ({ ...lv, color: LEVEL_COLORS[i], range: LEVEL_RANGES[i] }));
+
+  const dictItems = dict.items || [];
+  const MODULES = MODULE_STATIC.map((s, i) => ({
+    ...s,
+    title: dictItems[i]?.title || '',
+    subtitle: dictItems[i]?.subtitle || '',
+    level: dictItems[i]?.level || '',
+    items: dictItems[i]?.items || [],
+    result: dictItems[i]?.result || '',
+  }));
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -386,7 +300,7 @@ export default function AgentsModules() {
               className="text-[#C89563] text-xs uppercase tracking-[0.18em] font-medium"
               style={{ fontFamily: "'DM Sans', sans-serif" }}
             >
-              Учебная программа
+              {dict.badge || 'Учебная программа'}
             </span>
           </div>
 
@@ -394,19 +308,19 @@ export default function AgentsModules() {
             className="text-4xl md:text-5xl font-bold text-[#4A3B2C] mb-4 leading-tight"
             style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif" }}
           >
-            6 модулей — от старта до экспертизы
+            {dict.title || '6 модулей — от старта до экспертизы'}
           </h2>
           <p
             className="text-base md:text-lg text-[#4A3B2C]/58 max-w-2xl mx-auto leading-relaxed"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
-            Последовательная программа с упором на реальную практику и развитие личного бренда
+            {dict.subtitle || 'Последовательная программа с упором на реальную практику и развитие личного бренда'}
           </p>
         </div>
 
         {/* Level track */}
         <div className="am-levels flex items-center justify-center gap-0 mb-12 overflow-x-auto">
-          {LEVELS.map((lv, i) => (
+          {levels.map((lv, i) => (
             <div key={i} className="am-level-label flex items-center">
               <div
                 className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wide whitespace-nowrap"
@@ -419,9 +333,9 @@ export default function AgentsModules() {
               >
                 <div className="w-1.5 h-1.5 rounded-full" style={{ background: lv.color }} />
                 {lv.label}
-                <span className="opacity-50 text-[10px]">·  мод. {lv.range[0] + 1}–{lv.range[1] + 1}</span>
+                <span className="opacity-50 text-[10px]">·  {lv.modRange}</span>
               </div>
-              {i < LEVELS.length - 1 && (
+              {i < levels.length - 1 && (
                 <div className="mx-3 flex items-center">
                   <svg className="w-4 h-4 text-[#4A3B2C]/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M5 12h14M12 5l7 7-7 7" />

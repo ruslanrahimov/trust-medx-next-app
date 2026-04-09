@@ -8,7 +8,7 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function AgentsCTA() {
+export default function AgentsCTA({ dict = {} }) {
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -103,7 +103,7 @@ export default function AgentsCTA() {
               className="text-[#C89563] text-xs uppercase tracking-[0.18em] font-semibold"
               style={{ fontFamily: "'DM Sans', sans-serif" }}
             >
-              Начните карьеру в медтуризме
+              {dict.badge || 'Начните карьеру в медтуризме'}
             </span>
           </div>
         </div>
@@ -113,14 +113,14 @@ export default function AgentsCTA() {
           className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#4A3B2C] mb-5 leading-tight"
           style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif" }}
         >
-          Станьте востребованным{' '}
+          {dict.title || 'Станьте востребованным'}{' '}
           <span
             className="text-transparent bg-clip-text"
             style={{
               backgroundImage: 'linear-gradient(110deg, #D4A574 0%, #C89563 45%, #5FA8A3 100%)',
             }}
           >
-            специалистом
+            {dict.titleAccent || 'специалистом'}
           </span>
         </h2>
 
@@ -129,8 +129,7 @@ export default function AgentsCTA() {
           className="text-base md:text-lg text-[#4A3B2C]/60 mb-10 max-w-2xl mx-auto leading-relaxed"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
-          Профессиональные инструменты, реальные кейсы и поддержка команды TrustMedX. Работайте
-          эффективно, этично и с удовольствием.
+          {dict.subtitle || 'Профессиональные инструменты, реальные кейсы и поддержка команды TrustMedX. Работайте эффективно, этично и с удовольствием.'}
         </p>
 
         {/* Buttons */}
@@ -216,7 +215,7 @@ export default function AgentsCTA() {
           className="text-sm text-[#4A3B2C]/38 mt-4"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
-          TrustMedX Academy · Медицинский туризм · Стамбул
+          {dict.footer || 'TrustMedX Academy · Медицинский туризм · Стамбул'}
         </p>
       </div>
     </section>

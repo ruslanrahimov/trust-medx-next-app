@@ -8,26 +8,8 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const STEPS = [
-  {
-    num: '01',
-    title: 'Свяжитесь с нами',
-    description: 'Напишите на email или позвоните — ответим и расскажем о ближайших датах',
-    color: '#7EBDB8',
-  },
-  {
-    num: '02',
-    title: 'Подберём программу',
-    description: 'Учтём ваш уровень и цели, поможем выбрать подходящий модуль',
-    color: '#D4A574',
-  },
-  {
-    num: '03',
-    title: 'Зарегистрируйтесь',
-    description: 'Оформим участие — и вы начнёте развиваться в индустрии медицинского туризма',
-    color: '#7EBDB8',
-  },
-];
+const STEP_COLORS = ['#7EBDB8', '#D4A574', '#7EBDB8'];
+const STEP_NUMS = ['01', '02', '03'];
 
 function StepCard({ step }) {
   const [hovered, setHovered] = useState(false);
@@ -138,8 +120,15 @@ function ContactItem({ label, value, href, icon, accent }) {
   );
 }
 
-export default function AgentsHowToJoin() {
+export default function AgentsHowToJoin({ dict = {} }) {
   const sectionRef = useRef(null);
+
+  const dictSteps = dict.steps || [
+    { title: 'Свяжитесь с нами', description: 'Напишите на email или позвоните — ответим и расскажем о ближайших датах' },
+    { title: 'Подберём программу', description: 'Учтём ваш уровень и цели, поможем выбрать подходящий модуль' },
+    { title: 'Зарегистрируйтесь', description: 'Оформим участие — и вы начнёте развиваться в индустрии медицинского туризма' },
+  ];
+  const STEPS = dictSteps.map((s, i) => ({ num: STEP_NUMS[i], color: STEP_COLORS[i], ...s }));
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -215,7 +204,7 @@ export default function AgentsHowToJoin() {
               className="text-white/78 text-xs uppercase tracking-[0.18em] font-medium"
               style={{ fontFamily: "'DM Sans', sans-serif" }}
             >
-              Как попасть на обучение
+              {dict.badge || 'Как попасть на обучение'}
             </span>
           </div>
 
@@ -223,14 +212,13 @@ export default function AgentsHowToJoin() {
             className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight"
             style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif" }}
           >
-            Начать просто
+            {dict.title || 'Начать просто'}
           </h2>
           <p
             className="text-base md:text-lg text-white/56 max-w-xl mx-auto leading-relaxed"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
-            Обучение проходит в дружественной атмосфере, с упором на реальную практику и
-            развитие личного бренда агента
+            {dict.subtitle || 'Обучение проходит в дружественной атмосфере, с упором на реальную практику и развитие личного бренда агента'}
           </p>
         </div>
 
@@ -285,7 +273,7 @@ export default function AgentsHowToJoin() {
                   className="text-[#7EBDB8] text-xs uppercase tracking-wide font-medium"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
-                  Записаться
+                  {dict.contactBadge || 'Записаться'}
                 </span>
               </div>
 
@@ -293,14 +281,13 @@ export default function AgentsHowToJoin() {
                 className="text-2xl md:text-3xl font-bold text-white mb-3 leading-snug"
                 style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif" }}
               >
-                Свяжитесь с командой TrustMedX
+                {dict.contactTitle || 'Свяжитесь с командой TrustMedX'}
               </h3>
               <p
                 className="text-white/55 text-sm leading-relaxed mb-6"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}
               >
-                Мы подберём подходящий курс по вашему уровню и целям, расскажем о ближайших
-                датах и поможем зарегистрироваться
+                {dict.contactDescription || 'Мы подберём подходящий курс по вашему уровню и целям, расскажем о ближайших датах и поможем зарегистрироваться'}
               </p>
 
               {/* Community highlight */}
@@ -324,7 +311,7 @@ export default function AgentsHowToJoin() {
                   className="text-[#D4A574] text-sm font-medium"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
-                  Дружественная атмосфера и живое сообщество
+                  {dict.communityLabel || 'Дружественная атмосфера и живое сообщество'}
                 </span>
               </div>
             </div>
@@ -332,7 +319,7 @@ export default function AgentsHowToJoin() {
             {/* Right contacts */}
             <div className="space-y-3">
               <ContactItem
-                label="Email"
+                label={dict.emailLabel || 'Email'}
                 value="info@trustmedx.com.tr"
                 href="mailto:info@trustmedx.com.tr"
                 accent="#D4A574"
@@ -344,7 +331,7 @@ export default function AgentsHowToJoin() {
                 }
               />
               <ContactItem
-                label="Телефон / WhatsApp"
+                label={dict.phoneLabel || 'Телефон / WhatsApp'}
                 value="+90 532 173 48 32"
                 href="tel:+905321734832"
                 accent="#7EBDB8"

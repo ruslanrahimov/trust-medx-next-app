@@ -44,7 +44,7 @@ function CTAButton({ href, accent, children, primary }) {
   );
 }
 
-export default function DoctorsCTA() {
+export default function DoctorsCTA({ dict = {} }) {
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -131,7 +131,7 @@ export default function DoctorsCTA() {
             className="text-[#C89563] text-xs uppercase tracking-[0.18em] font-semibold"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
-            Начните обучение
+            {dict.badge || 'Начните обучение'}
           </span>
         </div>
 
@@ -140,14 +140,14 @@ export default function DoctorsCTA() {
           className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#4A3B2C] mb-5 leading-tight"
           style={{ fontFamily: "'Fraunces', 'Crimson Pro', Georgia, serif" }}
         >
-          Готовы расширить{' '}
+          {dict.title || 'Готовы расширить'}{' '}
           <span
             className="text-transparent bg-clip-text"
             style={{
               backgroundImage: 'linear-gradient(110deg, #5FA8A3 0%, #4A9691 50%, #2C5F5D 100%)',
             }}
           >
-            свою экспертизу?
+            {dict.titleAccent || 'свою экспертизу?'}
           </span>
         </h2>
 
@@ -156,8 +156,7 @@ export default function DoctorsCTA() {
           className="text-base md:text-lg text-[#4A3B2C]/62 mb-10 max-w-2xl mx-auto leading-relaxed"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
-          Мини-группы 4–6 человек, практика в ведущих клиниках Турции, международный
-          сертификат. Свяжитесь с нами — подберём программу под вас.
+          {dict.subtitle || 'Мини-группы 4–6 человек, практика в ведущих клиниках Турции, международный сертификат. Свяжитесь с нами — подберём программу под вас.'}
         </p>
 
         {/* Buttons */}
@@ -249,7 +248,7 @@ export default function DoctorsCTA() {
           className="text-sm text-[#4A3B2C]/40 mt-4"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
-          TrustMedX Academy · Стамбул, Турция
+          {dict.footer || 'TrustMedX Academy · Стамбул, Турция'}
         </p>
       </div>
     </section>
