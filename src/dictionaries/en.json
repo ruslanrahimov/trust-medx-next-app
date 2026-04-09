@@ -22,10 +22,10 @@
         "ctaPrimary": "Start Consultation",
         "ctaSecondary": "Learn More",
         "stats": [
-          { "value": "200+", "label": "Partner\nClinics" },
-          { "value": "18", "label": "Countries\nWorldwide" },
-          { "value": "98%", "label": "Successful\nCases" },
-          { "value": "24/7", "label": "Patient\nSupport" }
+          { "value": "10+", "label": "Years of\nExperience" },
+          { "value": "20+", "label": "Countries\nWorldwide" },
+          { "value": "100%", "label": "Personal\nApproach" },
+          { "value": "24/7", "label": "Support at\nEvery Step" }
         ],
         "trustRow": "15,000+ satisfied patients"
       },
@@ -408,27 +408,28 @@
       "title": "Choose Your Path",
       "subtitle": "Specialized training programs tailored to your professional role",
       "managers": {
-        "title": "For Managers",
+        "title": "For Medical Tourism Agents",
         "badge": "Leadership Program",
-        "description": "Master medical tourism operations, patient coordination, and clinic management",
+        "description": "Training in patient management, clinic partnerships, and full-service coordination",
         "features": [
-          "Business strategy & operations",
-          "Patient journey management",
-          "International regulations",
-          "Marketing & sales"
+          "Patient sourcing & engagement",
+          "Clinic and doctor selection",
+          "Scripts, sales & communication",
+          "Real cases & templates",
+          "Certificate upon completion"
         ],
         "duration": "8 weeks",
         "cta": "Explore Program"
       },
       "doctors": {
-        "title": "For Doctors",
+        "title": "Training & Professional Development for Doctors",
         "badge": "Clinical Excellence",
-        "description": "Advanced clinical protocols, international standards, and patient care excellence",
+        "description": "Hands-on training in Turkish clinics with participation in real procedures",
         "features": [
-          "Advanced clinical techniques",
-          "International protocols",
-          "Cross-cultural patient care",
-          "Medical tourism ethics"
+          "Hair transplantation (FUE, DHI & more)",
+          "Plastic surgery & surgical observation",
+          "Dentistry & digital technologies",
+          "IVF & reproductive medicine"
         ],
         "duration": "12 weeks",
         "cta": "Explore Program"
@@ -483,9 +484,9 @@
   },
   "forPatientsHero": {
     "badge": "Your Healthcare Journey Starts Here",
-    "title": "World-Class",
-    "titleAccent": "Medical Care",
-    "titleEnd": "Made Simple",
+    "title": "Arranging Treatment",
+    "titleAccent": "Abroad",
+    "titleEnd": "with Control at Every Step",
     "description": "We select and arrange treatment abroad tailored to your individual case.\nYou get a clear plan, transparent pricing, and support at every step.",
     "ctaModal": "Get a treatment plan",
     "features": [

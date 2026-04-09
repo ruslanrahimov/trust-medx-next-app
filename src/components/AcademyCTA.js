@@ -32,8 +32,10 @@ export default function AcademyCTA({ dict, lang }) {
       gsap.from(contentRef.current.children, {
         scrollTrigger: {
           trigger: contentRef.current,
-          start: 'top 75%',
+          start: 'top 85%',
+          once: true,
         },
+        immediateRender: false,
         opacity: 0,
         y: 50,
         duration: 0.8,

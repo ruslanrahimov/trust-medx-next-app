@@ -227,8 +227,9 @@ export default function ProgramCards({ dict, lang }) {
                       src={program.imageSrc}
                       alt={program.data.title}
                       fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="object-cover object-center transition-transform duration-700 group-hover:scale-110"
                       sizes="(max-width: 1024px) 100vw, 50vw"
+                      style={{ objectPosition: '50% 25%' }}
                     />
 
                     {/* Color tint overlay */}
